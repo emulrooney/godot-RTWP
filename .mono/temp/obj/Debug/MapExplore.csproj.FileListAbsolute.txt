@@ -1,0 +1,5 @@
+D:\Development\Godot\MapExplore\.mono\temp\bin\Debug\MapExplore.dll
+D:\Development\Godot\MapExplore\.mono\temp\bin\Debug\MapExplore.pdb
+D:\Development\Godot\MapExplore\.mono\temp\obj\Debug\MapExplore.csprojAssemblyReference.cache
+D:\Development\Godot\MapExplore\.mono\temp\obj\Debug\MapExplore.dll
+D:\Development\Godot\MapExplore\.mono\temp\obj\Debug\MapExplore.pdb

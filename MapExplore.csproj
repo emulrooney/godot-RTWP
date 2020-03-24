@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{76C0668C-3FC8-4BC8-B7E6-B29504D6E2A5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <OutputPath>.mono\temp\bin\$(Configuration)</OutputPath>
+    <RootNamespace>MapExplore</RootNamespace>
+    <AssemblyName>MapExplore</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <BaseIntermediateOutputPath>.mono\temp\obj</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Tools|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TOOLS;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GodotSharp">
+      <HintPath>$(ProjectDir)\.mono\assemblies\GodotSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="GodotSharpEditor" Condition=" '$(Configuration)' == 'Tools' ">
+      <HintPath>$(ProjectDir)\.mono\assemblies\GodotSharpEditor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Scripts\GUI\GameControls.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\Characters\Abilities\RegularAttack.cs" />
+    <Compile Include="Scripts\Characters\CharacterAnimator.cs" />
+    <Compile Include="Scripts\Characters\Statblock.cs" />
+    <Compile Include="Scripts\Characters\States\AttackState.cs" />
+    <Compile Include="Scripts\Characters\States\CharacterState.cs" />
+    <Compile Include="Scripts\Characters\States\FSMachine.cs" />
+    <Compile Include="Scripts\Characters\States\IdleState.cs" />
+    <Compile Include="Scripts\Characters\States\WalkState.cs" />
+    <Compile Include="Scripts\Data\CharFaction.cs" />
+    <Compile Include="Scripts\Characters\Character.cs" />
+    <Compile Include="Scripts\Characters\MonsterCharacter.cs" />
+    <Compile Include="Scripts\Characters\PlayerCharacter.cs" />
+    <Compile Include="Scripts\GUI\PartyIcons.cs" />
+    <Compile Include="Scripts\GUI\SelectionCircle.cs" />
+    <Compile Include="Scripts\MapCharacterManager.cs" />
+    <Compile Include="Scripts\MapLogic.cs" />
+    <Compile Include="Scripts\WorldMap\WorldMapLocation.cs" />
+    <Compile Include="Scripts\WorldMap\WorldMapLogic.cs" />
+    <Compile Include="Scripts\WorldMap\WorldMapToken.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

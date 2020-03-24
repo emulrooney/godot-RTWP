@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/GUI/PartyIcons.cs" type="Script" id=1]
+[ext_resource path="res://ArtAssets/GUI/Portraits/debugAxeGuySmall.jpg" type="Texture" id=2]
+[ext_resource path="res://ArtAssets/GUI/Portraits/debugKnifeLadySmall.jpg" type="Texture" id=3]
+
+[node name="PartyIcons" type="VBoxContainer"]
+margin_left = 8.0
+margin_top = 8.0
+script = ExtResource( 1 )
+partyColors = PoolColorArray( 0.211765, 0.537255, 0.184314, 1, 1, 0.494118, 0, 1, 0.945098, 0.360784, 0.580392, 1 )
+
+[node name="PC_1" type="ReferenceRect" parent="."]
+margin_right = 80.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 80, 60 )
+rect_clip_content = true
+
+[node name="Portrait" type="TextureRect" parent="PC_1"]
+rect_min_size = Vector2( 80, 60 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+
+[node name="HealthDisplay" type="Label" parent="PC_1"]
+anchor_top = 0.5
+anchor_bottom = 1.0
+margin_right = 80.0
+text = "74/74"
+align = 1
+valign = 2
+
+[node name="PC_2" type="ReferenceRect" parent="."]
+margin_top = 64.0
+margin_right = 80.0
+margin_bottom = 124.0
+rect_min_size = Vector2( 80, 60 )
+rect_clip_content = true
+
+[node name="Portrait" type="TextureRect" parent="PC_2"]
+rect_min_size = Vector2( 80, 60 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+
+[node name="HealthDisplay" type="Label" parent="PC_2"]
+anchor_top = 0.5
+anchor_bottom = 1.0
+margin_right = 80.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "74/74"
+align = 1
+valign = 2
+[connection signal="gui_input" from="PC_1" to="." method="ClickPortrait" binds= [ 1 ]]
+[connection signal="gui_input" from="PC_2" to="." method="ClickPortrait" binds= [ 2 ]]
