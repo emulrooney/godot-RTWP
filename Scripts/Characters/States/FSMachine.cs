@@ -124,6 +124,7 @@ public class FSMachine : Node
         if ((_owner.Path.Count > 0) && (_owner.Path.Peek() - _owner.Position).Length() > Character.TargetTolerance)
         {
             Vector2 velocity = (_owner.Path.Peek() - _owner.Position).Normalized() * _owner.WalkSpeed * modifier;
+            SetFlip(_owner.Path.Peek());
             _owner.MoveAndSlide(velocity);
         }
         else if (_owner.Path.Count > 0)
@@ -132,15 +133,24 @@ public class FSMachine : Node
         }
     }
 
-    protected void MoveTowards(Vector2 target)
+    protected void MoveTowards(Vector2 target, float modifier = 1f)
     {
         if ((target - _owner.Position).Length() > Character.TargetTolerance)
         {
-            Vector2 velocity = (target - _owner.Position).Normalized() * _owner.WalkSpeed;
+            Vector2 velocity = (target - _owner.Position).Normalized() * _owner.WalkSpeed * modifier;
             _owner.MoveAndSlide(velocity);
+            SetFlip(target);
         }
     }
 
+    private void SetFlip(Vector2 target)
+    {
+        if (!Animator.FlipH && target.x < _owner.Position.x)
+            Animator.FlipH = true;
+        else if (Animator.FlipH && target.x > _owner.Position.x)
+            Animator.FlipH = false;
+    }
+    
     protected virtual void MoveToAttack(Character target)
     {
         MoveTowards(target.Position);
@@ -154,10 +164,11 @@ public class FSMachine : Node
             States[newState].OnStart();
             Previous = Current;
             Current = States[newState];
-
+            
             Animator.Animation = Current.AnimationName;
         }
     }
+
 }
 
 public enum CharState

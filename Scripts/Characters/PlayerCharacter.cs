@@ -14,6 +14,6 @@ public class PlayerCharacter : Character
     private void ClickCharacter(object viewport, object @event, int shape_idx)
     {
         if (Input.IsMouseButtonPressed(1))
-            MapCharacterManager.SelectCharacter(this);
+            MapCharacterManager.AddCharacterToSelected(this);
     }
 }

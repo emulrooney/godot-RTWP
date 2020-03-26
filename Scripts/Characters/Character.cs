@@ -81,7 +81,7 @@ public abstract class Character : KinematicBody2D
 
     private void Die()
     {
-        MapCharacterManager.WipeCharacter(this);
+        MapCharacterManager.UnregisterPresent(this);
     }
 
 }

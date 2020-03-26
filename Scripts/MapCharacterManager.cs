@@ -40,12 +40,12 @@ public class MapCharacterManager : Node2D
             _mcm.MonsterCharacters.Add((MonsterCharacter)registrant);
     }
 
-    public static void WipePresent()
+    public static void ResetPresent()
     {
         _mcm.PresentCharacters = new List<Character>();
     }
 
-    public static void WipeCharacter(Character character)
+    public static void UnregisterPresent(Character character)
     {
         foreach (Character c in _mcm.PresentCharacters)
         {
@@ -65,40 +65,48 @@ public class MapCharacterManager : Node2D
         character.QueueFree();
     }
 
-    public static Character SelectPartyMember(int partyMember)
+    public static Character SelectPartyMember(int partyMember, bool individualSelect = true)
     {
         if (partyMember == 0)
         {
             foreach (PlayerCharacter pc in _mcm.PlayerCharacters)
             {
-                SelectCharacter(pc);
+                AddCharacterToSelected(pc);
             }
+
             return _mcm.PlayerCharacters.FirstOrDefault();
         }
         else if (_mcm.PlayerCharacters.Count >= partyMember)
         {
-            DeselectAll();
-            return AddCharacterToSelected(partyMember);
+            if (individualSelect)
+                DeselectAll();
+
+            return AddPartyMemberToSelected(partyMember);
         }
 
         return null;
     }
 
-    public static Character AddCharacterToSelected(int partyMember)
+    public static Character AddPartyMemberToSelected(int partyMember)
     {
         if (_mcm.PlayerCharacters.Count >= partyMember)
         {
-            SelectCharacter(_mcm.PlayerCharacters[partyMember - 1]);
+            AddCharacterToSelected(_mcm.PlayerCharacters[partyMember - 1]);
             return _mcm.PlayerCharacters[partyMember - 1];
         }
 
         return null;
     }
 
-    public static void DeselectPartyMember(int partyMember)
+    public static Character DeselectPartyMember(int partyMember)
     {
         if (_mcm.PlayerCharacters.Count >= partyMember)
-            _mcm.Selected.Remove(_mcm.PlayerCharacters[partyMember]);
+        {
+            _mcm.Selected.Remove(_mcm.PlayerCharacters[partyMember - 1]);
+            return _mcm.PlayerCharacters[partyMember - 1];
+        }
+
+        return null;
     }
 
     public static void DeselectAll()
@@ -107,15 +115,7 @@ public class MapCharacterManager : Node2D
         _mcm.UpdateSelectionCircles();
     }
 
-    public static void SelectCharacters(List<PlayerCharacter> characters)
-    {
-        foreach (PlayerCharacter pc in characters)
-            SelectCharacter(pc);
-
-        //_mcm.UpdateSelectionCircles();
-    }
-
-    public static void SelectCharacter(PlayerCharacter character, bool updateSelectionCircles = true)
+    public static void AddCharacterToSelected(PlayerCharacter character, bool updateSelectionCircles = true)
     {
         if (!_mcm.Selected.Contains(character))
             _mcm.Selected.Add(character);
@@ -124,11 +124,8 @@ public class MapCharacterManager : Node2D
             _mcm.UpdateSelectionCircles();
     }
 
-    public void SelectAllInRect(List<Node> results)
-    {
-        var players = results.OfType<PlayerCharacter>();
-        _mcm.Selected.AddRange(players);
-    }
+    
+    /* VISUALS */
 
     private void UpdateSelectionCircles()
     {
@@ -167,4 +164,11 @@ public class MapCharacterManager : Node2D
             }
         }
     }
+
+    public void SelectAllInRect(List<Node> results)
+    {
+        var players = results.OfType<PlayerCharacter>();
+        _mcm.Selected.AddRange(players);
+    }
+
 }

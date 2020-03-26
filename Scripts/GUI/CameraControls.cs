@@ -1,13 +1,12 @@
 using Godot;
 using System;
 
-public class GameControls : Node2D
+public class CameraControls : Node2D
 {
 
-    private GameControls _gc;
+    private CameraControls _cc;
     private Camera2D _camera;
     private ColorRect _select;
-    private Area2D _selectArea;
 
     private Vector2 cameraMove;
     private bool isCameraLocked = false;
@@ -26,8 +25,8 @@ public class GameControls : Node2D
 
     public override void _Ready()
     {
-        if (_gc == null)
-            _gc = this;
+        if (_cc == null)
+            _cc = this;
         else
             QueueFree();
 
@@ -36,9 +35,8 @@ public class GameControls : Node2D
 
     }
 
-    public override void _Process(float delta)
+    public void ProcessInput(float delta)
     {
-        
         //Set rather than += to ensure start from 0
         cameraMove = GetKeyboardInput() * CameraKeySpeed;
 
@@ -50,19 +48,9 @@ public class GameControls : Node2D
 
         //Get click action
         HandleDrag();
-
-        //Select party members
-        if (Input.IsKeyPressed(48)) //All
-            SelectPartyMember(0);
-        if (Input.IsKeyPressed(49)) //1st
-            SelectPartyMember(1);
-        if (Input.IsKeyPressed(50)) //2nd
-            SelectPartyMember(2);
-        if (Input.IsKeyPressed(51)) //3rd
-            SelectPartyMember(3);
     }
 
-    public void HandleDrag()
+    private void HandleDrag()
     {
         if (Input.IsMouseButtonPressed(1))
         {
@@ -142,7 +130,7 @@ public class GameControls : Node2D
         return new Vector2(x, y);
     }
 
-    private void SelectPartyMember(int member)
+    public void FocusPartyMember(int member)
     {
         CameraFocus = MapCharacterManager.SelectPartyMember(member);
 
@@ -160,7 +148,6 @@ public class GameControls : Node2D
         }
 
         _camera.Translate(cameraMove * delta);
-
     }
 
 }

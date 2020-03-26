@@ -49,7 +49,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Scripts\GUI\GameControls.cs" />
+    <Compile Include="Scripts\Data\PartyMemberIcon.cs" />
+    <Compile Include="Scripts\GUI\CameraControls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Characters\Abilities\RegularAttack.cs" />
     <Compile Include="Scripts\Characters\CharacterAnimator.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Scripts\Characters\Character.cs" />
     <Compile Include="Scripts\Characters\MonsterCharacter.cs" />
     <Compile Include="Scripts\Characters\PlayerCharacter.cs" />
+    <Compile Include="Scripts\GUI\GUIManager.cs" />
     <Compile Include="Scripts\GUI\PartyIcons.cs" />
     <Compile Include="Scripts\GUI\SelectionCircle.cs" />
     <Compile Include="Scripts\MapCharacterManager.cs" />
