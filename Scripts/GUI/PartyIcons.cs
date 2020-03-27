@@ -5,7 +5,7 @@ public class PartyIcons : VBoxContainer
 {
 
     [Export] public readonly int maxPartyMembers = 3;
-    int currentPartyMembers;
+
     public PartyMemberIcon[] partyMembers;
 
     [Export] public Color[] partyColors;

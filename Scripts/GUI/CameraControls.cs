@@ -1,20 +1,31 @@
 using Godot;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 
 public class CameraControls : Node2D
 {
+    [Export] public Color DragRectColor { get; set; }
+    private Rect2 dragRectBounds = new Rect2();
+    private RectangleShape2D dragRectSelect = new RectangleShape2D();
+    private Physics2DDirectSpaceState worldSpace;
+    Physics2DShapeQueryParameters dragSelectQuery;
 
     private CameraControls _cc;
     private Camera2D _camera;
-    private ColorRect _select;
 
     private Vector2 cameraMove;
     private bool isCameraLocked = false;
 
+    private RectangleShape2D _selectRect = new RectangleShape2D();
+
     private Vector2 mousePressOrigin;
     private bool isMousePressed = false;
+    private static List<PlayerCharacter> dragAreaPlayers = new List<PlayerCharacter>();
 
     public static Character CameraFocus { get; set; }
+
 
     //CONTROLS
     public bool MouseMoveEnabled { get; set; } = false;
@@ -31,10 +42,80 @@ public class CameraControls : Node2D
             QueueFree();
 
         _camera = (Camera2D)GetNode("Camera2D");
-        _select = (ColorRect)GetNode("Camera2D/ColorRect");
 
+        worldSpace = GetWorld2d().DirectSpaceState;
+        dragSelectQuery = new Physics2DShapeQueryParameters();
+
+        GUIManager.RegisterElement(this);
     }
 
+    /// <summary>
+    /// Handles camera moving smoothly to follow focus
+    /// </summary>
+    /// <param name="delta"></param>
+    public override void _PhysicsProcess(float delta)
+    {
+        if (CameraFocus != null && isCameraLocked)
+        {
+            _camera.Position = CameraFocus.Position;
+        }
+
+        _camera.Translate(cameraMove * delta);
+    }
+
+    public override void _Draw()
+    {
+        if (isMousePressed)
+        {
+            dragRectBounds.Position = mousePressOrigin;
+            dragRectBounds.Size = GetGlobalMousePosition() - mousePressOrigin;
+            DrawRect(dragRectBounds, DragRectColor, true);
+        }
+        else
+        {
+            dragSelectQuery = new Physics2DShapeQueryParameters();
+            dragRectSelect.Extents = (GetGlobalMousePosition() - mousePressOrigin) / 2;
+            dragSelectQuery.SetShape(dragRectSelect);
+            dragSelectQuery.Transform = new Transform2D(0, (GetGlobalMousePosition() + mousePressOrigin) / 2);
+
+            var results = worldSpace.IntersectShape(dragSelectQuery);
+            List<PlayerCharacter> players = new List<PlayerCharacter>();
+
+            foreach (Godot.Collections.Dictionary item in results)
+            {
+                if (item.ContainsKey("collider"))
+                {
+                    object collider = item["collider"];
+                    if (collider.GetType() == typeof(PlayerCharacter))
+                        players.Add((PlayerCharacter)collider);
+                }
+            }
+
+            MapCharacterManager.SelectAllInRect(players);
+        }
+
+        
+    }
+
+    /// <summary>
+    /// Public method to focus on party member
+    /// TODO Might need a version for non-party members
+    /// </summary>
+    /// <param name="member"></param>
+    public void FocusPartyMember(int member)
+    {
+        CameraFocus = MapCharacterManager.SelectPartyMember(member);
+
+        if (CameraFocus != null)
+        {
+            _camera.Position = CameraFocus.Position;
+        }
+    }
+
+    /// <summary>
+    /// Called by GUI Manager 
+    /// </summary>
+    /// <param name="delta"></param>
     public void ProcessInput(float delta)
     {
         //Set rather than += to ensure start from 0
@@ -50,6 +131,8 @@ public class CameraControls : Node2D
         HandleDrag();
     }
 
+    /* INTERNAL */
+
     private void HandleDrag()
     {
         if (Input.IsMouseButtonPressed(1))
@@ -57,36 +140,19 @@ public class CameraControls : Node2D
             if (!isMousePressed)
             {
                 isMousePressed = true;
-                _select.Visible = true;
                 mousePressOrigin = GetGlobalMousePosition();
-                _select.SetGlobalPosition(mousePressOrigin);
             }
 
-            var size = GetGlobalMousePosition() - mousePressOrigin;
-            _select.SetSize(new Vector2(Math.Abs(size.x), Math.Abs(size.y)));
-
-            int flipX, flipY = 0;
-            if (mousePressOrigin.x <= GetGlobalMousePosition().x)
-                flipX = 1;
-            else
-                flipX = -1;
-            if (mousePressOrigin.y <= GetGlobalMousePosition().y)
-                flipY = 1;
-            else
-                flipY = -1;
-
-            _select.SetScale(new Vector2(flipX, flipY));
+            Update(); //Calls draw
         }
         else if (isMousePressed)
         {
             isMousePressed = false;
-            //MapCharacterManager.SelectAllInRect(_selectArea.GetOverlappingBodies());
-            //Select all players
-            _select.Visible = false;
+            Update(); //Because mouse not pressed, this will clear the select
         }
     }
 
-    public Vector2 GetKeyboardInput()
+    private Vector2 GetKeyboardInput()
     {
         int x = 0, y = 0;
 
@@ -108,7 +174,7 @@ public class CameraControls : Node2D
         return new Vector2(x, y);
     }
 
-    public Vector2 GetMouseInput()
+    private Vector2 GetMouseInput()
     {
         int x = 0, y = 0;
 
@@ -129,25 +195,6 @@ public class CameraControls : Node2D
 
         return new Vector2(x, y);
     }
-
-    public void FocusPartyMember(int member)
-    {
-        CameraFocus = MapCharacterManager.SelectPartyMember(member);
-
-        if (CameraFocus != null)
-        {
-            _camera.Position = CameraFocus.Position;
-        }
-    }
-
-    public override void _PhysicsProcess(float delta)
-    {
-        if (CameraFocus != null && isCameraLocked)
-        {
-            _camera.Position = CameraFocus.Position;
-        }
-
-        _camera.Translate(cameraMove * delta);
-    }
-
 }
+
+

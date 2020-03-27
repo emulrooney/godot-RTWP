@@ -92,6 +92,7 @@ public class MapCharacterManager : Node2D
         if (_mcm.PlayerCharacters.Count >= partyMember)
         {
             AddCharacterToSelected(_mcm.PlayerCharacters[partyMember - 1]);
+            _mcm.UpdateSelectionCircles();
             return _mcm.PlayerCharacters[partyMember - 1];
         }
 
@@ -103,6 +104,7 @@ public class MapCharacterManager : Node2D
         if (_mcm.PlayerCharacters.Count >= partyMember)
         {
             _mcm.Selected.Remove(_mcm.PlayerCharacters[partyMember - 1]);
+            _mcm.UpdateSelectionCircles();
             return _mcm.PlayerCharacters[partyMember - 1];
         }
 
@@ -115,13 +117,12 @@ public class MapCharacterManager : Node2D
         _mcm.UpdateSelectionCircles();
     }
 
-    public static void AddCharacterToSelected(PlayerCharacter character, bool updateSelectionCircles = true)
+    public static void AddCharacterToSelected(PlayerCharacter character)
     {
         if (!_mcm.Selected.Contains(character))
             _mcm.Selected.Add(character);
 
-        if (updateSelectionCircles)
-            _mcm.UpdateSelectionCircles();
+        _mcm.UpdateSelectionCircles();
     }
 
     
@@ -145,6 +146,7 @@ public class MapCharacterManager : Node2D
     /* INPUT MANAGEMENT */
     public static void MouseClick()
     {
+        //if (Input.IsActionJustPressed)
         foreach (PlayerCharacter pc in _mcm.Selected)
         {
             pc.AttackTarget = null;
@@ -165,10 +167,12 @@ public class MapCharacterManager : Node2D
         }
     }
 
-    public void SelectAllInRect(List<Node> results)
+    public static void SelectAllInRect(List<PlayerCharacter> results)
     {
-        var players = results.OfType<PlayerCharacter>();
-        _mcm.Selected.AddRange(players);
+        //var players = results.OfType<PlayerCharacter>();
+        _mcm.Selected.AddRange(results);
+
+        _mcm.UpdateSelectionCircles();
     }
 
 }
