@@ -21,7 +21,7 @@ public class AttackState : CharacterState
 
     public override void OnFinish()
     {
-
+        NextAnimation();
     }
 
     public void Timeout()
