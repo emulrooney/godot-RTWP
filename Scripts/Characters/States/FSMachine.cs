@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class FSMachine : Node
 {
     Character _owner { get; set; }
-    AnimatedSprite Animator { get; set; }
+    CharacterAnimator Animator { get; set; }
     Dictionary<CharState, CharacterState> States { get; set; } = new Dictionary<CharState, CharacterState>();
 
     CharacterState Current { get; set; }
@@ -15,7 +15,7 @@ public class FSMachine : Node
     public override void _Ready()
     {
         _owner = GetParent<Character>();
-        Animator = (AnimatedSprite)_owner.GetNode("AnimatedSprite");
+        Animator = (CharacterAnimator)_owner.GetNode("AnimatedSprite");
 
         foreach (var n in this.GetChildren())
         {
@@ -146,9 +146,9 @@ public class FSMachine : Node
     private void SetFlip(Vector2 target)
     {
         if (!Animator.FlipH && target.x < _owner.Position.x)
-            Animator.FlipH = true;
+            Animator.SetFlipHWithOffset(true);
         else if (Animator.FlipH && target.x > _owner.Position.x)
-            Animator.FlipH = false;
+            Animator.SetFlipHWithOffset(false);
     }
     
     protected virtual void MoveToAttack(Character target)
