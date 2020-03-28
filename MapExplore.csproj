@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scripts\Data\PartyMemberIcon.cs" />
+    <Compile Include="Scripts\DebugHelpers\TopPrinter.cs" />
     <Compile Include="Scripts\GUI\CameraControls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Characters\Abilities\RegularAttack.cs" />
