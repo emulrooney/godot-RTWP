@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://ArtAssets/Maps/debugMap1.png" type="Texture" id=2]
@@ -7,9 +7,6 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 500 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 606.264, 37.332 )
 
 [node name="Map" type="Area2D"]
 z_index = -100
@@ -26,21 +23,11 @@ texture = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 87.147, 287.29 )
-scale = Vector2( 2, 2 )
 WalkSpeed = 88.0
-Faction = 0
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 357.337, 365.016 )
 WalkSpeed = 88.0
-Faction = 0
-
-[node name="MapExit" type="Area2D" parent="."]
-
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="MapExit"]
-visible = false
-position = Vector2( 594.486, 34.8938 )
-shape = SubResource( 2 )
 
 [node name="GiantBug" parent="." instance=ExtResource( 4 )]
 position = Vector2( 253.449, 203.047 )

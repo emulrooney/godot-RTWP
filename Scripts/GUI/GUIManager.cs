@@ -61,7 +61,7 @@ public class GUIManager : CanvasLayer
 
     public static void ClickPortrait(int partyMember)
     {
-        //if mouse button RIGHT or SHIFT held, add to selection
+        //if SHIFT held, add to selection
         //if regular mouse, set to active
         if (Input.IsActionPressed("modify"))
         {
@@ -73,7 +73,7 @@ public class GUIManager : CanvasLayer
                     _partyIcons.SetPortraitSelected(partyMember, true);
 
                     if (_cameraControls != null)
-                        _cameraControls.FocusPartyMember(partyMember - 1);
+                        _cameraControls.FocusPartyMember(partyMember);
                 }
             }
             else if (Input.IsMouseButtonPressed(2))
@@ -94,7 +94,7 @@ public class GUIManager : CanvasLayer
                     _partyIcons.SetPortraitSelected(partyMember, true, true);
 
                     if (_cameraControls != null)
-                        _cameraControls.FocusPartyMember(partyMember - 1);
+                        _cameraControls.FocusPartyMember(partyMember);
                 }
             }
         }

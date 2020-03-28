@@ -7,6 +7,7 @@ using System.Reflection;
 public class CameraControls : Node2D
 {
     [Export] public Color DragRectColor { get; set; }
+
     private Rect2 dragRectBounds = new Rect2();
     private RectangleShape2D dragRectSelect = new RectangleShape2D();
     private Physics2DDirectSpaceState worldSpace;
@@ -104,8 +105,6 @@ public class CameraControls : Node2D
     /// <param name="member"></param>
     public void FocusPartyMember(int member)
     {
-        CameraFocus = MapCharacterManager.SelectPartyMember(member);
-
         if (CameraFocus != null)
         {
             _camera.Position = CameraFocus.Position;
