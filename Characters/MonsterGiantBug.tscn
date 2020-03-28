@@ -60,7 +60,7 @@ script = ExtResource( 3 )
 position = Vector2( 0, -3.24217 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -73,6 +73,7 @@ MaxHP = 20
 
 [node name="ClickableArea" type="Area2D" parent="."]
 z_index = 100
+priority = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
 shape = SubResource( 4 )

@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/MapLogic.cs" type="Script" id=1]
+[ext_resource path="res://ArtAssets/Maps/debugMap1.png" type="Texture" id=2]
+[ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Characters/MonsterGiantBug.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=5]
+
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1000, 500 )
+
+[node name="Map" type="Area2D"]
+z_index = -100
+script = ExtResource( 1 )
+
+[node name="MapCollider" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+visible = false
+z_index = -2000
+texture = ExtResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 87.147, 287.29 )
+WalkSpeed = 88.0
+
+[node name="GiantBug" parent="." instance=ExtResource( 4 )]
+position = Vector2( 398.989, 279.215 )
+Faction = 2
+
+[node name="GiantBug2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 641.75, 388.695 )
+Faction = 2
+
+[node name="DebugTopPrinter" parent="." instance=ExtResource( 5 )]
+margin_left = 118.0
+margin_top = 1.0
+margin_right = 1199.0
+margin_bottom = 80.0
+[connection signal="input_event" from="." to="." method="MouseClick"]
