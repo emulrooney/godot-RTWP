@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class MonsterCharacter : Character
+public class MonsterCharacter : Character, IMapClickable
 {
     [Export] Vector2[] patrolPoints = new Vector2[0];
     public int PatrolCounter { get; set; } = 0;
@@ -39,8 +39,9 @@ public class MonsterCharacter : Character
     }
 
 
-    private void ClickCharacter(object viewport, object @event, int shape_idx)
+    public void ClickAction(Vector2 location)
     {
+        //TODO Use location to determine which side of enemy to stand on (if needed)
         MapCharacterManager.EnemyClicked(this);
     }
 

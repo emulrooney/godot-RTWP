@@ -1,20 +1,11 @@
 using Godot;
 using System;
 
-public class MapLogic : Area2D
+public class MapLogic : Area2D, IMapClickable
 {
-    /// <summary>
-    /// Triggered on click on map
-    /// </summary>
-    /// <param name="viewport"></param>
-    /// <param name="event"></param>
-    /// <param name="shape_idx"></param>
-    private void MouseClick(object viewport, object @event, int shape_idx)
+    public void ClickAction(Vector2 location)
     {
-        if (Input.IsMouseButtonPressed(1))
-        {
-            MapCharacterManager.MouseClick();
-        }
+        MapCharacterManager.MapClick(location);
     }
 
 }

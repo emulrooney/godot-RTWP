@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class PlayerCharacter : Character
+public class PlayerCharacter : Character, IMapClickable
 {
     private RegularAttack weapon;
 
@@ -11,8 +11,10 @@ public class PlayerCharacter : Character
         weapon = (RegularAttack)GetNodeOrNull("EquippedWeapon");
     }
 
-    private void ClickCharacter(object viewport, object @event, int shape_idx)
+    public void ClickAction(Vector2 location)
     {
+        //TODO determine use for click action
+
         if (Input.IsMouseButtonPressed(1))
             MapCharacterManager.AddCharacterToSelected(this);
     }

@@ -144,13 +144,12 @@ public class MapCharacterManager : Node2D
     }
 
     /* INPUT MANAGEMENT */
-    public static void MouseClick()
+    public static void MapClick(Vector2 location)
     {
-        //if (Input.IsActionJustPressed)
         foreach (PlayerCharacter pc in _mcm.Selected)
         {
             pc.AttackTarget = null;
-            pc.AddToPath(_mcm.GetGlobalMousePosition(), Input.IsActionPressed("modify"));   
+            pc.AddToPath(location, Input.IsActionPressed("modify"));   
         }
     }
 

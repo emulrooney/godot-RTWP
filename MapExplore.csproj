@@ -62,12 +62,15 @@
     <Compile Include="Scripts\Characters\States\IdleState.cs" />
     <Compile Include="Scripts\Characters\States\WalkState.cs" />
     <Compile Include="Scripts\Data\CharFaction.cs" />
+    <Compile Include="Scripts\Data\GameState.cs" />
     <Compile Include="Scripts\Characters\Character.cs" />
     <Compile Include="Scripts\Characters\MonsterCharacter.cs" />
     <Compile Include="Scripts\Characters\PlayerCharacter.cs" />
     <Compile Include="Scripts\GUI\GUIManager.cs" />
     <Compile Include="Scripts\GUI\PartyIcons.cs" />
     <Compile Include="Scripts\GUI\SelectionCircle.cs" />
+    <Compile Include="Scripts\InputManager.cs" />
+    <Compile Include="Scripts\Interfaces\IMapClickable.cs" />
     <Compile Include="Scripts\MapCharacterManager.cs" />
     <Compile Include="Scripts\MapLogic.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapLocation.cs" />
