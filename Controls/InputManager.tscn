@@ -4,3 +4,4 @@
 
 [node name="InputManager" type="Node2D"]
 script = ExtResource( 1 )
+DragRectColor = Color( 0.898039, 0.52549, 0.52549, 0.670588 )

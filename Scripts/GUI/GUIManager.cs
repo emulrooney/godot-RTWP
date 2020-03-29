@@ -51,12 +51,6 @@ public class GUIManager : CanvasLayer
         }
     }
 
-    public override void _Process(float delta)
-    {
-        if (_cameraControls != null)
-            _cameraControls.ProcessInput(delta);
-    }
-
     /* CHARACTER PORTRAITS */
 
     public static void ClickPortrait(int partyMember)
