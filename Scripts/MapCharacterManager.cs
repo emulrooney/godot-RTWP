@@ -65,20 +65,28 @@ public class MapCharacterManager : Node2D
         character.QueueFree();
     }
 
-    public static Character SelectPartyMember(int partyMember, bool individualSelect = true)
+    public static void SelectPartyMember(PlayerCharacter partyMember, bool exclusive = true)
+    {
+        if (exclusive)
+            DeselectAll();
+
+        AddPartyMemberToSelected(partyMember);
+    }
+
+    public static Character SelectPartyMember(int partyMember, bool exclusive = true)
     {
         if (partyMember == 0)
         {
             foreach (PlayerCharacter pc in _mcm.PlayerCharacters)
             {
-                AddCharacterToSelected(pc);
+                AddPartyMemberToSelected(pc);
             }
 
             return _mcm.PlayerCharacters.FirstOrDefault();
         }
         else if (_mcm.PlayerCharacters.Count >= partyMember)
         {
-            if (individualSelect)
+            if (exclusive)
                 DeselectAll();
 
             return AddPartyMemberToSelected(partyMember);
@@ -91,12 +99,19 @@ public class MapCharacterManager : Node2D
     {
         if (_mcm.PlayerCharacters.Count >= partyMember)
         {
-            AddCharacterToSelected(_mcm.PlayerCharacters[partyMember - 1]);
-            _mcm.UpdateSelectionCircles();
+            AddPartyMemberToSelected(_mcm.PlayerCharacters[partyMember - 1]);
             return _mcm.PlayerCharacters[partyMember - 1];
         }
 
         return null;
+    }
+
+    public static void AddPartyMemberToSelected(PlayerCharacter character)
+    {
+        if (!_mcm.Selected.Contains(character))
+            _mcm.Selected.Add(character);
+
+        _mcm.UpdateSelectionCircles();
     }
 
     public static Character DeselectPartyMember(int partyMember)
@@ -117,13 +132,7 @@ public class MapCharacterManager : Node2D
         _mcm.UpdateSelectionCircles();
     }
 
-    public static void AddCharacterToSelected(PlayerCharacter character)
-    {
-        if (!_mcm.Selected.Contains(character))
-            _mcm.Selected.Add(character);
-
-        _mcm.UpdateSelectionCircles();
-    }
+    
 
     
     /* VISUALS */
@@ -155,19 +164,19 @@ public class MapCharacterManager : Node2D
 
     public static void EnemyClicked(MonsterCharacter monster)
     {
-        if (Input.IsMouseButtonPressed(1)) //leftmouse
+        foreach (var pc in _mcm.Selected)
         {
-            foreach (var pc in _mcm.Selected)
-            {
-                GD.Print($"{pc.Name} attacking Enemy {monster.Name}");
-                pc.Path.Clear();
-                pc.AttackTarget = monster;
-            }
+            GD.Print($"{pc.Name} attacking Enemy {monster.Name}");
+            pc.Path.Clear();
+            pc.AttackTarget = monster;
         }
     }
 
-    public static void SelectAllInRect(List<PlayerCharacter> results)
+    public static void SelectAllInRect(List<PlayerCharacter> results, bool exclusive = true)
     {
+        if (exclusive)
+            DeselectAll();
+
         //var players = results.OfType<PlayerCharacter>();
         _mcm.Selected.AddRange(results);
 

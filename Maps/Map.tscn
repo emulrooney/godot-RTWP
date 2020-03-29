@@ -27,7 +27,7 @@ position = Vector2( 87.147, 287.29 )
 WalkSpeed = 88.0
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 357.337, 365.016 )
+position = Vector2( 1, 0 )
 WalkSpeed = 88.0
 
 [node name="GiantBug" parent="." instance=ExtResource( 4 )]

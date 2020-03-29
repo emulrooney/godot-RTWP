@@ -3,5 +3,5 @@ using System;
 
 public interface IMapClickable
 {
-    void ClickAction(Vector2 location);
+    void ClickAction(ClickInfo info, Vector2 location);
 }

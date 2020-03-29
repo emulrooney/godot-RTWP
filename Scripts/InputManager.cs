@@ -7,7 +7,6 @@ public class InputManager : Node2D
     [Export] GameState Current { get; set; }
     [Export] public Color DragRectColor { get; set; }
 
-    private bool isMousePressed = false;
     private bool isMouseDragging = false;
 
     [Export] private int mouseClickMoveTolerance = 4;
@@ -28,13 +27,14 @@ public class InputManager : Node2D
 
     public override void _UnhandledInput(InputEvent @event)
     {
+        //TODO --> JustReleased for player movement is SLOW. What's going on? 
+
         var mouseLocation = GetGlobalMousePosition();
 
+        ClickInfo clickInfo = new ClickInfo();
+
         if (Input.IsActionJustPressed("left_click")) //Initial click
-        {
-            isMousePressed = true;
             mousePressOrigin = mouseLocation;
-        }
 
         if (Input.IsActionPressed("left_click") && !isMouseDragging) {
             if (mouseLocation.x > mousePressOrigin.x + mouseClickMoveTolerance
@@ -57,8 +57,21 @@ public class InputManager : Node2D
 
             clickTarget = GetMostClickable(collisions);
 
+            if (clickTarget == null)
+            {
+                TopPrinter.Two = "NULL";
+            }
+            else
+            {
+                TopPrinter.Two = $"{clickTarget}";
+            }
+
+            clickInfo.ButtonNumber = 1;
+            clickInfo.ModifyHeld = (Input.IsActionPressed("modify"));
+
             if (clickTarget != null)
-                clickTarget.ClickAction(mouseLocation);
+                clickTarget.ClickAction(clickInfo, mouseLocation);
+
         } else if (Input.IsActionJustReleased("left_click") && isMouseDragging)
             isMouseDragging = false;
 
@@ -66,9 +79,13 @@ public class InputManager : Node2D
 
     public override void _Process(float delta)
     {
-        TopPrinter.One = $"isMousePressed: {isMousePressed} | isMouseDragging: {isMouseDragging}";
+        //Debug only, remove later
+        TopPrinter.One = $"mousePressOrigin: {mousePressOrigin} | isMouseDragging: {isMouseDragging}";
     }
 
+    /// <summary>
+    /// TODO separate the mechanics out of the drawing
+    /// </summary>
     public override void _Draw()
     {
         if (isMouseDragging)
@@ -97,7 +114,7 @@ public class InputManager : Node2D
                 }
             }
 
-            MapCharacterManager.SelectAllInRect(players);
+            MapCharacterManager.SelectAllInRect(players, !Input.IsActionPressed("modify"));
         }
     }
 

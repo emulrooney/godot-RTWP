@@ -3,6 +3,7 @@ using System;
 
 public class PlayerCharacter : Character, IMapClickable
 {
+
     private RegularAttack weapon;
 
     public override void _Ready()
@@ -11,11 +12,10 @@ public class PlayerCharacter : Character, IMapClickable
         weapon = (RegularAttack)GetNodeOrNull("EquippedWeapon");
     }
 
-    public void ClickAction(Vector2 location)
+    public void ClickAction(ClickInfo info, Vector2 location)
     {
-        //TODO determine use for click action
+        if (info.ButtonNumber == 1)
+            MapCharacterManager.SelectPartyMember(this, !info.ModifyHeld);
 
-        if (Input.IsMouseButtonPressed(1))
-            MapCharacterManager.AddCharacterToSelected(this);
     }
 }
