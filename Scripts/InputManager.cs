@@ -16,9 +16,9 @@ public class InputManager : Node2D
         query = new Physics2DShapeQueryParameters();
     }
 
-    public override void _Process(float delta)
+    public override void _UnhandledInput(InputEvent @event)
     {
-        if (Input.IsMouseButtonPressed(1))
+        if (Input.IsMouseButtonPressed(1)) //TODO: Right clicks should be figured out
         {
             //Set up
             var mouseLocation = GetGlobalMousePosition();
@@ -29,7 +29,8 @@ public class InputManager : Node2D
 
             clickTarget = GetMostClickable(collisions);
 
-            clickTarget.ClickAction(mouseLocation);
+            if (clickTarget != null)
+                clickTarget.ClickAction(mouseLocation);
         }
     }
 

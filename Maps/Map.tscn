@@ -48,4 +48,3 @@ margin_left = 133.0
 margin_top = 25.0
 margin_right = 1333.0
 margin_bottom = 109.0
-[connection signal="input_event" from="." to="." method="MouseClick"]

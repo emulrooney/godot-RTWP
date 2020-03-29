@@ -7,6 +7,8 @@
 [node name="PartyIcons" type="VBoxContainer"]
 margin_left = 8.0
 margin_top = 8.0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
 script = ExtResource( 1 )
 partyColors = PoolColorArray( 0.211765, 0.537255, 0.184314, 1, 1, 0.494118, 0, 1, 0.945098, 0.360784, 0.580392, 1 )
 
