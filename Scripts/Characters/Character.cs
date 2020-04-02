@@ -20,7 +20,6 @@ public abstract class Character : KinematicBody2D
     {
         MapCharacterManager.RegisterPresent(this);
         RegularAttack = (RegularAttack)GetNodeOrNull("RegularAttack");
-        //fsm = (FSMachine)GetNode("FSMachine");
         stats = (Statblock)GetNode("Statblock");
     }
 
