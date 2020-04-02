@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://ArtAssets/Maps/debugMap1.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Characters/MonsterGiantBug.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Controls/InputManager.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Characters/PlayerCharacter2.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 500 )
@@ -26,10 +27,6 @@ texture = ExtResource( 2 )
 position = Vector2( 87.147, 287.29 )
 WalkSpeed = 88.0
 
-[node name="Player2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1, 0 )
-WalkSpeed = 88.0
-
 [node name="GiantBug" parent="." instance=ExtResource( 4 )]
 position = Vector2( 253.449, 203.047 )
 WalkSpeed = 160.0
@@ -48,3 +45,7 @@ margin_left = 133.0
 margin_top = 25.0
 margin_right = 1333.0
 margin_bottom = 109.0
+
+[node name="Player2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 134.451, 367.757 )
+WalkSpeed = 94.0

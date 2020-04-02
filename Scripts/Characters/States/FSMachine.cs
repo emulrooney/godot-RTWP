@@ -95,21 +95,11 @@ public class FSMachine : Node
                 default:
                     
                     //This covers any case of unexpected states when transitioning to combat mode.
-
                     Transition(CharState.Idle);
-
                     break;
             }
 
         }
-
-        //if (AttackTarget != null)
-        //    MoveToAttack(AttackTarget);
-        //else if (Current == States["walk"])
-        //{
-
-        //    MoveTowardsNextLocation();
-        //}
     }
 
     public virtual void SetAttackTarget(Character character)
@@ -120,7 +110,6 @@ public class FSMachine : Node
 
     protected void MoveTowardsNextLocation(float modifier = 1f)
     {
-       
         if ((_owner.Path.Count > 0) && (_owner.Path.Peek() - _owner.Position).Length() > Character.TargetTolerance)
         {
             Vector2 velocity = (_owner.Path.Peek() - _owner.Position).Normalized() * _owner.WalkSpeed * modifier;
@@ -166,6 +155,8 @@ public class FSMachine : Node
             Current = States[newState];
             
             Animator.Animation = Current.AnimationName;
+
+            _Process(0); //Essentially, keep transitioning until none left. Slightly hacky, but solves weird visual glitch
         }
     }
 
