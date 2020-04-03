@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/GUI/PartyIconStrip.cs" type="Script" id=1]
+[ext_resource path="res://Controls/GUIPartyIcon.tscn" type="PackedScene" id=2]
+
+[node name="PartyIcons" type="VBoxContainer"]
+margin_left = 8.0
+margin_top = 8.0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+script = ExtResource( 1 )
+
+[node name="PC_1" parent="." instance=ExtResource( 2 )]
+visible = false
+
+[node name="PC_2" parent="." instance=ExtResource( 2 )]
+visible = false
+border_color = Color( 0.3, 0.3, 0.3, 1 )
+
+[node name="PC_3" parent="." instance=ExtResource( 2 )]
+visible = false
+
+[node name="PC_4" parent="." instance=ExtResource( 2 )]
+visible = false
+[connection signal="gui_input" from="PC_1" to="." method="ClickPortrait" binds= [ 1 ]]
+[connection signal="gui_input" from="PC_2" to="." method="ClickPortrait" binds= [ 2 ]]
+[connection signal="gui_input" from="PC_3" to="." method="ClickPortrait" binds= [ 3 ]]
+[connection signal="gui_input" from="PC_4" to="." method="ClickPortrait" binds= [ 4 ]]

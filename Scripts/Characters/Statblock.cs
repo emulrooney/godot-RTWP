@@ -8,6 +8,8 @@ public class Statblock : Node
     [Export] public int CurrentHP { get; set; }
     [Export] public int MaxHP { get; set; }
 
+    [Export] public float MoveSpeed { get; set; } = 88;
+
     [Export] public int BaseAccuracy { get; set; }
     [Export] public int BaseDamage { get; set; }
     [Export] public int BaseDefense { get; set; }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class FSMachine : Node
 {
     Character _owner { get; set; }
+    Statblock _stats { get; set; }
     CharacterAnimator Animator { get; set; }
     Dictionary<CharState, CharacterState> States { get; set; } = new Dictionary<CharState, CharacterState>();
 
@@ -15,6 +16,7 @@ public class FSMachine : Node
     public override void _Ready()
     {
         _owner = GetParent<Character>();
+        _stats = (Statblock)_owner.GetNode("Statblock");
         Animator = (CharacterAnimator)_owner.GetNode("AnimatedSprite");
 
         foreach (var n in this.GetChildren())
@@ -112,7 +114,7 @@ public class FSMachine : Node
     {
         if ((_owner.Path.Count > 0) && (_owner.Path.Peek() - _owner.Position).Length() > Character.TargetTolerance)
         {
-            Vector2 velocity = (_owner.Path.Peek() - _owner.Position).Normalized() * _owner.WalkSpeed * modifier;
+            Vector2 velocity = (_owner.Path.Peek() - _owner.Position).Normalized() * _stats.MoveSpeed * modifier;
             SetFlip(_owner.Path.Peek());
             _owner.MoveAndSlide(velocity);
         }
@@ -126,7 +128,7 @@ public class FSMachine : Node
     {
         if ((target - _owner.Position).Length() > Character.TargetTolerance)
         {
-            Vector2 velocity = (target - _owner.Position).Normalized() * _owner.WalkSpeed * modifier;
+            Vector2 velocity = (target - _owner.Position).Normalized() * _stats.MoveSpeed * modifier;
             _owner.MoveAndSlide(velocity);
             SetFlip(target);
         }

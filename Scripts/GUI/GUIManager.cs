@@ -8,11 +8,15 @@ public class GUIManager : CanvasLayer
     private static GUIManager _gui;
 
     //Controls; these need to register themselves
-    private static PartyIcons _partyIcons;
+    private static PartyIconStrip _partyIcons;
     private static CameraControls _cameraControls;
 
     //This will be cleared on _Ready IF execution order was screwed up
     private static Queue<Node> registrationQueue = new Queue<Node>();
+
+    //Queue player characters who will need to be added to multiple GUI screens
+    private static Queue<PlayerCharacter> characterQueue = new Queue<PlayerCharacter>();
+
 
     public override void _Ready()
     {
@@ -36,12 +40,14 @@ public class GUIManager : CanvasLayer
         }
 
         string typeString = element.GetType().ToString();
-        //GD.Print($"Registering: {typeString}");
 
         switch (typeString)
         {
-            case "PartyIcons":
-                _partyIcons = (PartyIcons)element;
+            case "PartyIconStrip":
+                _partyIcons = (PartyIconStrip)element;
+                _partyIcons.Initialize();
+                while (characterQueue.Count > 0)
+                    _partyIcons.SetupCharacterPortrait(characterQueue.Dequeue());
                 return true;
             case "CameraControls":
                 _cameraControls = (CameraControls)element;
@@ -50,6 +56,18 @@ public class GUIManager : CanvasLayer
                 return false;
         }
     }
+
+    public static void RegisterPlayerCharacter(PlayerCharacter pc)
+    {
+        GD.Print("Register called by " + pc.CharacterName);
+
+        if (_partyIcons != null)
+            _partyIcons.SetupCharacterPortrait(pc);
+        else
+            characterQueue.Enqueue(pc);
+    }
+
+
 
     /* CHARACTER PORTRAITS */
 

@@ -5,8 +5,9 @@ using System.Collections.Generic;
 public abstract class Character : KinematicBody2D
 {
 
+    [Export] public string CharacterName { get; set; }
+
     //MOVEMENT
-    [Export] public float WalkSpeed { get; set; } = 16f;
     [Export] public static float TargetTolerance { get; set; } = 3f;
     [Export] public CharFaction Faction { get; set; } = CharFaction.NEUTRAL;
 

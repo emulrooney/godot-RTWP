@@ -1,37 +1,49 @@
 using Godot;
 using System;
 
-public struct PartyMemberIcon
+public class PartyMemberIcon : ReferenceRect
 {
-    public ReferenceRect _rect;
-    public TextureRect _portrait;
-    public Label _healthDisplay;
+    public bool IsUsed { get; set; } = false;
+    public TextureRect Portrait { get; set; }
+    public Label healthDisplay;
     public Color Color { get; set; }
+
+    private Color deathColor = new Color(0.3f, 0.3f, 0.3f);
+
+    public override void _Ready()
+    {
+        Portrait = (TextureRect)GetNode("Portrait");
+        healthDisplay = (Label)GetNode("HealthDisplay");
+        IsUsed = false;
+    }
 
     public void Highlight(bool isSelected)
     {
         if (isSelected)
-            _portrait.Modulate = this.Color.Lightened(1);
+            Portrait.Modulate = this.Color.Lightened(.5f);
         else
-            _portrait.Modulate = this.Color;
+            Portrait.Modulate = this.Color;
+    }
+
+    public void SetPortrait(Texture image, Color color)
+    {
+        Portrait.Texture = image;
+        Color = color;
+        Portrait.Modulate = this.Color;
     }
 
     public void SetHealth(int current, int max = -1)
     {
-        if (max < -1)
-            _healthDisplay.Text = $"{current}/{max}";
+        if (max > -1)
+            healthDisplay.Text = $"{current}/{max}";
         else
-            _healthDisplay.Text = $"{ current }/{_healthDisplay.Text.Split('/')[1]}";
-    }
+            healthDisplay.Text = $"{ current }/{healthDisplay.Text.Split('/')[1]}";
 
-    public PartyMemberIcon(ReferenceRect rect, TextureRect portrait, Label healthDisplay, Color color)
-    {
-        _rect = rect;
-        _portrait = portrait;
-        _healthDisplay = healthDisplay;
-        Color = color;
-
-        _portrait.Modulate = Color;
+        if (current <= 0)
+        {
+            //TODO Should dead characters have a death portrait?
+            this.Color = deathColor;
+        }
     }
 }
 
