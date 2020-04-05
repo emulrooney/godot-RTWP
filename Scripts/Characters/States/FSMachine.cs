@@ -12,6 +12,9 @@ public class FSMachine : Node
     CharacterState Current { get; set; }
     CharacterState Previous { get; set; }
 
+    //Used in pathfinding only
+    private Vector2 nextNavLocation;
+    private int currentPathStep = 0;
 
     public override void _Ready()
     {
@@ -37,11 +40,11 @@ public class FSMachine : Node
             switch (Current.StateType)
             {
                 case CharState.Idle:
-                    if (_owner.Path.Count > 0)
+                    if (_owner.QueuedMoves.Count > 0)
                         Transition(CharState.Move);
                     break;
                 case CharState.Move:
-                    if (_owner.Path.Count > 0)
+                    if (_owner.QueuedMoves.Count > 0)
                         MoveTowardsNextLocation();
                     else
                         Transition(CharState.Idle);
@@ -107,22 +110,38 @@ public class FSMachine : Node
     public virtual void SetAttackTarget(Character character)
     {
         _owner.AttackTarget = character;
-        _owner.Path.Clear();
+        _owner.QueuedMoves.Clear();
     }
 
+    /// <summary>
+    /// Gets the next queued move (which is an array of points from pathfinding) and progresses through them
+    /// Starts by checking that current path step is valid in array
+    /// If not, moves to next queued move (or ends moving if no queued moves)
+    /// If yes, sets nav location, does standard move twds it and slowly iterates thru steps in array 
+    /// </summary>
+    /// <param name="modifier"></param>
     protected void MoveTowardsNextLocation(float modifier = 1f)
     {
-        if ((_owner.Path.Count > 0) && (_owner.Path.Peek() - _owner.Position).Length() > Character.TargetTolerance)
+        if (currentPathStep == _owner.QueuedMoves.Peek().Length)
         {
-            Vector2 velocity = (_owner.Path.Peek() - _owner.Position).Normalized() * _stats.MoveSpeed * modifier;
-            SetFlip(_owner.Path.Peek());
-            _owner.MoveAndSlide(velocity);
+            currentPathStep = 0;
+            _owner.QueuedMoves.Dequeue();
+            return;
         }
-        else if (_owner.Path.Count > 0)
+
+        nextNavLocation = _owner.QueuedMoves.Peek()[currentPathStep];
+
+        if ((_owner.QueuedMoves.Count > 0) && (nextNavLocation - _owner.Position).Length() > Character.TargetTolerance)
         {
-            _owner.Path.Dequeue();
+            MoveTowards(nextNavLocation);
         }
+        else if (currentPathStep < _owner.QueuedMoves.Peek().Length)
+        {
+            currentPathStep++;
+        }
+
     }
+
 
     protected void MoveTowards(Vector2 target, float modifier = 1f)
     {

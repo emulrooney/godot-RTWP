@@ -91,7 +91,7 @@ public class InputManager : Node2D
         if (isMouseDragging)
         {
             dragRectBounds.Position = mousePressOrigin;
-            dragRectBounds.Size = GetGlobalMousePosition() - mousePressOrigin;
+            dragRectBounds.Size = GetLocalMousePosition() - mousePressOrigin;
             DrawRect(dragRectBounds, DragRectColor, true);
         }
         else

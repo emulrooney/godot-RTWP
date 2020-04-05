@@ -153,12 +153,16 @@ public class MapCharacterManager : Node2D
     }
 
     /* INPUT MANAGEMENT */
-    public static void MapClick(Vector2 location)
+    public static void MapClick(Vector2 location, Navigation2D nav = null)
     {
         foreach (PlayerCharacter pc in _mcm.Selected)
         {
             pc.AttackTarget = null;
-            pc.AddToPath(location, Input.IsActionPressed("modify"));   
+
+            if (nav != null)
+                pc.AddToPath(nav.GetSimplePath(pc.Position, location), Input.IsActionPressed("modify"));
+            else 
+                pc.AddToPath(new Vector2[] { location }, Input.IsActionPressed("modify"));   
         }
     }
 
@@ -167,7 +171,7 @@ public class MapCharacterManager : Node2D
         foreach (var pc in _mcm.Selected)
         {
             GD.Print($"{pc.Name} attacking Enemy {monster.Name}");
-            pc.Path.Clear();
+            pc.QueuedMoves.Clear();
             pc.AttackTarget = monster;
         }
     }

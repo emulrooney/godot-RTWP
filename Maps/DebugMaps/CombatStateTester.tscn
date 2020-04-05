@@ -44,9 +44,9 @@ position = Vector2( 802.125, 198.007 )
 z_index = -200
 texture = ExtResource( 5 )
 
-[node name="Navigation2D" type="Navigation2D" parent="."]
+[node name="Navigation2D" type="Navigation2D" parent="Background"]
+position = Vector2( -802.125, -198.007 )
 
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Background/Navigation2D"]
 position = Vector2( 802.125, 198.007 )
 navpoly = SubResource( 2 )
-[connection signal="input_event" from="." to="." method="MouseClick"]

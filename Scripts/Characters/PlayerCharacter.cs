@@ -8,8 +8,6 @@ public class PlayerCharacter : Character, IMapClickable
 
     private RegularAttack weapon;
 
-
-
     public override void _Ready()
     {
         base._Ready();

@@ -8,10 +8,10 @@ public abstract class Character : KinematicBody2D
     [Export] public string CharacterName { get; set; }
 
     //MOVEMENT
-    [Export] public static float TargetTolerance { get; set; } = 3f;
+    public static float TargetTolerance { get; set; } = 3f;
     [Export] public CharFaction Faction { get; set; } = CharFaction.NEUTRAL;
 
-    public Queue<Vector2> Path { get; set; } = new Queue<Vector2>();
+    public Queue<Vector2[]> QueuedMoves { get; set; } = new Queue<Vector2[]>();
     public Character AttackTarget { get; set; }
 
     protected Statblock stats;
@@ -42,15 +42,17 @@ public abstract class Character : KinematicBody2D
         return false;
     }
 
-    public void AddToPath(Vector2 location, bool enqueueNextAction = false)
+    public void AddToPath(Vector2[] location, bool enqueueNextAction = false)
     {
         if (!enqueueNextAction)
         {
-            Path = new Queue<Vector2>();
+            QueuedMoves = new Queue<Vector2[]>();
             AttackTarget = null;
         }
 
-        Path.Enqueue(location);
+        QueuedMoves.Enqueue(location);
+
+        TopPrinter.Four = $"Path target: {QueuedMoves.Peek()[0]}";
     }
 
     public void Attack(Character target)

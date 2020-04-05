@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 GUI="*res://Controls/GUILayer.tscn"
 MapCharacterManager="*res://Scripts/MapCharacterManager.cs"
+InputManager="*res://Controls/InputManager.tscn"
 Controls="*res://Controls/CameraControls.tscn"
 
 [debug]
