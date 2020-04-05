@@ -1,43 +1,52 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/MapLogic.cs" type="Script" id=1]
-[ext_resource path="res://ArtAssets/Maps/debugMap1.png" type="Texture" id=2]
-[ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Characters/MonsterGiantBug.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=5]
-
+[ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Characters/MonsterGiantBug.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ArtAssets/Maps/debugMap1.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 500 )
+
+[sub_resource type="NavigationPolygon" id=2]
+vertices = PoolVector2Array( 875.947, -177.765, 1008.41, -222.569, 1022.05, 342.355, 891.532, 348.199, 801.923, 313.135, 667.51, -169.973, 638.29, 317.031, -814.929, 309.239, -908.433, 318.979, -998.042, 260.538, -1000.25, -498.121, 145.186, -513.706, -699.996, 274.174, -618.179, 281.966, -287.017, 283.914, -438.962, 338.459, 195.834, -374.89, -86.3715, 297.551, 266.219, -228.413, -25.9831, 303.395, 135.702, 276.122, 217.519, 276.122, 301.283, -224.517, 538.941, -216.725, 459.072, 352.095, 365.568, -249.841 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 0, 4, 6 ), PoolIntArray( 7, 8, 9, 10, 11, 12 ), PoolIntArray( 13, 12, 11 ), PoolIntArray( 14, 15, 13, 11, 16 ), PoolIntArray( 17, 14, 16, 18 ), PoolIntArray( 19, 17, 18, 20 ), PoolIntArray( 21, 20, 18, 22 ), PoolIntArray( 23, 5, 6, 24, 21, 22, 25 ) ]
+outlines = [ PoolVector2Array( -998.042, 260.538, -908.433, 318.979, -814.929, 309.239, -699.996, 274.174, -618.179, 281.966, -438.962, 338.459, -287.017, 283.914, -86.3715, 297.551, -25.9831, 303.395, 135.702, 276.122, 217.519, 276.122, 459.072, 352.095, 638.29, 317.031, 801.923, 313.135, 891.532, 348.199, 1022.05, 342.355, 1008.41, -222.569, 875.947, -177.765, 667.51, -169.973, 538.941, -216.725, 365.568, -249.841, 301.283, -224.517, 266.219, -228.413, 195.834, -374.89, 145.186, -513.706, -1000.25, -498.121 ) ]
 
 [node name="Map" type="Area2D"]
 z_index = -100
 script = ExtResource( 1 )
 
 [node name="MapCollider" type="CollisionShape2D" parent="."]
-visible = false
+position = Vector2( 800, 200 )
 shape = SubResource( 1 )
 
-[node name="Background" type="Sprite" parent="."]
-visible = false
-z_index = -2000
-texture = ExtResource( 2 )
-
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 87.147, 287.29 )
-WalkSpeed = 88.0
 
-[node name="GiantBug" parent="." instance=ExtResource( 4 )]
+[node name="GiantBug" parent="." instance=ExtResource( 3 )]
 position = Vector2( 398.989, 279.215 )
 Faction = 2
 
-[node name="GiantBug2" parent="." instance=ExtResource( 4 )]
+[node name="GiantBug2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 641.75, 388.695 )
 Faction = 2
 
-[node name="DebugTopPrinter" parent="." instance=ExtResource( 5 )]
+[node name="DebugTopPrinter" parent="." instance=ExtResource( 4 )]
 margin_left = 118.0
 margin_top = 1.0
 margin_right = 1199.0
 margin_bottom = 80.0
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 802.125, 198.007 )
+z_index = -200
+texture = ExtResource( 5 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+position = Vector2( 802.125, 198.007 )
+navpoly = SubResource( 2 )
 [connection signal="input_event" from="." to="." method="MouseClick"]

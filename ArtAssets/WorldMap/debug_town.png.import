@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/debug_playerToken.png-c4cde193d333c8739c10ad5a6fb6972d.stex"
+path="res://.import/debug_town.png-47b8ca6cae419f60a3faa627ea7cc61f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtAssets/debug_playerToken.png"
-dest_files=[ "res://.import/debug_playerToken.png-c4cde193d333c8739c10ad5a6fb6972d.stex" ]
+source_file="res://ArtAssets/WorldMap/debug_town.png"
+dest_files=[ "res://.import/debug_town.png-47b8ca6cae419f60a3faa627ea7cc61f.stex" ]
 
 [params]
 

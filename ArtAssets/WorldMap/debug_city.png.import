@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/debug_town.png-2cd664c46220bd2cb398fbbb50a660a9.stex"
+path="res://.import/debug_city.png-5ba647d110bd1b9d0ba28fc8f3ff1833.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtAssets/debug_town.png"
-dest_files=[ "res://.import/debug_town.png-2cd664c46220bd2cb398fbbb50a660a9.stex" ]
+source_file="res://ArtAssets/WorldMap/debug_city.png"
+dest_files=[ "res://.import/debug_city.png-5ba647d110bd1b9d0ba28fc8f3ff1833.stex" ]
 
 [params]
 

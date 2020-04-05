@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/debug_worldMap.jpg-aa6ae9911e808463d195e40de70704d8.stex"
+path="res://.import/debug_playerToken.png-fb48d6f145bb935fd041740b84c44e41.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtAssets/debug_worldMap.jpg"
-dest_files=[ "res://.import/debug_worldMap.jpg-aa6ae9911e808463d195e40de70704d8.stex" ]
+source_file="res://ArtAssets/WorldMap/debug_playerToken.png"
+dest_files=[ "res://.import/debug_playerToken.png-fb48d6f145bb935fd041740b84c44e41.stex" ]
 
 [params]
 

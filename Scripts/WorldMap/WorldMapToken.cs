@@ -5,7 +5,9 @@ public class WorldMapToken : KinematicBody2D
 {
     [Export] public float TravelSpeed { get; set; } = 16f;
     [Export] public float TargetTolerance { get; set; }
-    public Vector2 TargetLocation { get; protected set; }
+    public Vector2[] TargetLocation { get; protected set; }
+    private int targetLocationCounter = -1;
+
     public bool HasTarget { get; set; } = false;
     [Export] public bool IsPlayer { get; set; }
 
@@ -15,21 +17,31 @@ public class WorldMapToken : KinematicBody2D
             MoveTowardsLocation();
     }
 
-    public void SetTarget(Vector2 location)
+    public void SetTarget(Vector2[] targets)
     {
-        TargetLocation = location;
-        HasTarget = true;
+        if (targets.Length > 0)
+        {
+            TargetLocation = targets;
+            targetLocationCounter = 0;
+            HasTarget = true;
+        }
     }
 
     private void MoveTowardsLocation()
     {
-        if ((TargetLocation - Position).Length() > TargetTolerance)
+        if (targetLocationCounter < TargetLocation.Length)
         {
-            Vector2 velocity = (TargetLocation - Position).Normalized() * TravelSpeed;
-            MoveAndSlide(velocity);
+            if ((TargetLocation[targetLocationCounter] - Position).Length() > TargetTolerance)
+            {
+                Vector2 velocity = (TargetLocation[targetLocationCounter] - Position).Normalized() * TravelSpeed;
+                MoveAndSlide(velocity);
+            }
+            else
+                targetLocationCounter++;
         }
         else
         {
+            targetLocationCounter = -1;
             HasTarget = false;
         }
     }
