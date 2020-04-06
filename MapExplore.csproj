@@ -49,6 +49,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\Components\EnemyBehaviour.cs" />
     <Compile Include="Scripts\Data\ClickInfo.cs" />
     <Compile Include="Scripts\Data\PartyMemberIcon.cs" />
     <Compile Include="Scripts\DebugHelpers\TopPrinter.cs" />

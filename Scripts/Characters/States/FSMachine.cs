@@ -18,9 +18,9 @@ public class FSMachine : Node
 
     public override void _Ready()
     {
-        _owner = GetParent<Character>();
-        _stats = (Statblock)_owner.GetNode("Statblock");
-        Animator = (CharacterAnimator)_owner.GetNode("AnimatedSprite");
+        _owner = (Character)Owner;
+        _stats = (Statblock)Owner.GetNode("Statblock");
+        Animator = (CharacterAnimator)Owner.GetNode("AnimatedSprite");
 
         foreach (var n in this.GetChildren())
         {
@@ -168,7 +168,7 @@ public class FSMachine : Node
 
     public void Transition(CharState newState)
     {
-        if (States[newState] != null)
+        if (States.ContainsKey(newState))
         {
             Previous.OnFinish();
             States[newState].OnStart();

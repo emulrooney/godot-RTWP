@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/Characters/MonsterCharacter.cs" type="Script" id=1]
 [ext_resource path="res://ArtAssets/GUI/selectedTarget.png" type="Texture" id=2]
@@ -7,9 +7,12 @@
 [ext_resource path="res://ArtAssets/Characters/Monsters/GiantBug/idle (2).png" type="Texture" id=5]
 [ext_resource path="res://ArtAssets/Characters/Monsters/GiantBug/idle (3).png" type="Texture" id=6]
 [ext_resource path="res://ArtAssets/Characters/Monsters/GiantBug/idle (4).png" type="Texture" id=7]
-[ext_resource path="res://ArtAssets/Characters/Monsters/GiantBug/attack.png" type="Texture" id=8]
-[ext_resource path="res://ArtAssets/Characters/Monsters/GiantBug/hit.png" type="Texture" id=9]
-[ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=10]
+[ext_resource path="res://ArtAssets/Characters/Monsters/GiantBug/hit.png" type="Texture" id=8]
+[ext_resource path="res://ArtAssets/Characters/Monsters/GiantBug/attack.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/Characters/CharacterAnimator.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=11]
+[ext_resource path="res://Characters/Components/EnemyBehaviour.cs" type="Script" id=12]
+[ext_resource path="res://Characters/Components/BasicEnemyFSM.tscn" type="PackedScene" id=13]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 150.0
@@ -23,12 +26,12 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "attack",
+"name": "hit",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "hit",
+"name": "attack",
 "speed": 5.0
 } ]
 
@@ -41,8 +44,11 @@ height = 18.0
 
 [node name="GiantBug" type="KinematicBody2D"]
 script = ExtResource( 1 )
+CharacterName = "Giant Bug"
+Faction = 2
 
 [node name="AggroRange" type="Area2D" parent="."]
+editor/display_folded = true
 input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
@@ -60,21 +66,33 @@ script = ExtResource( 3 )
 position = Vector2( 0, -3.24217 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
+script = ExtResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
 
 [node name="Statblock" type="Node" parent="."]
-script = ExtResource( 10 )
-CurrentHP = 20
-MaxHP = 20
+script = ExtResource( 11 )
+CurrentHP = 14
+MaxHP = 14
+MoveSpeed = 66.0
+BaseAccuracy = 16
+BaseDamage = 9
+BaseDefense = 6
 
 [node name="ClickableArea" type="Area2D" parent="."]
+editor/display_folded = true
 z_index = 100
 priority = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
 shape = SubResource( 4 )
-[connection signal="body_entered" from="AggroRange" to="." method="CharacterEnteredAggro"]
+
+[node name="MinEnemyBehaviour" type="Node" parent="."]
+script = ExtResource( 12 )
+
+[node name="FSMachine" parent="." instance=ExtResource( 13 )]
+[connection signal="body_entered" from="AggroRange" to="MinEnemyBehaviour" method="CharacterEnteredAggro"]
+[connection signal="body_exited" from="AggroRange" to="MinEnemyBehaviour" method="CharacterExitedAggro"]

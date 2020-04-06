@@ -29,18 +29,16 @@ position = Vector2( 87.147, 287.29 )
 
 [node name="GiantBug" parent="." instance=ExtResource( 3 )]
 position = Vector2( 253.449, 203.047 )
-Faction = 2
 patrolPoints = PoolVector2Array( 200, 200, 400, 200 )
 
 [node name="GiantBug2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 494.162, 248.05 )
-Faction = 2
 
 [node name="DebugTopPrinter" parent="." instance=ExtResource( 4 )]
-margin_left = 133.0
-margin_top = 25.0
-margin_right = 1333.0
-margin_bottom = 109.0
+margin_left = -884.073
+margin_top = -185.652
+margin_right = 315.927
+margin_bottom = -101.652
 
 [node name="Player2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 134.451, 367.757 )

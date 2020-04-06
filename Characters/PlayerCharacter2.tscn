@@ -10,18 +10,18 @@
 [ext_resource path="res://ArtAssets/Characters/debugPlayer2/idle (2).png" type="Texture" id=8]
 [ext_resource path="res://ArtAssets/Characters/debugPlayer2/idle (3).png" type="Texture" id=9]
 [ext_resource path="res://ArtAssets/Characters/debugPlayer2/idle (4).png" type="Texture" id=10]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (1).png" type="Texture" id=11]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (2).png" type="Texture" id=12]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (3).png" type="Texture" id=13]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (4).png" type="Texture" id=14]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (5).png" type="Texture" id=15]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (6).png" type="Texture" id=16]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (1).png" type="Texture" id=17]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (2).png" type="Texture" id=18]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (3).png" type="Texture" id=19]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (4).png" type="Texture" id=20]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (5).png" type="Texture" id=21]
-[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (6).png" type="Texture" id=22]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (1).png" type="Texture" id=11]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (2).png" type="Texture" id=12]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (3).png" type="Texture" id=13]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (4).png" type="Texture" id=14]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (5).png" type="Texture" id=15]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack1 (6).png" type="Texture" id=16]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (1).png" type="Texture" id=17]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (2).png" type="Texture" id=18]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (3).png" type="Texture" id=19]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (4).png" type="Texture" id=20]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (5).png" type="Texture" id=21]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/attack2 (6).png" type="Texture" id=22]
 [ext_resource path="res://ArtAssets/Characters/debugPlayer2/attackApproach (1).png" type="Texture" id=23]
 [ext_resource path="res://ArtAssets/Characters/debugPlayer2/attackApproach (2).png" type="Texture" id=24]
 [ext_resource path="res://ArtAssets/Characters/debugPlayer2/attackApproach (3).png" type="Texture" id=25]
@@ -52,12 +52,12 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
 "loop": false,
-"name": "attack2",
+"name": "attack1",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ) ],
 "loop": false,
-"name": "attack1",
+"name": "attack2",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
@@ -90,6 +90,7 @@ PortraitColor = Color( 0.0745098, 0.372549, 0.501961, 1 )
 script = ExtResource( 3 )
 CurrentHP = 100
 MaxHP = 100
+MoveSpeed = 400.0
 BaseAccuracy = 20
 BaseDamage = 10
 BaseDefense = 10
@@ -119,7 +120,7 @@ script = ExtResource( 6 )
 position = Vector2( 7.56506, -8.64579 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 3
+frame = 1
 playing = true
 script = ExtResource( 35 )
 FlipOffset = Vector2( -16, 0 )

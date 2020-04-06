@@ -28,8 +28,8 @@ public class MonsterCharacter : Character, IMapClickable
 
     public override void _Process(float delta)
     {
-        if (patrolPoints.Length > 0 && PatrolCounter >= patrolPoints.Length)
-            PatrolCounter = 0;
+        //if (patrolPoints.Length > 0 && PatrolCounter >= patrolPoints.Length)
+        //    PatrolCounter = 0;
 
         //if (Path.Count == 0 && patrolPoints.Length > 0)
         //{
@@ -43,20 +43,6 @@ public class MonsterCharacter : Character, IMapClickable
     {
         //TODO Use location to determine which side of enemy to stand on (if needed)
         MapCharacterManager.EnemyClicked(this);
-    }
-
-    private void CharacterEnteredAggro(object body)
-    {
-        //Signal from Aggro node
-        try
-        {
-            var character = (Character)body;
-            //SetAttackTarget(character);
-        }
-        catch (Exception e) 
-        {
-            GD.Print($"exception: {e}");
-        }
     }
 
 }
