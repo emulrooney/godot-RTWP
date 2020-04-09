@@ -20,7 +20,7 @@ public class FSMachine : Node
 	{
 		_owner = (Character)Owner;
 		_stats = (Statblock)Owner.GetNode("Statblock");
-		Animator = (CharacterAnimator)Owner.GetNode("AnimatedSprite");
+		Animator = (CharacterAnimator)Owner.GetNode("Animator");
 
 		foreach (var n in this.GetChildren())
 		{

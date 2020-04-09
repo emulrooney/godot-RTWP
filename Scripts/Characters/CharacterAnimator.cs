@@ -11,6 +11,13 @@ public class CharacterAnimator : AnimatedSprite
 
 	[Export] private Vector2 FlipOffset { get; set; } //When flipping, offset sprite this much
 
+	public Particles2D HitParticles { get; private set; }
+
+	public override void _Ready()
+	{
+		HitParticles = GetNodeOrNull<Particles2D>("OnHit");
+	}
+
 	public void SetFlipHWithOffset(bool flipH)
 	{
 
@@ -20,6 +27,12 @@ public class CharacterAnimator : AnimatedSprite
 			Offset = new Vector2(Offset.x - FlipOffset.x, Offset.y);
 		
 		FlipH = flipH;
+	}
+
+	public void OnHit()
+	{
+		if (HitParticles != null)
+			HitParticles.Emitting = true;
 	}
 
 }

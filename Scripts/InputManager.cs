@@ -56,16 +56,6 @@ public class InputManager : Node2D
 			IMapClickable clickTarget;
 
 			clickTarget = GetMostClickable(collisions);
-
-			if (clickTarget == null)
-			{
-				TopPrinter.Two = "NULL";
-			}
-			else
-			{
-				TopPrinter.Two = $"{clickTarget}";
-			}
-
 			clickInfo.ButtonNumber = 1;
 			clickInfo.ModifyHeld = (Input.IsActionPressed("modify"));
 
@@ -75,12 +65,6 @@ public class InputManager : Node2D
 		} else if (Input.IsActionJustReleased("left_click") && isMouseDragging)
 			isMouseDragging = false;
 
-	}
-
-	public override void _Process(float delta)
-	{
-		//Debug only, remove later
-		TopPrinter.One = $"mousePressOrigin: {mousePressOrigin} | isMouseDragging: {isMouseDragging}";
 	}
 
 	/// <summary>

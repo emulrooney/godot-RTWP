@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public abstract class Character : KinematicBody2D
 {
-
     [Export] public string CharacterName { get; set; }
 
     //MOVEMENT
@@ -15,13 +14,17 @@ public abstract class Character : KinematicBody2D
     public Character AttackTarget { get; set; }
 
     protected Statblock stats;
+
+    private CharacterAnimator Animator { get; set; }
     private RegularAttack RegularAttack { get; set; }
 
     public override void _Ready()
     {
         MapCharacterManager.RegisterPresent(this);
-        RegularAttack = (RegularAttack)GetNodeOrNull("RegularAttack");
-        stats = (Statblock)GetNode("Statblock");
+        RegularAttack = GetNodeOrNull<RegularAttack>("RegularAttack");
+        Animator = GetNodeOrNull<CharacterAnimator>("Animator");
+
+        stats = GetNode<Statblock>("Statblock"); //No statblock, no bueno
     }
 
     public bool CanAttackTarget(Character target)
@@ -51,8 +54,6 @@ public abstract class Character : KinematicBody2D
         }
 
         QueuedMoves.Enqueue(location);
-
-        TopPrinter.Four = $"Path target: {QueuedMoves.Peek()[0]}";
     }
 
     public void Attack(Character target)
@@ -67,13 +68,15 @@ public abstract class Character : KinematicBody2D
 
     public void ReceiveAttack(int hitRoll, int damage, int damageType = 0)
     {
-        GD.Print($"{this.Name} -- I was hit!");
-
         int defenseRoll = 0; // stats.DefenseRoll;
         int result = hitRoll - defenseRoll;
 
         if (result > 50)
-            stats.CurrentHP -= damage; 
+        {
+            //Hit!
+            stats.CurrentHP -= damage;
+            Animator.OnHit();
+        }
 
         if (stats.CurrentHP <= 0)
         {

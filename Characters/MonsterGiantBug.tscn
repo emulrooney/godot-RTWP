@@ -62,18 +62,20 @@ z_index = -1000
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Animator" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -3.24217 )
 frames = SubResource( 2 )
 animation = "idle"
+frame = 2
 playing = true
 script = ExtResource( 10 )
 
-[node name="OnHit" parent="AnimatedSprite" instance=ExtResource( 11 )]
-visible = false
+[node name="OnHit" parent="Animator" instance=ExtResource( 11 )]
 modulate = Color( 0.454902, 0.92549, 0.376471, 1 )
 position = Vector2( -1.42162, 2.11835 )
-lifetime = 2.0
+amount = 4
+lifetime = 0.25
+speed_scale = 0.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
