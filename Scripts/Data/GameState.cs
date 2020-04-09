@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 public enum GameState
 {
-    GAMEPLAY,
+    WORLD_MAP,      
+    ZONE_MAP,    
     MENU
 }

@@ -67,6 +67,13 @@ public class GUIManager : CanvasLayer
             characterQueue.Enqueue(pc);
     }
 
+    public static void WipePartyElements()
+    {
+        GD.Print("Wiping all player elements!");
+
+        //Party Icons
+        _partyIcons.WipeAllPortraits();
+    }
 
 
     /* CHARACTER PORTRAITS */

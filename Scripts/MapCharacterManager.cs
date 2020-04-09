@@ -38,11 +38,31 @@ public class MapCharacterManager : Node2D
 			_mcm.PlayerCharacters.Add((PlayerCharacter)registrant);
 		else if (registrant is MonsterCharacter)
 			_mcm.MonsterCharacters.Add((MonsterCharacter)registrant);
+    }
+	
+	public static void ResetAll()
+	{
+		ResetPresent();
+		ResetMonsters();
+		ResetPlayers();
+
+        TopPrinter.One = "Present Count: " + _mcm.PresentCharacters.Count;
 	}
 
 	public static void ResetPresent()
 	{
-		_mcm.PresentCharacters = new List<Character>();
+		_mcm.PresentCharacters.Clear();
+	}
+
+	public static void ResetPlayers()
+	{
+		_mcm.PlayerCharacters.Clear();
+		_mcm.Selected.Clear();
+	}
+
+	public static void ResetMonsters()
+	{
+		_mcm.MonsterCharacters.Clear();
 	}
 
 	public static void UnregisterPresent(Character character)
@@ -133,6 +153,16 @@ public class MapCharacterManager : Node2D
 	}
 
 	
+	/* GET INFORMATION */
+
+	/// <summary>
+	/// Gets the Vector2 position of everyone in the party.
+	/// </summary>
+	/// <returns>Vector2[] of party member co-ords</returns>
+	public static Vector2[] GetPartyPositions()
+	{
+		return _mcm.PlayerCharacters.Select(pc => pc.Position).ToArray();
+	}
 
 	
 	/* VISUALS */
@@ -140,16 +170,10 @@ public class MapCharacterManager : Node2D
 	private void UpdateSelectionCircles()
 	{
 		foreach (Character c in PlayerCharacters)
-			SetSelectionCircle(c, false);
+			c.SetSelectionCircle(false);
 
 		foreach (Character s in Selected)
-			SetSelectionCircle(s, true);
-	}
-
-	private void SetSelectionCircle(Character character, bool visibility)
-	{
-		var circle = (SelectionCircle)character.GetNode("SelectionCircle");
-		circle.Visible = visibility;
+			s.SetSelectionCircle(true);
 	}
 
 	/* INPUT MANAGEMENT */

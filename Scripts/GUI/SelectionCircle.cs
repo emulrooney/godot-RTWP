@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class SelectionCircle : Sprite
 {
+    Character _owner;
+
     private static Dictionary<CharFaction, Color> colors = new Dictionary<CharFaction, Color>()
     {
         { CharFaction.ALLY, new Color(0.3f, 0.8f, 1f) },
@@ -12,8 +14,8 @@ public class SelectionCircle : Sprite
 
     public override void _Ready()
     {
-        var parent = (Character)GetParent();
-        Modulate = (colors[parent.Faction]);
+        _owner = (Character)Owner;
+        Modulate = (colors[_owner.Faction]);
     }
 
 }

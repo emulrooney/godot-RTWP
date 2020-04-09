@@ -8,13 +8,21 @@ public class PartyMemberIcon : ReferenceRect
     public Label healthDisplay;
     public Color Color { get; set; }
 
-    private Color deathColor = new Color(0.3f, 0.3f, 0.3f);
+    private static Color deathColor = new Color(0.3f, 0.3f, 0.3f);
 
     public override void _Ready()
     {
         Portrait = (TextureRect)GetNode("Portrait");
         healthDisplay = (Label)GetNode("HealthDisplay");
         IsUsed = false;
+    }
+
+    public void Reset()
+    {
+        IsUsed = false;
+        SetHealth(-1, -1);
+        SetPortrait(null, new Color());
+        Color = new Color();
     }
 
     public void Highlight(bool isSelected)
@@ -32,16 +40,16 @@ public class PartyMemberIcon : ReferenceRect
         Portrait.Modulate = this.Color;
     }
 
-    public void SetHealth(int current, int max = -1)
+    public void SetHealth(int current, int max)
     {
-        if (max > -1)
-            healthDisplay.Text = $"{current}/{max}";
-        else
-            healthDisplay.Text = $"{ current }/{healthDisplay.Text.Split('/')[1]}";
+        GD.Print("health set to " + current + " / " + max);
 
+        healthDisplay.Text = $"{current}/{max}";
+        
         if (current <= 0)
         {
             //TODO Should dead characters have a death portrait?
+            healthDisplay.Text = "";
             this.Color = deathColor;
         }
     }

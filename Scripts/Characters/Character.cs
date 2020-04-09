@@ -84,6 +84,11 @@ public abstract class Character : KinematicBody2D
         }
     }
 
+    public void SetSelectionCircle(bool visibility)
+    {
+        Animator.SetSelectionCircleOn(visibility);
+    }
+
     private void Die()
     {
         MapCharacterManager.UnregisterPresent(this);

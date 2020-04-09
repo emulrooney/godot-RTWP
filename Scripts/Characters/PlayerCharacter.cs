@@ -14,6 +14,7 @@ public class PlayerCharacter : Character, IMapClickable
 		GUIManager.RegisterPlayerCharacter(this);
 
 		weapon = (RegularAttack)GetNodeOrNull("EquippedWeapon");
+		SetSelectionCircle(false);
 	}
 
 	public void ClickAction(ClickInfo info, Vector2 location)

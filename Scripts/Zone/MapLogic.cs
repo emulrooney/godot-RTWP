@@ -8,6 +8,7 @@ public class MapLogic : Area2D, IMapClickable
 	public override void _Ready()
 	{
 		nav = (Navigation2D)GetNodeOrNull("Navigation2D");
+        ZoneLoader.GetCurrentMap();
 	}
 
 	public void ClickAction(ClickInfo info, Vector2 location)

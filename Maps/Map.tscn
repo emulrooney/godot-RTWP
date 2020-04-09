@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/MapLogic.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Zone/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/MonsterGiantBug.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=4]
@@ -8,11 +8,6 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 500 )
-
-[sub_resource type="NavigationPolygon" id=2]
-vertices = PoolVector2Array( 716.17, 127.628, 879.359, 431.218, 716.17, 307.723, 541.955, 422.397, 597.086, 343.007, 146.48, 312.134, 22.2506, 409.9, 34.012, 154.826, 278.06, 114.396, 304.523, 216.573, 543.425, 228.334 )
-polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 2, 1, 3, 4 ), PoolIntArray( 5, 6, 7, 8 ), PoolIntArray( 5, 8, 9 ), PoolIntArray( 3, 5, 9, 10, 4 ), PoolIntArray( 0, 2, 10 ), PoolIntArray( 9, 0, 10 ) ]
-outlines = [ PoolVector2Array( 22.2506, 409.9, 34.012, 154.826, 278.06, 114.396, 304.523, 216.573, 716.17, 127.628, 879.359, 431.218, 541.955, 422.397, 146.48, 312.134 ), PoolVector2Array( 597.086, 343.007, 543.425, 228.334, 716.17, 307.723 ) ]
 
 [node name="Map" type="Area2D"]
 z_index = -100
@@ -42,8 +37,3 @@ margin_bottom = -101.652
 
 [node name="Player2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 134.451, 367.757 )
-
-[node name="Navigation2D" type="Navigation2D" parent="."]
-
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-navpoly = SubResource( 2 )

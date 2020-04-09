@@ -30,14 +30,15 @@ public class PartyIconStrip : VBoxContainer
 		try
 		{
 			Statblock stats = (Statblock)character.GetNode("Statblock");
-			pmi.SetPortrait(character.Portrait, character.PortraitColor);
-			pmi.SetHealth(stats.CurrentHP, stats.MaxHP);
-			pmi.IsUsed = true;
-			pmi.Visible = true;
-		}
-		catch (Exception)
+            pmi.SetPortrait(character.Portrait, character.PortraitColor);
+            pmi.SetHealth(stats.CurrentHP, stats.MaxHP);
+            pmi.IsUsed = true;
+            pmi.Visible = true;
+        }
+		catch (Exception e)
 		{
 			GD.Print($"Couldn't set portrait up for {character.CharacterName} - {character}");
+            GD.Print("Exception: " + e);
 		}
 	}
 
@@ -68,4 +69,10 @@ public class PartyIconStrip : VBoxContainer
 			partyMembers[partyMemberIndex - 1].Highlight(activeStatus);
 		}
 	}
+
+    public void WipeAllPortraits()
+    {
+        foreach (PartyMemberIcon pmi in partyMembers)
+            pmi.Reset();
+    }
 }

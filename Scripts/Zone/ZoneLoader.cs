@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Class to handle loading next map when transitioning btwn maps
@@ -9,6 +10,14 @@ using System;
 public class ZoneLoader : Node
 {
 	public static ZoneLoader _zl;
+	private const int maxPlayerMapTransitionDistance = 256; //players must be near eachother to leave map
+
+	private MapLogic CurrentMap { get; set;}
+
+	public static Dictionary<string, string> zones = new Dictionary<string, string>()
+	{
+		{ "debugMap1", "res://Maps/Map.tscn" }
+	};
 
 	public void _Ready()
 	{
@@ -17,33 +26,69 @@ public class ZoneLoader : Node
 			_zl = this;
 		else
 			QueueFree();
+
+        GetCurrentMap();
 	}
+
+    public static void GetCurrentMap(bool forceGet = false)
+    {
+        if (_zl != null && (forceGet || _zl.CurrentMap == null || _zl.CurrentMap.IsQueuedForDeletion()))
+        {                
+            _zl.CurrentMap = _zl.GetTree().Root.GetNodeOrNull<MapLogic>("Map");
+            _zl.CurrentMap.Name = "CurrentMap";
+            GD.Print($"Map found {_zl.CurrentMap != null}");
+        } 
+        else
+            GD.Print("Already have map. Use 'forceGet' to overwrite");
+    }
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="mapName"></param>
-	public void LoadMap(string mapName)
+	public bool LoadMap(string mapKey, Vector2? triggeredFrom = null)
 	{
-		//Test all party members in range of area transition
-			//If no, give notice and wait
-			//else continue
+		//Check distance is OK for all characters
+		if (triggeredFrom != null)
+		{
+			var partyPositions = MapCharacterManager.GetPartyPositions();
+			foreach (Vector2 pcp in partyPositions)
+				if (pcp.Dot((Vector2)triggeredFrom) > maxPlayerMapTransitionDistance)
+					return false;
+		}                
 
 		//Test map can actually be found and loaded
-			//If no, throw error
-			//else, continue
+		if (!(zones.ContainsKey(mapKey) && ResourceLoader.Exists(zones[mapKey])))
+			return false;
 
-		//Wipe party icons and any other GUI elements
-		//Have MCM wipe all lists as needed
-			//We'll need another class to persist characters and recreate on the next map
+
+		GUIManager.WipePartyElements();
+		MapCharacterManager.ResetAll();
+		//We'll need another class to persist characters and recreate on the next map
 
 		//Run a screen transition and wipe the current map
 
 		//Reload the new map
 
 		//Setup MCM, Party Icons as needed
+		var loaded = ResourceLoader.Load(zones[mapKey]) as PackedScene;
+
+		if (CurrentMap != null)
+        {
+			CurrentMap.QueueFree();
+        }
+
+        GetTree().ChangeSceneTo(loaded);
+        //Map will attempt to set itself as current map
+
+        return true;
 	}
 
-
-
+    public override void _UnhandledInput(InputEvent @event)
+    {
+		//debug only
+		//if (Input.IsActionJustPressed("ui_left"))
+		//	GD.Print("Loaded:: " + LoadMap("debugMap1"));		
+	}
+       
 }

@@ -12,7 +12,7 @@
 [ext_resource path="res://Scripts/Characters/CharacterAnimator.cs" type="Script" id=10]
 [ext_resource path="res://SFX/SimpleImpact.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=12]
-[ext_resource path="res://Characters/Components/EnemyBehaviour.cs" type="Script" id=13]
+[ext_resource path="res://Scripts/Characters/Behaviours/EnemyBehaviour.cs" type="Script" id=13]
 [ext_resource path="res://Characters/Components/BasicEnemyFSM.tscn" type="PackedScene" id=14]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -54,19 +54,11 @@ input_pickable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
 shape = SubResource( 1 )
 
-[node name="SelectionCircle" type="Sprite" parent="."]
-modulate = Color( 1, 0.952941, 0.952941, 1 )
-position = Vector2( 0, 18 )
-scale = Vector2( 0.3, 0.2 )
-z_index = -1000
-texture = ExtResource( 2 )
-script = ExtResource( 3 )
-
 [node name="Animator" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -3.24217 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 2
+frame = 3
 playing = true
 script = ExtResource( 10 )
 
@@ -76,6 +68,14 @@ position = Vector2( -1.42162, 2.11835 )
 amount = 4
 lifetime = 0.25
 speed_scale = 0.25
+
+[node name="SelectionCircle" type="Sprite" parent="Animator"]
+modulate = Color( 1, 0.952941, 0.952941, 1 )
+position = Vector2( 0, 21.2422 )
+scale = Vector2( 0.3, 0.2 )
+z_index = -1000
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )

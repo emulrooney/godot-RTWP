@@ -13,9 +13,12 @@ public class CharacterAnimator : AnimatedSprite
 
 	public Particles2D HitParticles { get; private set; }
 
+    public SelectionCircle SelectionCircle { get; private set; }
+
 	public override void _Ready()
 	{
 		HitParticles = GetNodeOrNull<Particles2D>("OnHit");
+        SelectionCircle = GetNodeOrNull<SelectionCircle>("SelectionCircle");
 	}
 
 	public void SetFlipHWithOffset(bool flipH)
@@ -34,5 +37,11 @@ public class CharacterAnimator : AnimatedSprite
 		if (HitParticles != null)
 			HitParticles.Emitting = true;
 	}
+
+    public void SetSelectionCircleOn(bool visibility)
+    {
+        if (SelectionCircle != null && !SelectionCircle.IsQueuedForDeletion() )
+            SelectionCircle.Visible = visibility;
+    }
 
 }
