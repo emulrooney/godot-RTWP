@@ -16,7 +16,7 @@ public class MapLoader : Node
 
 	public static Dictionary<string, string> zones = new Dictionary<string, string>()
 	{
-        { "WORLDMAP", "res://WorldMap/WorldMap.tscn" },
+		{ "WORLDMAP", "res://WorldMap/WorldMap.tscn" },
 		{ "debugMap1", "res://Maps/Map.tscn" }
 	};
 
@@ -24,24 +24,24 @@ public class MapLoader : Node
 	{
 		//Singleton
 		if (_ml == null)
-        {
+		{
 			_ml = this;
-        }
+		}
 		else
 			QueueFree();
 	}
 
-    public static void GetCurrentMap(bool forceGet = false)
-    {
-        if (_ml != null && (forceGet || _ml.CurrentMap == null || _ml.CurrentMap.IsQueuedForDeletion()))
-        {                
-            _ml.CurrentMap = _ml.GetTree().Root.GetNodeOrNull<MapLogic>("Map");
-            _ml.CurrentMap.Name = "CurrentMap";
-            GD.Print($"Map found {_ml.CurrentMap != null}");
-        } 
-        else
-            GD.Print("Already have map. Use 'forceGet' to overwrite");
-    }
+	public static void GetCurrentMap(bool forceGet = false)
+	{
+		if (_ml != null && (forceGet || _ml.CurrentMap == null || _ml.CurrentMap.IsQueuedForDeletion()))
+		{                
+			_ml.CurrentMap = _ml.GetTree().Root.GetNodeOrNull<MapLogic>("Map");
+			_ml.CurrentMap.Name = "CurrentMap";
+			GD.Print($"Map found {_ml.CurrentMap != null}");
+		} 
+		else
+			GD.Print("Already have map. Use 'forceGet' to overwrite");
+	}
 
 	/// <summary>
 	/// 
@@ -52,7 +52,7 @@ public class MapLoader : Node
 		//Check distance is OK for all characters
 		if (triggeredFrom != null)
 		{
-			var partyPositions = MapCharacterManager.GetPartyPositions();
+			var partyPositions = LocalCharacterManager.GetPartyPositions();
 			foreach (Vector2 pcp in partyPositions)
 				if (pcp.Dot((Vector2)triggeredFrom) > maxPlayerMapTransitionDistance)
 					return false;
@@ -64,7 +64,7 @@ public class MapLoader : Node
 
 
 		GUIManager.WipePartyElements();
-		MapCharacterManager.ResetAll();
+		LocalCharacterManager.ResetAll();
 		//We'll need another class to persist characters and recreate on the next map
 
 		//Run a screen transition and wipe the current map
@@ -75,21 +75,21 @@ public class MapLoader : Node
 		var loaded = ResourceLoader.Load(zones[mapKey]) as PackedScene;
 
 		if (_ml.CurrentMap != null)
-        {
-            _ml.CurrentMap.QueueFree();
-        }
+		{
+			_ml.CurrentMap.QueueFree();
+		}
 
-        _ml.GetTree().ChangeSceneTo(loaded);
-        //Map will attempt to set itself as current map
+		_ml.GetTree().ChangeSceneTo(loaded);
+		//Map will attempt to set itself as current map
 
-        return true;
+		return true;
 	}
 
-    public override void _UnhandledInput(InputEvent @event)
-    {
+	public override void _UnhandledInput(InputEvent @event)
+	{
 		//debug only
 		//if (Input.IsActionJustPressed("ui_left"))
 		//	GD.Print("Loaded:: " + LoadMap("debugMap1"));		
 	}
-       
+	   
 }
