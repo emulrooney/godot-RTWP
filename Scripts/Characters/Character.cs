@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public abstract class Character : KinematicBody2D
 {
     [Export] public string CharacterName { get; set; }
+    [Export] public bool IsDead { get; protected set; }
 
     //MOVEMENT
     public static float TargetTolerance { get; set; } = 3f;
@@ -13,7 +14,7 @@ public abstract class Character : KinematicBody2D
     public Queue<Vector2[]> QueuedMoves { get; set; } = new Queue<Vector2[]>();
     public Character AttackTarget { get; set; }
 
-    protected Statblock stats;
+    public Statblock Stats { get; private set; }
 
     private CharacterAnimator Animator { get; set; }
     private RegularAttack RegularAttack { get; set; }
@@ -24,12 +25,12 @@ public abstract class Character : KinematicBody2D
         RegularAttack = GetNodeOrNull<RegularAttack>("RegularAttack");
         Animator = GetNodeOrNull<CharacterAnimator>("Animator");
 
-        stats = GetNode<Statblock>("Statblock"); //No statblock, no bueno
+        Stats = GetNode<Statblock>("Statblock"); //No statblock, no bueno
     }
 
     public bool CanAttackTarget(Character target)
     {
-        if (RegularAttack != null)
+        if (!target.IsDead && RegularAttack != null)
             return RegularAttack.CanAttack(target);
 
         return false;
@@ -58,29 +59,37 @@ public abstract class Character : KinematicBody2D
 
     public void Attack(Character target)
     {
-        var roll = stats.AccuracyRoll;
-        var damage = stats.BaseDamage + RegularAttack.Attack();
+        if (target.IsDead)
+        {
+            AttackTarget = null;
+            return;
+        }
+
+
+        var roll = Stats.AccuracyRoll;
+        var damage = Stats.BaseDamage + RegularAttack.Attack();
 
         target.ReceiveAttack(roll, damage);
         GD.Print($"{this.Name} attacked {target.Name} : Acc {roll}, Damage {damage}");
     }
 
 
-    public void ReceiveAttack(int hitRoll, int damage, int damageType = 0)
+    public virtual void ReceiveAttack(int hitRoll, int damage, int damageType = 0)
     {
-        int defenseRoll = 0; // stats.DefenseRoll;
-        int result = hitRoll - defenseRoll;
-
-        if (result > 50)
+        if (!IsDead)
         {
-            //Hit!
-            stats.CurrentHP -= damage;
-            Animator.OnHit();
-        }
+            int defenseRoll = 0; // stats.DefenseRoll;
+            int result = hitRoll - defenseRoll;
 
-        if (stats.CurrentHP <= 0)
-        {
-            Die();
+            if (result > 50)
+            {
+                //Hit!
+                Stats.CurrentHP -= damage;
+                Animator.OnHit();
+            }
+
+            if (Stats.CurrentHP <= 0)
+                Die();
         }
     }
 
@@ -89,9 +98,9 @@ public abstract class Character : KinematicBody2D
         Animator.SetSelectionCircleOn(visibility);
     }
 
-    private void Die()
+    protected virtual void Die()
     {
-        MapCharacterManager.UnregisterPresent(this);
+        IsDead = true;
     }
 
 }

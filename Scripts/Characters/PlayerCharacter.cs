@@ -21,6 +21,20 @@ public class PlayerCharacter : Character, IMapClickable
 	{
 		if (info.ButtonNumber == 1)
 			MapCharacterManager.SelectPartyMember(this, !info.ModifyHeld);
+	}
 
+	public override void ReceiveAttack(int hitRoll, int damage, int damageType = 0)
+	{
+		if (!IsDead)
+		{
+			base.ReceiveAttack(hitRoll, damage, damageType);
+			GUIManager.UpdateFor(this);
+		}
+	}
+
+	protected override void Die()
+	{
+		base.Die();
+		GUIManager.UpdateFor(this);
 	}
 }

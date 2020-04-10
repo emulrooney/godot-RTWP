@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Characters/Abilities/RegularAttack.cs" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 36.0
+
+[node name="RegularAttack" type="Area2D"]
+script = ExtResource( 1 )
+MinDamage = 6
+MaxDamage = 10
+AccuracyBonus = 15
+Cooldown = 4.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="body_shape_entered" from="." to="." method="CharacterEntered"]
+[connection signal="body_shape_exited" from="." to="." method="CharacterExited"]
+[connection signal="timeout" from="Timer" to="." method="Ready"]

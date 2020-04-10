@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/Characters/MonsterCharacter.cs" type="Script" id=1]
 [ext_resource path="res://ArtAssets/GUI/selectedTarget.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=12]
 [ext_resource path="res://Scripts/Characters/Behaviours/EnemyBehaviour.cs" type="Script" id=13]
 [ext_resource path="res://Characters/Components/BasicEnemyFSM.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Characters/Components/RegularAttack.tscn" type="PackedScene" id=15]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 150.0
@@ -25,14 +26,14 @@ animations = [ {
 "name": "idle",
 "speed": 12.0
 }, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "attack",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "hit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "attack1",
 "speed": 5.0
 } ]
 
@@ -57,10 +58,10 @@ shape = SubResource( 1 )
 [node name="Animator" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -3.24217 )
 frames = SubResource( 2 )
-animation = "idle"
-frame = 1
+animation = "attack1"
 playing = true
 script = ExtResource( 10 )
+HitFlashColors = PoolColorArray( 1, 0, 0, 1, 0.968627, 1, 0, 1 )
 
 [node name="OnHit" parent="Animator" instance=ExtResource( 11 )]
 modulate = Color( 0.454902, 0.92549, 0.376471, 1 )
@@ -100,5 +101,7 @@ shape = SubResource( 4 )
 script = ExtResource( 13 )
 
 [node name="FSMachine" parent="." instance=ExtResource( 14 )]
+
+[node name="RegularAttack" parent="." instance=ExtResource( 15 )]
 [connection signal="body_entered" from="AggroRange" to="MinEnemyBehaviour" method="CharacterEnteredAggro"]
 [connection signal="body_exited" from="AggroRange" to="MinEnemyBehaviour" method="CharacterExitedAggro"]

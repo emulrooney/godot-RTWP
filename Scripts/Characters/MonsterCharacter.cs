@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class MonsterCharacter : Character, IMapClickable
 {
+	[Export] private bool queueFreeOnDeath = true;
 	[Export] Vector2[] patrolPoints = new Vector2[0];
 	public int PatrolCounter { get; set; } = 0;
 
@@ -38,11 +39,17 @@ public class MonsterCharacter : Character, IMapClickable
 		//}
 	}
 
-
 	public void ClickAction(ClickInfo info, Vector2 location)
 	{
 		//TODO Use location to determine which side of enemy to stand on (if needed)
 		MapCharacterManager.EnemyClicked(this);
+	}
+
+	protected override void Die()
+	{
+		base.Die();
+		if (queueFreeOnDeath)
+			QueueFree();
 	}
 
 }

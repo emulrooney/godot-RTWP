@@ -3,6 +3,8 @@ using System;
 
 public class PartyMemberIcon : ReferenceRect
 {
+    public Character IconFor { get; set; }
+
     public bool IsUsed { get; set; } = false;
     public TextureRect Portrait { get; set; }
     public Label healthDisplay;
@@ -42,15 +44,14 @@ public class PartyMemberIcon : ReferenceRect
 
     public void SetHealth(int current, int max)
     {
-        GD.Print("health set to " + current + " / " + max);
-
         healthDisplay.Text = $"{current}/{max}";
         
         if (current <= 0)
         {
+            GD.Print("dead!");
             //TODO Should dead characters have a death portrait?
             healthDisplay.Text = "";
-            this.Color = deathColor;
+            Portrait.Modulate = deathColor;
         }
     }
 }

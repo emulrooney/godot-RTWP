@@ -75,6 +75,15 @@ public class GUIManager : CanvasLayer
 		_partyIcons.WipeAllPortraits();
 	}
 
+    public static void UpdateFor(PlayerCharacter pc)
+    {
+        //Update all GUI related to this character
+        if (_partyIcons != null)
+        {
+            _partyIcons.UpdateFor(pc);
+
+        }
+    }
 
 	/* CHARACTER PORTRAITS */
 

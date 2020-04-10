@@ -26,7 +26,6 @@ public class ZoneLoader : Node
 		if (_zl == null)
         {
 			_zl = this;
-            GD.Print("set!");
         }
 		else
 			QueueFree();

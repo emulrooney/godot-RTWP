@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class CharacterAnimator : AnimatedSprite
 {
@@ -11,9 +13,12 @@ public class CharacterAnimator : AnimatedSprite
 
 	[Export] private Vector2 FlipOffset { get; set; } //When flipping, offset sprite this much
 
+    [Export] private Color[] HitFlashColors { get; set; }
+
 	public Particles2D HitParticles { get; private set; }
 
     public SelectionCircle SelectionCircle { get; private set; }
+
 
 	public override void _Ready()
 	{
@@ -36,7 +41,26 @@ public class CharacterAnimator : AnimatedSprite
 	{
 		if (HitParticles != null)
 			HitParticles.Emitting = true;
+
+        if (HitFlashColors.Length > 0)
+            FlickerOnHit();
 	}
+
+    private async Task FlickerOnHit()
+    {
+        Color baseColor = SelfModulate;
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (Owner.IsQueuedForDeletion())
+                return;
+
+            SelfModulate = HitFlashColors[i % HitFlashColors.Length];
+            await ToSignal(GetTree(), "idle_frame");
+        }
+
+        SelfModulate = baseColor;
+    }
 
     public void SetSelectionCircleOn(bool visibility)
     {

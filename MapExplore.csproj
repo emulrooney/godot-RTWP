@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scripts\Characters\Behaviours\EnemyBehaviour.cs" />
+    <Compile Include="Scripts\Data\FSMState.cs" />
     <Compile Include="Scripts\Data\ClickInfo.cs" />
     <Compile Include="Scripts\Data\PartyMemberIcon.cs" />
     <Compile Include="Scripts\DebugHelpers\TopPrinter.cs" />

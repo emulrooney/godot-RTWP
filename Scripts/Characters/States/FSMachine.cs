@@ -7,7 +7,7 @@ public class FSMachine : Node
 	Character _owner { get; set; }
 	Statblock _stats { get; set; }
 	CharacterAnimator Animator { get; set; }
-	Dictionary<CharState, CharacterState> States { get; set; } = new Dictionary<CharState, CharacterState>();
+	Dictionary<FSMState, CharacterState> States { get; set; } = new Dictionary<FSMState, CharacterState>();
 
 	CharacterState Current { get; set; }
 	CharacterState Previous { get; set; }
@@ -28,30 +28,40 @@ public class FSMachine : Node
 			States.Add(state.StateType, state);
 		}
 
-		Current = States[CharState.Idle];
-		Previous = States[CharState.Idle];
+		Current = States[FSMState.Idle];
+		Previous = States[FSMState.Idle];
 	}
 
 	public override void _Process(float delta)
 	{
-		
+        if (_owner.CharacterName == "Knifelyn")
+            TopPrinter.Four = "State is " + Current.StateType;
+
+        if (_owner.IsDead)
+        {
+            if (Current.StateType != FSMState.Dead)
+                Transition(FSMState.Dead);
+
+            return;
+        }
+
 		if (_owner.AttackTarget == null) //NON-COMBAT MODE
 		{
 			switch (Current.StateType)
 			{
-				case CharState.Idle:
+				case FSMState.Idle:
 					if (_owner.QueuedMoves.Count > 0)
-						Transition(CharState.Move);
+						Transition(FSMState.Move);
 					break;
-				case CharState.Move:
+				case FSMState.Move:
 					if (_owner.QueuedMoves.Count > 0)
 						MoveTowardsNextLocation();
 					else
-						Transition(CharState.Idle);
+						Transition(FSMState.Idle);
 					break;
-				case CharState.MoveAttack:
+				case FSMState.MoveAttack:
 				default:
-					Transition(CharState.Idle);
+					Transition(FSMState.Idle);
 					break;
 			}
 		}
@@ -59,18 +69,18 @@ public class FSMachine : Node
 		{
 			switch (Current.StateType)
 			{
-				case CharState.Idle:
+				case FSMState.Idle:
 					
 					//If you can attack, attack
 					//If you can't reach them, move attack to them
 					//If you can't attack but you can reach them, stay idle.
 
 					if (_owner.CanAttackTarget(_owner.AttackTarget))
-						Transition(CharState.Attack);
+						Transition(FSMState.Attack);
 					else if (!_owner.CanReachTarget(_owner.AttackTarget))
-						Transition(CharState.MoveAttack);
+						Transition(FSMState.MoveAttack);
 					break;
-				case CharState.MoveAttack:
+				case FSMState.MoveAttack:
 
 					//Check if they're already dead; if so, end combat mode
 					//Check if you're able to attack; if so, attack
@@ -80,27 +90,27 @@ public class FSMachine : Node
 					if (_owner.AttackTarget.IsQueuedForDeletion()) //Stop attacking already dead enemies
 						_owner.AttackTarget = null;
 					else if (_owner.CanAttackTarget(_owner.AttackTarget))
-						Transition(CharState.Attack);
+						Transition(FSMState.Attack);
 					else if (!_owner.CanReachTarget(_owner.AttackTarget))
 						MoveTowards(_owner.AttackTarget.Position);
 					else
-						Transition(CharState.Idle);
+						Transition(FSMState.Idle);
 					break;
-				case CharState.Attack:
+				case FSMState.Attack:
 
 					//If animation is done, attack
 
 					if (((AttackState)Current).Done)
 					{
 						_owner.Attack(_owner.AttackTarget);
-						Transition(CharState.Idle);
+						Transition(FSMState.Idle);
 					}
 					break;
-				case CharState.Move:
+				case FSMState.Move:
 				default:
 					
 					//This covers any case of unexpected states when transitioning to combat mode.
-					Transition(CharState.Idle);
+					Transition(FSMState.Idle);
 					break;
 			}
 
@@ -166,7 +176,7 @@ public class FSMachine : Node
 		MoveTowards(target.Position);
 	}
 
-	public void Transition(CharState newState)
+	public void Transition(FSMState newState)
 	{
 		if (States.ContainsKey(newState))
 		{
@@ -181,12 +191,4 @@ public class FSMachine : Node
 		}
 	}
 
-}
-
-public enum CharState
-{
-	Idle,
-	Move,
-	MoveAttack,
-	Attack
 }

@@ -29,11 +29,11 @@ public class PartyIconStrip : VBoxContainer
 
 		try
 		{
-			Statblock stats = (Statblock)character.GetNode("Statblock");
             pmi.SetPortrait(character.Portrait, character.PortraitColor);
-            pmi.SetHealth(stats.CurrentHP, stats.MaxHP);
+            pmi.SetHealth(character.Stats.CurrentHP, character.Stats.MaxHP);
             pmi.IsUsed = true;
             pmi.Visible = true;
+            pmi.IconFor = character;
         }
 		catch (Exception e)
 		{
@@ -42,7 +42,19 @@ public class PartyIconStrip : VBoxContainer
 		}
 	}
 
-	private int GetFirstFreePortraitIndex()
+    public void UpdateFor(PlayerCharacter character)
+    {
+        for (int i = 0; i < partyMembers.Length; i++)
+        {
+            if (partyMembers[i].IconFor == character)
+            {
+                partyMembers[i].SetHealth(character.Stats.CurrentHP, character.Stats.MaxHP);
+                return;
+            }
+        }
+    }
+
+    private int GetFirstFreePortraitIndex()
 	{
 		for (int i = 0; i < partyMembers.Length; i++)
 			if (!partyMembers[i].IsUsed)
