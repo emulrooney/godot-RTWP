@@ -16,18 +16,20 @@ public class ZoneLoader : Node
 
 	public static Dictionary<string, string> zones = new Dictionary<string, string>()
 	{
+        { "WORLDMAP", "res://WorldMap/WorldMap.tscn" },
 		{ "debugMap1", "res://Maps/Map.tscn" }
 	};
 
-	public void _Ready()
+	public override void _Ready()
 	{
 		//Singleton
 		if (_zl == null)
+        {
 			_zl = this;
+            GD.Print("set!");
+        }
 		else
 			QueueFree();
-
-        GetCurrentMap();
 	}
 
     public static void GetCurrentMap(bool forceGet = false)
@@ -46,7 +48,7 @@ public class ZoneLoader : Node
 	/// 
 	/// </summary>
 	/// <param name="mapName"></param>
-	public bool LoadMap(string mapKey, Vector2? triggeredFrom = null)
+	public static bool LoadMap(string mapKey, Vector2? triggeredFrom = null)
 	{
 		//Check distance is OK for all characters
 		if (triggeredFrom != null)
@@ -73,12 +75,12 @@ public class ZoneLoader : Node
 		//Setup MCM, Party Icons as needed
 		var loaded = ResourceLoader.Load(zones[mapKey]) as PackedScene;
 
-		if (CurrentMap != null)
+		if (_zl.CurrentMap != null)
         {
-			CurrentMap.QueueFree();
+            _zl.CurrentMap.QueueFree();
         }
 
-        GetTree().ChangeSceneTo(loaded);
+        _zl.GetTree().ChangeSceneTo(loaded);
         //Map will attempt to set itself as current map
 
         return true;

@@ -81,6 +81,7 @@
     <Compile Include="Scripts\WorldMap\WorldMapLogic.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapToken.cs" />
     <Compile Include="Scripts\Zone\ZoneLoader.cs" />
+    <Compile Include="Scripts\Zone\ZoneTransition.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

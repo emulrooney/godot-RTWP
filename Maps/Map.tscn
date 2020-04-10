@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Zone/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/MonsterGiantBug.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Characters/PlayerCharacter2.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -28,12 +27,6 @@ patrolPoints = PoolVector2Array( 200, 200, 400, 200 )
 
 [node name="GiantBug2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 494.162, 248.05 )
-
-[node name="DebugTopPrinter" parent="." instance=ExtResource( 4 )]
-margin_left = -884.073
-margin_top = -185.652
-margin_right = 315.927
-margin_bottom = -101.652
 
 [node name="Player2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 134.451, 367.757 )

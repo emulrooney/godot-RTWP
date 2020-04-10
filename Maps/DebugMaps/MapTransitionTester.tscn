@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Characters/PlayerCharacter2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Characters/MonsterGiantBug.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Maps/Features/DebugMapExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Zone/MapLogic.cs" type="Script" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1000, 500 )
+
+[node name="Map" type="Area2D"]
+z_index = -100
+script = ExtResource( 5 )
+
+[node name="MapCollider" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+z_index = -2000
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 87.147, 287.29 )
+
+[node name="GiantBug" parent="." instance=ExtResource( 3 )]
+position = Vector2( 253.449, 203.047 )
+patrolPoints = PoolVector2Array( 200, 200, 400, 200 )
+
+[node name="GiantBug2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 494.162, 248.05 )
+
+[node name="Player2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 134.451, 367.757 )
+
+[node name="Exit to Next Map" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0.392157, 1, 0.0823529, 1 )
+position = Vector2( 520, 150 )
+TransitionTo = "debugMap1"
+
+[node name="Exit to World Map2" parent="." instance=ExtResource( 4 )]
+modulate = Color( 1, 0.513726, 0, 1 )
+position = Vector2( 200, 150 )
+IsWorldMapExit = true
+WorldMapCoordinates = Vector2( 200, 200 )
