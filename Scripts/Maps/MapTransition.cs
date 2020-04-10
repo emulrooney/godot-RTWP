@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class ZoneTransition : Node2D
+public class MapTransition : Node2D
 {
 	[Export] private string TransitionTo { get; set; }
 	[Export] private bool IsWorldMapExit { get; set; }
@@ -20,9 +20,9 @@ public class ZoneTransition : Node2D
 
 		bool success;
 		if (IsWorldMapExit)
-			success = ZoneLoader.LoadMap("WORLDMAP", triggerLocation);
+			success = MapLoader.LoadMap("WORLDMAP", triggerLocation);
 		else
-			success = ZoneLoader.LoadMap(TransitionTo, triggerLocation);
+			success = MapLoader.LoadMap(TransitionTo, triggerLocation);
 
 		if (!success)
 			GD.Print("Couldn't load map!");

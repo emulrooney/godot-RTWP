@@ -2,9 +2,9 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
-public class MapCharacterManager : Node2D
+public class LocalCharacterManager : Node2D
 {
-	public static MapCharacterManager _mcm; //singleton
+	public static LocalCharacterManager _lcm; //singleton
 
 	/* CHARACTER LISTS -- these will populate themselves on load*/
 	//Everyone in the scene
@@ -18,8 +18,8 @@ public class MapCharacterManager : Node2D
 
 	public override void _Ready()
 	{
-		if (_mcm == null)
-			_mcm = this;
+		if (_lcm == null)
+			_lcm = this;
 		else
 			QueueFree();
 	}
@@ -32,12 +32,12 @@ public class MapCharacterManager : Node2D
 	/// <param name="registrant">Any character</param>
 	public static void RegisterPresent(Character registrant)
 	{
-		_mcm.PresentCharacters.Add(registrant);
+		_lcm.PresentCharacters.Add(registrant);
 
 		if (registrant is PlayerCharacter)
-			_mcm.PlayerCharacters.Add((PlayerCharacter)registrant);
+			_lcm.PlayerCharacters.Add((PlayerCharacter)registrant);
 		else if (registrant is MonsterCharacter)
-			_mcm.MonsterCharacters.Add((MonsterCharacter)registrant);
+			_lcm.MonsterCharacters.Add((MonsterCharacter)registrant);
     }
 	
 	public static void ResetAll()
@@ -46,41 +46,41 @@ public class MapCharacterManager : Node2D
 		ResetMonsters();
 		ResetPlayers();
 
-        TopPrinter.One = "Present Count: " + _mcm.PresentCharacters.Count;
+        TopPrinter.One = "Present Count: " + _lcm.PresentCharacters.Count;
 	}
 
 	public static void ResetPresent()
 	{
-		_mcm.PresentCharacters.Clear();
+		_lcm.PresentCharacters.Clear();
 	}
 
 	public static void ResetPlayers()
 	{
-		_mcm.PlayerCharacters.Clear();
-		_mcm.Selected.Clear();
+		_lcm.PlayerCharacters.Clear();
+		_lcm.Selected.Clear();
 	}
 
 	public static void ResetMonsters()
 	{
-		_mcm.MonsterCharacters.Clear();
+		_lcm.MonsterCharacters.Clear();
 	}
 
 	public static void UnregisterPresent(Character character)
 	{
-		foreach (Character c in _mcm.PresentCharacters)
+		foreach (Character c in _lcm.PresentCharacters)
 		{
 			if (c.AttackTarget != null)
 				c.AttackTarget = null;
 		}
 
-		if (_mcm.PresentCharacters.Contains(character))
-			_mcm.PresentCharacters.Remove(character);
+		if (_lcm.PresentCharacters.Contains(character))
+			_lcm.PresentCharacters.Remove(character);
 
-		if (_mcm.Selected.Contains(character))
-			_mcm.Selected.Remove((PlayerCharacter)character);
+		if (_lcm.Selected.Contains(character))
+			_lcm.Selected.Remove((PlayerCharacter)character);
 
-		if (_mcm.PlayerCharacters.Contains(character))
-			_mcm.Selected.Remove((PlayerCharacter)character);
+		if (_lcm.PlayerCharacters.Contains(character))
+			_lcm.Selected.Remove((PlayerCharacter)character);
 
 		character.QueueFree();
 	}
@@ -97,14 +97,14 @@ public class MapCharacterManager : Node2D
 	{
 		if (partyMember == 0)
 		{
-			foreach (PlayerCharacter pc in _mcm.PlayerCharacters)
+			foreach (PlayerCharacter pc in _lcm.PlayerCharacters)
 			{
 				AddPartyMemberToSelected(pc);
 			}
 
-			return _mcm.PlayerCharacters.FirstOrDefault();
+			return _lcm.PlayerCharacters.FirstOrDefault();
 		}
-		else if (_mcm.PlayerCharacters.Count >= partyMember)
+		else if (_lcm.PlayerCharacters.Count >= partyMember)
 		{
 			if (exclusive)
 				DeselectAll();
@@ -117,10 +117,10 @@ public class MapCharacterManager : Node2D
 
 	public static Character AddPartyMemberToSelected(int partyMember)
 	{
-		if (_mcm.PlayerCharacters.Count >= partyMember)
+		if (_lcm.PlayerCharacters.Count >= partyMember)
 		{
-			AddPartyMemberToSelected(_mcm.PlayerCharacters[partyMember - 1]);
-			return _mcm.PlayerCharacters[partyMember - 1];
+			AddPartyMemberToSelected(_lcm.PlayerCharacters[partyMember - 1]);
+			return _lcm.PlayerCharacters[partyMember - 1];
 		}
 
 		return null;
@@ -128,19 +128,19 @@ public class MapCharacterManager : Node2D
 
 	public static void AddPartyMemberToSelected(PlayerCharacter character)
 	{
-		if (!_mcm.Selected.Contains(character))
-			_mcm.Selected.Add(character);
+		if (!_lcm.Selected.Contains(character))
+			_lcm.Selected.Add(character);
 
-		_mcm.UpdateSelectionCircles();
+		_lcm.UpdateSelectionCircles();
 	}
 
 	public static Character DeselectPartyMember(int partyMember)
 	{
-		if (_mcm.PlayerCharacters.Count >= partyMember)
+		if (_lcm.PlayerCharacters.Count >= partyMember)
 		{
-			_mcm.Selected.Remove(_mcm.PlayerCharacters[partyMember - 1]);
-			_mcm.UpdateSelectionCircles();
-			return _mcm.PlayerCharacters[partyMember - 1];
+			_lcm.Selected.Remove(_lcm.PlayerCharacters[partyMember - 1]);
+			_lcm.UpdateSelectionCircles();
+			return _lcm.PlayerCharacters[partyMember - 1];
 		}
 
 		return null;
@@ -148,8 +148,8 @@ public class MapCharacterManager : Node2D
 
 	public static void DeselectAll()
 	{
-		_mcm.Selected = new List<PlayerCharacter>();
-		_mcm.UpdateSelectionCircles();
+		_lcm.Selected = new List<PlayerCharacter>();
+		_lcm.UpdateSelectionCircles();
 	}
 
 	
@@ -161,7 +161,7 @@ public class MapCharacterManager : Node2D
 	/// <returns>Vector2[] of party member co-ords</returns>
 	public static Vector2[] GetPartyPositions()
 	{
-		return _mcm.PlayerCharacters.Select(pc => pc.Position).ToArray();
+		return _lcm.PlayerCharacters.Select(pc => pc.Position).ToArray();
 	}
 
 	
@@ -179,7 +179,7 @@ public class MapCharacterManager : Node2D
 	/* INPUT MANAGEMENT */
 	public static void MapClick(Vector2 location, Navigation2D nav = null)
 	{
-		foreach (PlayerCharacter pc in _mcm.Selected)
+		foreach (PlayerCharacter pc in _lcm.Selected)
 		{
 			pc.AttackTarget = null;
 
@@ -192,7 +192,7 @@ public class MapCharacterManager : Node2D
 
 	public static void EnemyClicked(MonsterCharacter monster)
 	{
-		foreach (var pc in _mcm.Selected)
+		foreach (var pc in _lcm.Selected)
 		{
 			GD.Print($"{pc.Name} attacking Enemy {monster.Name}");
 			pc.QueuedMoves.Clear();
@@ -206,9 +206,9 @@ public class MapCharacterManager : Node2D
 			DeselectAll();
 
 		//var players = results.OfType<PlayerCharacter>();
-		_mcm.Selected.AddRange(results);
+		_lcm.Selected.AddRange(results);
 
-		_mcm.UpdateSelectionCircles();
+		_lcm.UpdateSelectionCircles();
 	}
 
 }

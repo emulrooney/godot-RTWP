@@ -22,10 +22,10 @@ config/icon="res://icon.png"
 [autoload]
 
 GUI="*res://Controls/GUILayer.tscn"
-MapCharacterManager="*res://Scripts/MapCharacterManager.cs"
+MapCharacterManager="*res://Scripts/LocalCharacterManager.cs"
 InputManager="*res://Controls/InputManager.tscn"
 Controls="*res://Controls/CameraControls.tscn"
-ZoneLoader="*res://Scripts/Zone/ZoneLoader.cs"
+ZoneLoader="*res://Scripts/Maps/MapLoader.cs"
 
 [debug]
 

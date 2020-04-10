@@ -7,9 +7,9 @@ using System.Collections.Generic;
 /// 
 /// 
 /// </summary>
-public class ZoneLoader : Node
+public class MapLoader : Node
 {
-	public static ZoneLoader _zl;
+	public static MapLoader _ml;
 	private const int maxPlayerMapTransitionDistance = 256; //players must be near eachother to leave map
 
 	private MapLogic CurrentMap { get; set;}
@@ -23,9 +23,9 @@ public class ZoneLoader : Node
 	public override void _Ready()
 	{
 		//Singleton
-		if (_zl == null)
+		if (_ml == null)
         {
-			_zl = this;
+			_ml = this;
         }
 		else
 			QueueFree();
@@ -33,11 +33,11 @@ public class ZoneLoader : Node
 
     public static void GetCurrentMap(bool forceGet = false)
     {
-        if (_zl != null && (forceGet || _zl.CurrentMap == null || _zl.CurrentMap.IsQueuedForDeletion()))
+        if (_ml != null && (forceGet || _ml.CurrentMap == null || _ml.CurrentMap.IsQueuedForDeletion()))
         {                
-            _zl.CurrentMap = _zl.GetTree().Root.GetNodeOrNull<MapLogic>("Map");
-            _zl.CurrentMap.Name = "CurrentMap";
-            GD.Print($"Map found {_zl.CurrentMap != null}");
+            _ml.CurrentMap = _ml.GetTree().Root.GetNodeOrNull<MapLogic>("Map");
+            _ml.CurrentMap.Name = "CurrentMap";
+            GD.Print($"Map found {_ml.CurrentMap != null}");
         } 
         else
             GD.Print("Already have map. Use 'forceGet' to overwrite");
@@ -74,12 +74,12 @@ public class ZoneLoader : Node
 		//Setup MCM, Party Icons as needed
 		var loaded = ResourceLoader.Load(zones[mapKey]) as PackedScene;
 
-		if (_zl.CurrentMap != null)
+		if (_ml.CurrentMap != null)
         {
-            _zl.CurrentMap.QueueFree();
+            _ml.CurrentMap.QueueFree();
         }
 
-        _zl.GetTree().ChangeSceneTo(loaded);
+        _ml.GetTree().ChangeSceneTo(loaded);
         //Map will attempt to set itself as current map
 
         return true;

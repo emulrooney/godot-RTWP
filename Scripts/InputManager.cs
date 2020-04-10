@@ -98,7 +98,7 @@ public class InputManager : Node2D
 				}
 			}
 
-			MapCharacterManager.SelectAllInRect(players, !Input.IsActionPressed("modify"));
+			LocalCharacterManager.SelectAllInRect(players, !Input.IsActionPressed("modify"));
 		}
 	}
 

@@ -20,7 +20,7 @@ public class PlayerCharacter : Character, IMapClickable
 	public void ClickAction(ClickInfo info, Vector2 location)
 	{
 		if (info.ButtonNumber == 1)
-			MapCharacterManager.SelectPartyMember(this, !info.ModifyHeld);
+			LocalCharacterManager.SelectPartyMember(this, !info.ModifyHeld);
 	}
 
 	public override void ReceiveAttack(int hitRoll, int damage, int damageType = 0)

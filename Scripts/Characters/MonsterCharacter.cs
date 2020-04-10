@@ -41,7 +41,7 @@ public class MonsterCharacter : Character, IMapClickable
 	public void ClickAction(ClickInfo info, Vector2 location)
 	{
 		//TODO Use location to determine which side of enemy to stand on (if needed)
-		MapCharacterManager.EnemyClicked(this);
+		LocalCharacterManager.EnemyClicked(this);
 	}
 
 	protected override void Die()

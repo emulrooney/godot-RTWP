@@ -77,13 +77,13 @@
     <Compile Include="Scripts\GUI\SelectionCircle.cs" />
     <Compile Include="Scripts\InputManager.cs" />
     <Compile Include="Scripts\Interfaces\IMapClickable.cs" />
-    <Compile Include="Scripts\MapCharacterManager.cs" />
-    <Compile Include="Scripts\Zone\MapLogic.cs" />
+    <Compile Include="Scripts\LocalCharacterManager.cs" />
+    <Compile Include="Scripts\Maps\MapLogic.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapLocation.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapLogic.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapToken.cs" />
-    <Compile Include="Scripts\Zone\ZoneLoader.cs" />
-    <Compile Include="Scripts\Zone\ZoneTransition.cs" />
+    <Compile Include="Scripts\Maps\MapLoader.cs" />
+    <Compile Include="Scripts\Maps\MapTransition.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

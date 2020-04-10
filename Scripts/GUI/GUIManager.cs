@@ -95,7 +95,7 @@ public class GUIManager : CanvasLayer
 		{
 			if (Input.IsMouseButtonPressed(1))
 			{
-				var success = MapCharacterManager.AddPartyMemberToSelected(partyMember);
+				var success = LocalCharacterManager.AddPartyMemberToSelected(partyMember);
 				if (success != null)
 				{
 					_partyIcons.SetPortraitSelected(partyMember, true);
@@ -106,7 +106,7 @@ public class GUIManager : CanvasLayer
 			}
 			else if (Input.IsMouseButtonPressed(2))
 			{
-				var success = MapCharacterManager.DeselectPartyMember(partyMember);
+				var success = LocalCharacterManager.DeselectPartyMember(partyMember);
 				if (success != null)
 					_partyIcons.SetPortraitSelected(partyMember, false);
 			}
@@ -115,7 +115,7 @@ public class GUIManager : CanvasLayer
 		{
 			if (Input.IsMouseButtonPressed(1))
 			{
-				var success = MapCharacterManager.SelectPartyMember(partyMember);
+				var success = LocalCharacterManager.SelectPartyMember(partyMember);
 				if (success != null)
 				{
 					//Active party member, individual

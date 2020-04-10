@@ -19,7 +19,7 @@ public class WorldMapLocation : Sprite
 			var enteredToken = (WorldMapToken)entered;
 			if (enteredToken.IsPlayer)
 			{
-                ZoneLoader.LoadMap(LocationKey);
+                MapLoader.LoadMap(LocationKey);
 			}
         }
 	}

@@ -21,7 +21,7 @@ public abstract class Character : KinematicBody2D
 
     public override void _Ready()
     {
-        MapCharacterManager.RegisterPresent(this);
+        LocalCharacterManager.RegisterPresent(this);
         RegularAttack = GetNodeOrNull<RegularAttack>("RegularAttack");
         Animator = GetNodeOrNull<CharacterAnimator>("Animator");
 
