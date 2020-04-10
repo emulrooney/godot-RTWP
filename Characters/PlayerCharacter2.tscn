@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://Scripts/Characters/PlayerCharacter.cs" type="Script" id=1]
 [ext_resource path="res://ArtAssets/GUI/Portraits/debugKnifeLadySmall.jpg" type="Texture" id=2]
@@ -39,6 +39,12 @@
 [ext_resource path="res://Scripts/Characters/States/IdleState.cs" type="Script" id=37]
 [ext_resource path="res://Scripts/Characters/States/WalkState.cs" type="Script" id=38]
 [ext_resource path="res://Scripts/Characters/States/AttackState.cs" type="Script" id=39]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/death (1).png" type="Texture" id=40]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/death (2).png" type="Texture" id=41]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/death (4).png" type="Texture" id=42]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/death (3).png" type="Texture" id=43]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/death (5).png" type="Texture" id=44]
+[ext_resource path="res://ArtAssets/Characters/debugPlayer2/death (6).png" type="Texture" id=45]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 36.0
@@ -55,11 +61,6 @@ animations = [ {
 "name": "attack1",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
-"loop": true,
-"name": "attackApproach",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ) ],
 "loop": false,
 "name": "attack2",
@@ -69,6 +70,16 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 6.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "attackApproach",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 41 ), ExtResource( 43 ), ExtResource( 42 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": false,
+"name": "death",
+"speed": 8.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -111,8 +122,8 @@ shape = SubResource( 1 )
 [node name="Animator" type="AnimatedSprite" parent="."]
 position = Vector2( 7.56506, -8.64579 )
 frames = SubResource( 2 )
-animation = "idle"
-frame = 3
+animation = "death"
+frame = 5
 playing = true
 script = ExtResource( 35 )
 FlipOffset = Vector2( -16, 0 )
