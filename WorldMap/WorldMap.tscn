@@ -23,10 +23,12 @@ centered = false
 [node name="City" parent="." instance=ExtResource( 3 )]
 texture = ExtResource( 4 )
 LocationName = "Friendly Town"
+LocationKey = "debugMap1"
 
 [node name="Dungeon" parent="." instance=ExtResource( 3 )]
 position = Vector2( 950.908, 284.63 )
 LocationName = "Garbageville"
+LocationKey = "WORLDMAP"
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 380.167, 277.173 )

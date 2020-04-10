@@ -4,6 +4,7 @@ using System;
 public class WorldMapLocation : Sprite
 {
 	[Export] public string LocationName { get; set; }
+    [Export] public string LocationKey { get; set; }
 	private Area2D area;
 
 	public override void _Ready()
@@ -13,17 +14,14 @@ public class WorldMapLocation : Sprite
 
 	private void LocationEntered(object entered)
 	{
-		try
-		{
+        if (entered.GetType() == typeof(WorldMapToken))
+        {
 			var enteredToken = (WorldMapToken)entered;
 			if (enteredToken.IsPlayer)
 			{
-				GD.Print($"You can now enter: {LocationName}");
+                ZoneLoader.LoadMap(LocationKey);
 			}
-		}
-		catch (Exception)
-		{
-		}
+        }
 	}
 
 }
