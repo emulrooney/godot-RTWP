@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Characters/States/IdleState.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Characters/States/WalkState.cs" type="Script" id=3]
 [ext_resource path="res://Scripts/Characters/States/AttackState.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Characters/States/DeadState.cs" type="Script" id=5]
 
 [node name="FSMachine" type="Node"]
 script = ExtResource( 1 )
@@ -27,4 +28,14 @@ StateLength = 2.0
 
 [node name="Timer" type="Timer" parent="AttackState"]
 one_shot = true
+
+[node name="DeadState" type="Node" parent="."]
+script = ExtResource( 5 )
+AnimationNames = PoolStringArray( "hit" )
+StateType = 4
+StateLength = 1.0
+
+[node name="Timer" type="Timer" parent="DeadState"]
+one_shot = true
 [connection signal="timeout" from="AttackState/Timer" to="AttackState" method="Timeout"]
+[connection signal="timeout" from="DeadState/Timer" to="DeadState" method="Timeout"]

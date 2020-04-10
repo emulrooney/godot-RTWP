@@ -4,8 +4,7 @@ using System;
 public class AttackState : CharacterState
 {
 	private Timer timer;
-	public bool Done { get; set; }
-
+	
 	public override void _Ready()
 	{
 		timer = (Timer)GetNode("Timer");

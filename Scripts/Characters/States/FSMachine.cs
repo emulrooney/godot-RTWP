@@ -34,88 +34,97 @@ public class FSMachine : Node
 
 	public override void _Process(float delta)
 	{
-        if (_owner.CharacterName == "Knifelyn")
-            TopPrinter.Four = "State is " + Current.StateType;
+		if (_owner.CharacterName == "Knifelyn")
+			TopPrinter.Four = "State is " + Current.StateType;
 
-        if (_owner.IsDead)
-        {
-            if (Current.StateType != FSMState.Dead)
-                Transition(FSMState.Dead);
+		if (_owner.IsDead)
+		{
+			if (Current.StateType != FSMState.Dead)
+				Transition(FSMState.Dead);
 
-            return;
-        }
+			return;
+		}
 
 		if (_owner.AttackTarget == null) //NON-COMBAT MODE
 		{
-			switch (Current.StateType)
-			{
-				case FSMState.Idle:
-					if (_owner.QueuedMoves.Count > 0)
-						Transition(FSMState.Move);
-					break;
-				case FSMState.Move:
-					if (_owner.QueuedMoves.Count > 0)
-						MoveTowardsNextLocation();
-					else
-						Transition(FSMState.Idle);
-					break;
-				case FSMState.MoveAttack:
-				default:
-					Transition(FSMState.Idle);
-					break;
-			}
+            ProcessNormalState(delta);
 		}
 		else //COMBAT MODE
 		{
-			switch (Current.StateType)
-			{
-				case FSMState.Idle:
-					
-					//If you can attack, attack
-					//If you can't reach them, move attack to them
-					//If you can't attack but you can reach them, stay idle.
-
-					if (_owner.CanAttackTarget(_owner.AttackTarget))
-						Transition(FSMState.Attack);
-					else if (!_owner.CanReachTarget(_owner.AttackTarget))
-						Transition(FSMState.MoveAttack);
-					break;
-				case FSMState.MoveAttack:
-
-					//Check if they're already dead; if so, end combat mode
-					//Check if you're able to attack; if so, attack
-					//Check if you're UNABLE to reach them; if so, move towards them
-					//If you can't attack and you can reach them, just idle.
-
-					if (_owner.AttackTarget.IsQueuedForDeletion()) //Stop attacking already dead enemies
-						_owner.AttackTarget = null;
-					else if (_owner.CanAttackTarget(_owner.AttackTarget))
-						Transition(FSMState.Attack);
-					else if (!_owner.CanReachTarget(_owner.AttackTarget))
-						MoveTowards(_owner.AttackTarget.Position);
-					else
-						Transition(FSMState.Idle);
-					break;
-				case FSMState.Attack:
-
-					//If animation is done, attack
-
-					if (((AttackState)Current).Done)
-					{
-						_owner.Attack(_owner.AttackTarget);
-						Transition(FSMState.Idle);
-					}
-					break;
-				case FSMState.Move:
-				default:
-					
-					//This covers any case of unexpected states when transitioning to combat mode.
-					Transition(FSMState.Idle);
-					break;
-			}
-
+            ProcessCombatState(delta);
 		}
 	}
+
+    private void ProcessNormalState(float delta)
+    {
+        switch (Current.StateType)
+        {
+            case FSMState.Idle:
+                if (_owner.QueuedMoves.Count > 0)
+                    Transition(FSMState.Move);
+                break;
+            case FSMState.Move:
+                if (_owner.QueuedMoves.Count > 0)
+                    MoveTowardsNextLocation();
+                else
+                    Transition(FSMState.Idle);
+                break;
+            case FSMState.MoveAttack:
+            default:
+                Transition(FSMState.Idle);
+                break;
+        }
+    }
+
+    private void ProcessCombatState(float delta)
+    {
+        switch (Current.StateType)
+        {
+            case FSMState.Idle:
+
+                //If you can attack, attack
+                //If you can't reach them, move attack to them
+                //If you can't attack but you can reach them, stay idle.
+
+                if (_owner.CanAttackTarget(_owner.AttackTarget))
+                    Transition(FSMState.Attack);
+                else if (!_owner.CanReachTarget(_owner.AttackTarget))
+                    Transition(FSMState.MoveAttack);
+                break;
+            case FSMState.MoveAttack:
+
+                //Check if they're already dead; if so, end combat mode
+                //Check if you're able to attack; if so, attack
+                //Check if you're UNABLE to reach them; if so, move towards them
+                //If you can't attack and you can reach them, just idle.
+
+                if (_owner.AttackTarget.IsDead || _owner.AttackTarget.IsQueuedForDeletion()) //Stop attacking already dead enemies
+                    _owner.AttackTarget = null;
+                else if (_owner.CanAttackTarget(_owner.AttackTarget))
+                    Transition(FSMState.Attack);
+                else if (!_owner.CanReachTarget(_owner.AttackTarget))
+                    MoveTowards(_owner.AttackTarget.Position);
+                else
+                    Transition(FSMState.Idle);
+                break;
+            case FSMState.Attack:
+
+                //If animation is done, attack
+
+                if (((AttackState)Current).Done)
+                {
+                    _owner.Attack(_owner.AttackTarget);
+                    Transition(FSMState.Idle);
+                }
+                break;
+            case FSMState.Move:
+            default:
+
+                //This covers any case of unexpected states when transitioning to combat mode.
+                Transition(FSMState.Idle);
+                break;
+        }
+    }
 
 	public virtual void SetAttackTarget(Character character)
 	{
@@ -189,6 +198,11 @@ public class FSMachine : Node
 
 			_Process(0); //Essentially, keep transitioning until none left. Slightly hacky, but solves weird visual glitch
 		}
+	}
+
+	public void OwnerQueueFree()
+	{
+		_owner.QueueFree();
 	}
 
 }

@@ -16,7 +16,7 @@ public abstract class CharacterState : Node
     [Export] public string[] AnimationNames { get; set; } = { "idle" };
     [Export] public FSMState StateType { get; set; }
     [Export] public float StateLength { get; set; } = -1; //If positive, FSM will run a timer and end
-    public bool Complete { get; set; } //Only used for cases like "Attack"
+    public bool Done { get; set; } //Only used for cases like "Attack"
 
     public abstract void OnStart();
 

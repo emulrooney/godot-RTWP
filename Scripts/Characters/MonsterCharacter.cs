@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class MonsterCharacter : Character, IMapClickable
 {
-	[Export] private bool queueFreeOnDeath = true;
 	[Export] Vector2[] patrolPoints = new Vector2[0];
 	public int PatrolCounter { get; set; } = 0;
 
@@ -48,8 +47,6 @@ public class MonsterCharacter : Character, IMapClickable
 	protected override void Die()
 	{
 		base.Die();
-		if (queueFreeOnDeath)
-			QueueFree();
 	}
 
 }
