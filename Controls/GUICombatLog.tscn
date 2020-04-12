@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Fonts/SansStandard.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/GUI/CombatLog.cs" type="Script" id=2]
+
+[node name="Combat Log" type="Control"]
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 320.0
+margin_right = -16.0
+margin_bottom = -4.0
+mouse_filter = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+TextColors = PoolColorArray( 1, 1, 1, 1, 0.5, 0.5, 0.5, 1, 0, 1, 0.8, 1 )
+
+[node name="Output" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+scroll_following = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

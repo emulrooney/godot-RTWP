@@ -8,6 +8,7 @@ public class GUIManager : CanvasLayer
 	private static GUIManager _gui;
 
 	//Controls; these need to register themselves
+	private static CombatLog _combatLog;
 	private static PartyIconStrip _partyIcons;
 	private static CameraControls _cameraControls;
 
@@ -28,6 +29,8 @@ public class GUIManager : CanvasLayer
 		while (registrationQueue.Count > 0)
 			RegisterElement(registrationQueue.Dequeue());
 	}
+
+	/* MULTIPLE GUI ELEMENTS */
 	
 	public static bool RegisterElement(Node element)
 	{
@@ -51,6 +54,9 @@ public class GUIManager : CanvasLayer
 				return true;
 			case "CameraControls":
 				_cameraControls = (CameraControls)element;
+				return true;
+			case "CombatLog":
+				_combatLog = (CombatLog)element;
 				return true;
 			default:
 				return false;

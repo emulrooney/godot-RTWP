@@ -1,21 +1,76 @@
 using Godot;
 using System;
 
-public class CombatLog : Node
+public class CombatLog : Control
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+	[Export] private int MaxLines { get; set; } = 16;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        
-    }
+	public static CombatLog _log;
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+	public RichTextLabel Output { get; private set; }
+
+	[Export] private Color[] TextColors = new Color[]
+	{
+		new Color(1, 1, 1, 1),
+		new Color(.8f, .8f, .8f, 1),
+		new Color(.75f, 1f, .8f, 1)
+		//"#DDDDDD",  //Miss
+		//"#cffffe", //Player
+		//"#ffd9d6", //Enemy
+		//"#a60037", //Player Killed
+		//"#efbaff"  //Hostile Magic
+	};
+
+	public override void _Ready()
+	{
+		if (_log == null)
+			_log = this;
+		else
+		{
+			QueueFree();
+			return;
+		}
+
+		Output = GetNode<RichTextLabel>("Output");
+	}
+
+	public static void Attack(string attacker, string target, int accuracyRoll)
+	{
+		_log.WriteLine($"{attacker} attacked {target}. [roll: {accuracyRoll}]");
+	}
+
+	public static void Hit(string target, int damage)
+	{
+
+		_log.WriteLine($"  {target} took {damage} damage.");
+	}
+
+	public static void Miss()
+	{
+		_log.WriteLine("    Miss!", 1);
+	}
+
+	public static void Death(string dead)
+	{
+		_log.WriteLine($"  {dead} dies.");
+	}
+
+	private void WriteLine(string message, int textType = -1)
+	{
+		Output.Newline();
+
+		if (textType > -1)
+			Output.PushColor(TextColors[textType]);
+
+		Output.AddText(message);
+
+		if (textType > -1)
+			Output.Pop();
+
+		if (Output.GetLineCount() > MaxLines)
+			Output.RemoveLine(0);
+	}
+	
+
+
 }

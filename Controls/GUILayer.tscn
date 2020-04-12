@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/GUI/GUIManager.cs" type="Script" id=1]
 [ext_resource path="res://Controls/GUIPartyIconsStrip.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Fonts/SansStandard.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Controls/GUICombatLog.tscn" type="PackedScene" id=4]
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -16,24 +16,4 @@ margin_top = 21.6849
 margin_right = -51.0811
 margin_bottom = 117.685
 
-[node name="Combat Log" type="Control" parent="."]
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = 16.0
-margin_top = 320.0
-margin_right = -16.0
-margin_bottom = -4.0
-mouse_filter = 1
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Combat Log"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/normal_font = ExtResource( 5 )
-text = "Axetopher attacked Big Bug (74 vs 11):
-  Hit for 11 damage!
-Big Bug attacked Knifelyn (30 vs 31):
-  Missed!"
-scroll_following = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Combat Log" parent="." instance=ExtResource( 4 )]

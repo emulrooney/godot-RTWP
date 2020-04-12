@@ -69,8 +69,8 @@ public abstract class Character : KinematicBody2D
         var roll = Stats.AccuracyRoll;
         var damage = Stats.BaseDamage + RegularAttack.Attack();
 
+        CombatLog.Attack(this.Name, target.Name, roll);
         target.ReceiveAttack(roll, damage);
-        GD.Print($"{this.Name} attacked {target.Name} : Acc {roll}, Damage {damage}");
     }
 
 
@@ -78,14 +78,18 @@ public abstract class Character : KinematicBody2D
     {
         if (!IsDead)
         {
-            int defenseRoll = 0; // stats.DefenseRoll;
-            int result = hitRoll - defenseRoll;
+            int result = hitRoll - Stats.Defense;
 
             if (result > 50)
             {
                 //Hit!
                 Stats.CurrentHP -= damage;
                 Animator.OnHit();
+                CombatLog.Hit(Name, damage);
+            }
+            else
+            {
+                CombatLog.Miss();
             }
 
             if (Stats.CurrentHP <= 0)
@@ -100,6 +104,7 @@ public abstract class Character : KinematicBody2D
 
     protected virtual void Die()
     {
+        CombatLog.Death(Name);
         IsDead = true;
     }
 

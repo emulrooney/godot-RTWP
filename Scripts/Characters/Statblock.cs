@@ -15,6 +15,7 @@ public class Statblock : Node
     [Export] public int BaseDefense { get; set; }
 
     public int AccuracyRoll { get => RNG.RandiRange(0, 100) + BaseAccuracy; }
-    public int DefenseRoll { get => RNG.RandiRange(0, 100) + BaseDefense; }
+
+    public int Defense { get => BaseDefense; }
 
 }
