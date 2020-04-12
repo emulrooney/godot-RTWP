@@ -29,32 +29,32 @@ public class PartyIconStrip : VBoxContainer
 
 		try
 		{
-            pmi.SetPortrait(character.Portrait, character.PortraitColor);
-            pmi.SetHealth(character.Stats.CurrentHP, character.Stats.MaxHP);
-            pmi.IsUsed = true;
-            pmi.Visible = true;
-            pmi.IconFor = character;
-        }
+			pmi.SetPortrait(character.Portrait, character.PortraitColor);
+			pmi.SetHealth(character.Stats.CurrentHP, character.Stats.MaxHP);
+			pmi.IsUsed = true;
+			pmi.Visible = true;
+			pmi.IconFor = character;
+		}
 		catch (Exception e)
 		{
 			GD.Print($"Couldn't set portrait up for {character.CharacterName} - {character}");
-            GD.Print("Exception: " + e);
+			GD.Print("Exception: " + e);
 		}
 	}
 
-    public void UpdateFor(PlayerCharacter character)
-    {
-        for (int i = 0; i < partyMembers.Length; i++)
-        {
-            if (partyMembers[i].IconFor == character)
-            {
-                partyMembers[i].SetHealth(character.Stats.CurrentHP, character.Stats.MaxHP);
-                return;
-            }
-        }
-    }
+	public void UpdateFor(PlayerCharacter character)
+	{
+		for (int i = 0; i < partyMembers.Length; i++)
+		{
+			if (partyMembers[i].IconFor == character)
+			{
+				partyMembers[i].SetHealth(character.Stats.CurrentHP, character.Stats.MaxHP);
+				return;
+			}
+		}
+	}
 
-    private int GetFirstFreePortraitIndex()
+	private int GetFirstFreePortraitIndex()
 	{
 		for (int i = 0; i < partyMembers.Length; i++)
 			if (!partyMembers[i].IsUsed)
@@ -82,9 +82,9 @@ public class PartyIconStrip : VBoxContainer
 		}
 	}
 
-    public void WipeAllPortraits()
-    {
-        foreach (PartyMemberIcon pmi in partyMembers)
-            pmi.Reset();
-    }
+	public void WipeAllPortraits()
+	{
+		foreach (PartyMemberIcon pmi in partyMembers)
+			pmi.Reset();
+	}
 }

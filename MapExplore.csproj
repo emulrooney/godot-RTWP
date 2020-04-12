@@ -72,6 +72,7 @@
     <Compile Include="Scripts\Characters\Character.cs" />
     <Compile Include="Scripts\Characters\MonsterCharacter.cs" />
     <Compile Include="Scripts\Characters\PlayerCharacter.cs" />
+    <Compile Include="Scripts\GUI\CombatLog.cs" />
     <Compile Include="Scripts\GUI\GUIManager.cs" />
     <Compile Include="Scripts\GUI\PartyIconStrip.cs" />
     <Compile Include="Scripts\GUI\SelectionCircle.cs" />

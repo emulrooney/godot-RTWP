@@ -1,23 +1,34 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Data/PartyMemberIcon.cs" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/Sans_HealthLabel.tres" type="DynamicFont" id=2]
 
 [node name="PC_Portrait" type="ReferenceRect"]
-margin_right = 80.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 80, 60 )
-rect_clip_content = true
+margin_right = 60.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 60, 45 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Portrait" type="TextureRect" parent="."]
-rect_min_size = Vector2( 80, 60 )
+margin_right = 60.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 60, 45 )
 expand = true
 stretch_mode = 1
 
 [node name="HealthDisplay" type="Label" parent="."]
-anchor_top = 0.5
-anchor_bottom = 1.0
-margin_right = 80.0
+anchor_bottom = 0.5
+margin_right = 60.0
+margin_bottom = 22.5
+rect_min_size = Vector2( 60, 45 )
+mouse_filter = 1
+custom_fonts/font = ExtResource( 2 )
 text = "74/74"
-align = 1
+align = 2
 valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

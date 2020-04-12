@@ -4,7 +4,8 @@
 [ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/MonsterGiantBug.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ArtAssets/Maps/debugMap1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Maps/debugMap1.png" type="Texture" id=5]
+
 
 
 
