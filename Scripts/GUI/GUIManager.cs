@@ -65,8 +65,6 @@ public class GUIManager : CanvasLayer
 
 	public static void RegisterPlayerCharacter(PlayerCharacter pc)
 	{
-		GD.Print("Register called by " + pc.CharacterName);
-
 		if (_partyIcons != null)
 			_partyIcons.SetupCharacterPortrait(pc);
 		else
@@ -75,8 +73,6 @@ public class GUIManager : CanvasLayer
 
 	public static void WipePartyElements()
 	{
-		GD.Print("Wiping all player elements!");
-
 		//Party Icons
 		_partyIcons.WipeAllPortraits();
 	}

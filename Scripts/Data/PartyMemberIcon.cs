@@ -48,7 +48,6 @@ public class PartyMemberIcon : ReferenceRect
 		
 		if (current <= 0)
 		{
-			GD.Print("dead!");
 			//TODO Should dead characters have a death portrait?
 			healthDisplay.Text = "";
 			Portrait.Modulate = deathColor;

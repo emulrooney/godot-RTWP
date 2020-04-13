@@ -194,7 +194,6 @@ public class LocalCharacterManager : Node2D
 	{
 		foreach (var pc in _lcm.Selected)
 		{
-			GD.Print($"{pc.Name} attacking Enemy {monster.Name}");
 			pc.QueuedMoves.Clear();
 			pc.AttackTarget = monster;
 		}

@@ -18,10 +18,6 @@ public class FSMachine : Node
 
 	public override void _Ready()
 	{
-		_owner = (Character)Owner;
-		_stats = (Statblock)Owner.GetNode("Statblock");
-		Animator = (CharacterAnimator)Owner.GetNode("Animator");
-
 		foreach (var n in this.GetChildren())
 		{
 			var state = (CharacterState)n;
@@ -32,11 +28,15 @@ public class FSMachine : Node
 		Previous = States[FSMState.Idle];
 	}
 
+    public void Activate()
+    {
+        _owner = (Character)Owner;
+        _stats = _owner.Stats;
+        Animator = (CharacterAnimator)_owner.GetNode("Animator");
+    }
+
 	public override void _Process(float delta)
 	{
-		if (_owner.CharacterName == "Knifelyn")
-			TopPrinter.Four = "State is " + Current.StateType;
-
 		if (_owner.IsDead)
 		{
 			if (Current.StateType != FSMState.Dead)

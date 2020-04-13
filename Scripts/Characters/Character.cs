@@ -25,7 +25,16 @@ public abstract class Character : KinematicBody2D
         RegularAttack = GetNodeOrNull<RegularAttack>("RegularAttack");
         Animator = GetNodeOrNull<CharacterAnimator>("Animator");
 
-        Stats = GetNode<Statblock>("Statblock"); //No statblock, no bueno
+
+        //Check for an overrideStatblock -- this lets us set custom stats for pre-placed encounters
+        Stats = GetNodeOrNull<Statblock>("OverrideStatblock");
+
+        if (Stats == null)
+            Stats = GetNode<Statblock>("Statblock"); //Use default statblock if no custom one found.
+        else
+            GetNode<Statblock>("Statblock").QueueFree(); //Remove the regular one, we'll use the override!
+
+        ((FSMachine)GetNode("FSMachine")).Activate(); //Setup once stats set
     }
 
     public bool CanAttackTarget(Character target)

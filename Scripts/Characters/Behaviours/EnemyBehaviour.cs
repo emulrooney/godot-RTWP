@@ -65,7 +65,6 @@ public class EnemyBehaviour : Node
 	{
 		try
 		{
-            GD.Print("attack: " + character.CharacterName);
 			_owner.AttackTarget = character;
 		}
 		catch (Exception e)
