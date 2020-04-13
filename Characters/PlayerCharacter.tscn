@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Characters/PlayerCharacter.cs" type="Script" id=1]
 [ext_resource path="res://Assets/GUI/Portraits/debugAxeGuySmall.jpg" type="Texture" id=2]
@@ -6,102 +6,24 @@
 [ext_resource path="res://Characters/Components/RegularAttack.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/GUI/selectedTarget.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/GUI/SelectionCircle.cs" type="Script" id=6]
-[ext_resource path="res://Assets/Characters/debugPlayer/idle (1).png" type="Texture" id=7]
-[ext_resource path="res://Assets/Characters/debugPlayer/idle (2).png" type="Texture" id=8]
-[ext_resource path="res://Assets/Characters/debugPlayer/idle (3).png" type="Texture" id=9]
-[ext_resource path="res://Assets/Characters/debugPlayer/idle (4).png" type="Texture" id=10]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackPower (1).png" type="Texture" id=11]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackPower (2).png" type="Texture" id=12]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackPower (3).png" type="Texture" id=13]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackPower (4).png" type="Texture" id=14]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackPower (5).png" type="Texture" id=15]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackPower (6).png" type="Texture" id=16]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack1 (1).png" type="Texture" id=17]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack1 (2).png" type="Texture" id=18]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack1 (3).png" type="Texture" id=19]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack1 (4).png" type="Texture" id=20]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack1 (5).png" type="Texture" id=21]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack1 (6).png" type="Texture" id=22]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack2 (1).png" type="Texture" id=23]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack2 (2).png" type="Texture" id=24]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack2 (3).png" type="Texture" id=25]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack2 (4).png" type="Texture" id=26]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack2 (5).png" type="Texture" id=27]
-[ext_resource path="res://Assets/Characters/debugPlayer/attack2 (6).png" type="Texture" id=28]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackApproach (1).png" type="Texture" id=29]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackApproach (2).png" type="Texture" id=30]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackApproach (3).png" type="Texture" id=31]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackApproach (4).png" type="Texture" id=32]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackApproach (5).png" type="Texture" id=33]
-[ext_resource path="res://Assets/Characters/debugPlayer/attackApproach (6).png" type="Texture" id=34]
-[ext_resource path="res://Assets/Characters/debugPlayer/walk (1).png" type="Texture" id=35]
-[ext_resource path="res://Assets/Characters/debugPlayer/walk (2).png" type="Texture" id=36]
-[ext_resource path="res://Assets/Characters/debugPlayer/walk (3).png" type="Texture" id=37]
-[ext_resource path="res://Assets/Characters/debugPlayer/walk (4).png" type="Texture" id=38]
-[ext_resource path="res://Assets/Characters/debugPlayer/walk (5).png" type="Texture" id=39]
-[ext_resource path="res://Assets/Characters/debugPlayer/walk (6).png" type="Texture" id=40]
+[ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=7]
 [ext_resource path="res://Scripts/Characters/CharacterAnimator.cs" type="Script" id=41]
 [ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=42]
 [ext_resource path="res://Scripts/Characters/States/IdleState.cs" type="Script" id=43]
 [ext_resource path="res://Scripts/Characters/States/WalkState.cs" type="Script" id=44]
 [ext_resource path="res://Scripts/Characters/States/AttackState.cs" type="Script" id=45]
-[ext_resource path="res://Assets/Characters/debugPlayer/death (1).png" type="Texture" id=46]
-[ext_resource path="res://Assets/Characters/debugPlayer/death (4).png" type="Texture" id=47]
-[ext_resource path="res://Assets/Characters/debugPlayer/death (3).png" type="Texture" id=48]
-[ext_resource path="res://Assets/Characters/debugPlayer/death (5).png" type="Texture" id=49]
-[ext_resource path="res://Assets/Characters/debugPlayer/death (2).png" type="Texture" id=50]
-[ext_resource path="res://Assets/Characters/debugPlayer/death (6).png" type="Texture" id=51]
 
-
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "idle",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
-"loop": false,
-"name": "attack2",
-"speed": 11.0
-}, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ) ],
-"loop": false,
-"name": "attackApproach",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 15 ), ExtResource( 16 ) ],
-"loop": false,
-"name": "attackPower",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ) ],
-"loop": true,
-"name": "walk",
-"speed": 6.0
-}, {
-"frames": [ ExtResource( 46 ), ExtResource( 50 ), ExtResource( 48 ), ExtResource( 47 ), ExtResource( 49 ), ExtResource( 51 ) ],
-"loop": false,
-"name": "dead",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ) ],
-"loop": false,
-"name": "attack1",
-"speed": 10.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.09306, 14.0139 )
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 13.0
 height = 10.0
 
 [node name="Player" type="KinematicBody2D"]
 input_pickable = true
 script = ExtResource( 1 )
-CharacterName = "Axetopher"
+CharacterName = "Unnamed PC"
 Faction = 0
 Portrait = ExtResource( 2 )
 PortraitColor = Color( 0.113725, 0.411765, 0.196078, 1 )
@@ -117,9 +39,9 @@ BaseDamage = 15
 
 [node name="Animator" type="AnimatedSprite" parent="."]
 position = Vector2( 7.56506, -8.64579 )
-frames = SubResource( 1 )
+frames = ExtResource( 7 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
 script = ExtResource( 41 )
 FlipOffset = Vector2( -16, 0 )
@@ -133,7 +55,7 @@ texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="FSMachine" type="Node" parent="."]
 script = ExtResource( 42 )
@@ -171,5 +93,5 @@ collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 [connection signal="timeout" from="FSMachine/AttackState/Timer" to="FSMachine/AttackState" method="Timeout"]

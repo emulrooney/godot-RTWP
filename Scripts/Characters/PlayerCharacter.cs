@@ -6,6 +6,8 @@ public class PlayerCharacter : Character, IMapClickable
 	[Export] public Texture Portrait { get; set; }
 	[Export] public Color PortraitColor { get; set; }
 
+	[Export] public SpriteFrames AnimationSet { get; set; }
+
 	private RegularAttack weapon;
 
 	public override void _Ready()
@@ -15,6 +17,9 @@ public class PlayerCharacter : Character, IMapClickable
 
 		weapon = (RegularAttack)GetNodeOrNull("EquippedWeapon");
 		SetSelectionCircle(false);
+
+		if (AnimationSet != null)
+			Animator.Frames = AnimationSet;
 	}
 
 	public void ClickAction(ClickInfo info, Vector2 location)

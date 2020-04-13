@@ -16,7 +16,7 @@ public abstract class Character : KinematicBody2D
 
     public Statblock Stats { get; private set; }
 
-    private CharacterAnimator Animator { get; set; }
+    protected CharacterAnimator Animator { get; set; }
     private RegularAttack RegularAttack { get; set; }
 
     public override void _Ready()

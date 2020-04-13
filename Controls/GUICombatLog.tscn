@@ -20,6 +20,10 @@ TextColors = PoolColorArray( 1, 1, 1, 1, 0.5, 0.5, 0.5, 1, 0, 1, 0.8, 1 )
 [node name="Output" type="RichTextLabel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = 1.0
 custom_fonts/normal_font = ExtResource( 1 )
 bbcode_enabled = true
 scroll_following = true
