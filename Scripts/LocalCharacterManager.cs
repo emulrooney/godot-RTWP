@@ -204,10 +204,11 @@ public class LocalCharacterManager : Node2D
         if (exclusive)
             DeselectAll();
 
-        //var players = results.OfType<PlayerCharacter>();
         _lcm.Selected.AddRange(results);
 
         _lcm.UpdateSelectionCircles();
+
+        GUIManager.SelectPartyMembers(results);
     }
 
     public static int GetSelectedCount()

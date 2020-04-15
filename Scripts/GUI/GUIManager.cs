@@ -13,6 +13,8 @@ public class GUIManager : CanvasLayer
 	private static CameraControls _cameraControls;
 	private static AbilityToolbar _abilityToolbar;
 
+	private static int registeredCount = 0;
+
 	//This will be cleared on _Ready IF execution order was screwed up
 	private static Queue<Node> registrationQueue = new Queue<Node>();
 
@@ -67,12 +69,14 @@ public class GUIManager : CanvasLayer
 		}
 	}
 
-	public static void RegisterPlayerCharacter(PlayerCharacter pc)
+	public static int RegisterPlayerCharacter(PlayerCharacter pc)
 	{
 		if (_partyIcons != null)
 			_partyIcons.SetupCharacterPortrait(pc);
 		else
 			characterQueue.Enqueue(pc);
+
+		return ++registeredCount;
 	}
 
 	public static void WipePartyElements()
@@ -90,11 +94,12 @@ public class GUIManager : CanvasLayer
 
 	/* CHARACTER PORTRAITS AND SELECTION */
 
-	public static void ClickPortrait(int partyMember)
+	//Modify Override -- used by group to ensure drag keeps working
+	public static void SelectPartyMember(int partyMember, bool modifyOverride = false)
 	{
 		//if SHIFT held, add to selection
 		//if regular mouse, set to active
-		if (Input.IsActionPressed("modify"))
+		if (Input.IsActionPressed("modify") || modifyOverride)
 		{
 			//Right-click first
 			//This allows the 'else' to handle left clicks AND keyboard shortcuts
@@ -136,6 +141,14 @@ public class GUIManager : CanvasLayer
 		}
 
 		UpdateAbilityToolbar();
+	}
+
+	public static void SelectPartyMembers(List<PlayerCharacter> party)
+	{
+		foreach (var pc in party)
+		{
+			SelectPartyMember(pc.PartyMemberOrder, true); //modify override on
+		}
 	}
 
 	public static void UpdateAbilityToolbar()

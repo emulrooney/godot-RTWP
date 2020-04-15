@@ -2,7 +2,9 @@ using Godot;
 using System;
 
 public class PlayerCharacter : Character, IMapClickable
-{ 
+{
+	public int PartyMemberOrder { get; set; } = -1;
+
 	[Export] public Texture Portrait { get; set; }
 	[Export] public Color PortraitColor { get; set; }
 	[Export] public SpriteFrames AnimationSet { get; set; }
@@ -12,7 +14,7 @@ public class PlayerCharacter : Character, IMapClickable
 	public override void _Ready()
 	{
 		base._Ready();
-		GUIManager.RegisterPlayerCharacter(this);
+		PartyMemberOrder = GUIManager.RegisterPlayerCharacter(this);
 
 		weapon = (RegularAttack)GetNodeOrNull("EquippedWeapon");
 		SetSelectionCircle(false);
@@ -23,8 +25,8 @@ public class PlayerCharacter : Character, IMapClickable
 
 	public void ClickAction(ClickInfo info, Vector2 location)
 	{
-		if (info.ButtonNumber == 1)
-			LocalCharacterManager.SelectPartyMember(this, !info.ModifyHeld);
+		LocalCharacterManager.SelectPartyMember(this, !info.ModifyHeld);
+		GUIManager.SelectPartyMember(PartyMemberOrder);
 	}
 
 	public override void ReceiveAttack(int hitRoll, int damage, int damageType = 0)

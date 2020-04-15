@@ -67,7 +67,7 @@ public class PartyIconStrip : VBoxContainer
 	{
 		//Pass click up to manager
 		//Written this way to make use of Godot 'signals' and keyboard shurtcuts
-		GUIManager.ClickPortrait(partyMember);
+		GUIManager.SelectPartyMember(partyMember);
 	}
 
 	public void SetPortraitSelected(int partyMemberIndex, bool activeStatus, bool individualSelect = false)
