@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/Data/PartyMemberIcon.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/Sans_HealthLabel.tres" type="DynamicFont" id=2]
 
-[node name="PC_Portrait" type="ReferenceRect"]
+[node name="PC_Portrait" type="Button"]
 margin_right = 60.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 60, 45 )

@@ -27,8 +27,6 @@ public class InputManager : Node2D
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		//TODO --> JustReleased for player movement is SLOW. What's going on? 
-
 		var mouseLocation = GetGlobalMousePosition();
 
 		ClickInfo clickInfo = new ClickInfo();

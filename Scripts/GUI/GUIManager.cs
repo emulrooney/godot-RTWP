@@ -11,6 +11,7 @@ public class GUIManager : CanvasLayer
 	private static CombatLog _combatLog;
 	private static PartyIconStrip _partyIcons;
 	private static CameraControls _cameraControls;
+	private static AbilityToolbar _abilityToolbar;
 
 	//This will be cleared on _Ready IF execution order was screwed up
 	private static Queue<Node> registrationQueue = new Queue<Node>();
@@ -52,6 +53,9 @@ public class GUIManager : CanvasLayer
 				while (characterQueue.Count > 0)
 					_partyIcons.SetupCharacterPortrait(characterQueue.Dequeue());
 				return true;
+			case "AbilityToolbar":
+				_abilityToolbar = (AbilityToolbar)element;
+				return true;
 			case "CameraControls":
 				_cameraControls = (CameraControls)element;
 				return true;
@@ -81,13 +85,10 @@ public class GUIManager : CanvasLayer
 	{
 		//Update all GUI related to this character
 		if (_partyIcons != null)
-		{
 			_partyIcons.UpdateFor(pc);
-
-		}
 	}
 
-	/* CHARACTER PORTRAITS */
+	/* CHARACTER PORTRAITS AND SELECTION */
 
 	public static void ClickPortrait(int partyMember)
 	{
@@ -95,8 +96,19 @@ public class GUIManager : CanvasLayer
 		//if regular mouse, set to active
 		if (Input.IsActionPressed("modify"))
 		{
-			if (Input.IsMouseButtonPressed(1))
+			//Right-click first
+			//This allows the 'else' to handle left clicks AND keyboard shortcuts
+
+			/* REMOVING FROM SELECTED */
+			if (Input.IsMouseButtonPressed(2))
 			{
+				var success = LocalCharacterManager.DeselectPartyMember(partyMember);
+				if (success != null)
+					_partyIcons.SetPortraitSelected(partyMember, false);
+			}
+			else
+			{
+				/* ADDING TO SELECTED */
 				var success = LocalCharacterManager.AddPartyMemberToSelected(partyMember);
 				if (success != null)
 				{
@@ -105,28 +117,33 @@ public class GUIManager : CanvasLayer
 					if (_cameraControls != null)
 						_cameraControls.FocusPartyMember(partyMember);
 				}
-			}
-			else if (Input.IsMouseButtonPressed(2))
-			{
-				var success = LocalCharacterManager.DeselectPartyMember(partyMember);
-				if (success != null)
-					_partyIcons.SetPortraitSelected(partyMember, false);
+
+
 			}
 		}
 		else
 		{
-			if (Input.IsMouseButtonPressed(1))
+			/* SELECT ONE */
+			var success = LocalCharacterManager.SelectPartyMember(partyMember);
+			if (success != null)
 			{
-				var success = LocalCharacterManager.SelectPartyMember(partyMember);
-				if (success != null)
-				{
-					//Active party member, individual
-					_partyIcons.SetPortraitSelected(partyMember, true, true);
+				//Active party member, individual
+				_partyIcons.SetPortraitSelected(partyMember, true, true);
 
-					if (_cameraControls != null)
-						_cameraControls.FocusPartyMember(partyMember);
-				}
+				if (_cameraControls != null)
+					_cameraControls.FocusPartyMember(partyMember);
 			}
+		}
+
+		UpdateAbilityToolbar();
+	}
+
+	public static void UpdateAbilityToolbar()
+	{
+		if (_abilityToolbar != null)
+		{
+			if (LocalCharacterManager.GetSelectedCount() == 1)
+				_abilityToolbar.UpdateFor(LocalCharacterManager.GetSingleSelected());
 		}
 	}
 }

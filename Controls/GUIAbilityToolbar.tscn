@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/GUI/Ability Icons/Generic/halt.png" type="Texture" id=1]
 [ext_resource path="res://Assets/GUI/Ability Icons/Generic/attack.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/GUI/AbilityToolbar.cs" type="Script" id=3]
+[ext_resource path="res://Assets/GUI/Ability Icons/axe-swing.png" type="Texture" id=4]
+[ext_resource path="res://Assets/GUI/Ability Icons/Item/first-aid-kit.png" type="Texture" id=5]
 
 [node name="AbilityToolbar" type="PanelContainer"]
 margin_right = 90.0
@@ -16,7 +18,7 @@ __meta__ = {
 [node name="VBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 559.0
+margin_right = 163.0
 margin_bottom = 39.0
 custom_constants/separation = 4
 __meta__ = {
@@ -50,6 +52,42 @@ margin_left = 80.0
 margin_right = 112.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="Ability_1" type="TextureButton" parent="VBoxContainer"]
+visible = false
+margin_left = 116.0
+margin_right = 148.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture_normal = ExtResource( 2 )
+expand = true
+
+[node name="Ability_2" type="TextureButton" parent="VBoxContainer"]
+visible = false
+margin_left = 152.0
+margin_right = 184.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture_normal = ExtResource( 2 )
+expand = true
+
+[node name="Ability_3" type="TextureButton" parent="VBoxContainer"]
+visible = false
+margin_left = 188.0
+margin_right = 220.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture_normal = ExtResource( 2 )
+expand = true
+
+[node name="Ability_4" type="TextureButton" parent="VBoxContainer"]
+visible = false
+margin_left = 224.0
+margin_right = 256.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 texture_normal = ExtResource( 2 )
 expand = true
 
@@ -63,10 +101,25 @@ margin_left = 124.0
 margin_right = 156.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 2 )
+expand = true
+
+[node name="Item_1" type="TextureButton" parent="VBoxContainer"]
+visible = false
+margin_left = 196.0
+margin_right = 228.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 2 )
 expand = true
 [connection signal="pressed" from="VBoxContainer/ForceAttack" to="." method="OnForceAttackPressed"]
 [connection signal="pressed" from="VBoxContainer/ForceHalt" to="." method="OnForceHaltPressed"]
 [connection signal="pressed" from="VBoxContainer/Ability_0" to="." method="OnAbilityPressed" binds= [ 0 ]]
+[connection signal="pressed" from="VBoxContainer/Ability_1" to="." method="OnAbilityPressed" binds= [ 0 ]]
+[connection signal="pressed" from="VBoxContainer/Ability_2" to="." method="OnAbilityPressed" binds= [ 0 ]]
+[connection signal="pressed" from="VBoxContainer/Ability_3" to="." method="OnAbilityPressed" binds= [ 0 ]]
+[connection signal="pressed" from="VBoxContainer/Ability_4" to="." method="OnAbilityPressed" binds= [ 0 ]]
 [connection signal="pressed" from="VBoxContainer/Item_0" to="." method="OnItemPressed" binds= [ 0 ]]
+[connection signal="pressed" from="VBoxContainer/Item_1" to="." method="OnItemPressed" binds= [ 0 ]]

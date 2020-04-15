@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class PartyMemberIcon : ReferenceRect
+public class PartyMemberIcon : Button
 {
 	public Character IconFor { get; set; }
 

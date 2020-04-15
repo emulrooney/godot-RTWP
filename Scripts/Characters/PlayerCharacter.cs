@@ -5,7 +5,6 @@ public class PlayerCharacter : Character, IMapClickable
 { 
 	[Export] public Texture Portrait { get; set; }
 	[Export] public Color PortraitColor { get; set; }
-
 	[Export] public SpriteFrames AnimationSet { get; set; }
 
 	private RegularAttack weapon;
@@ -35,6 +34,12 @@ public class PlayerCharacter : Character, IMapClickable
 			base.ReceiveAttack(hitRoll, damage, damageType);
 			GUIManager.UpdateFor(this);
 		}
+	}
+
+	public void ForceHalt()
+	{
+		AttackTarget = null;
+		QueuedMoves.Clear();
 	}
 
 	protected override void Die()

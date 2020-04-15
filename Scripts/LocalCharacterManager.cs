@@ -199,15 +199,27 @@ public class LocalCharacterManager : Node2D
 		}
 	}
 
-	public static void SelectAllInRect(List<PlayerCharacter> results, bool exclusive = true)
-	{
-		if (exclusive)
-			DeselectAll();
+    public static void SelectAllInRect(List<PlayerCharacter> results, bool exclusive = true)
+    {
+        if (exclusive)
+            DeselectAll();
 
-		//var players = results.OfType<PlayerCharacter>();
-		_lcm.Selected.AddRange(results);
+        //var players = results.OfType<PlayerCharacter>();
+        _lcm.Selected.AddRange(results);
 
-		_lcm.UpdateSelectionCircles();
-	}
+        _lcm.UpdateSelectionCircles();
+    }
 
+    public static int GetSelectedCount()
+    {
+        return _lcm.Selected.Count();
+    }
+
+    public static PlayerCharacter GetSingleSelected()
+    {
+        if (GetSelectedCount() == 1)
+            return _lcm.Selected.First();
+
+        return null;
+    }
 }

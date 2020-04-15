@@ -1,7 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/GUI/PartyIconStrip.cs" type="Script" id=1]
 [ext_resource path="res://Controls/GUIPartyIcon.tscn" type="PackedScene" id=2]
+
+[sub_resource type="InputEventKey" id=1]
+scancode = 49
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
+
+[sub_resource type="InputEventKey" id=3]
+scancode = 50
+
+[sub_resource type="ShortCut" id=4]
+shortcut = SubResource( 3 )
 
 [node name="PartyIcons" type="VBoxContainer"]
 margin_left = 8.0
@@ -15,17 +27,25 @@ __meta__ = {
 
 [node name="PC_1" parent="." instance=ExtResource( 2 )]
 visible = false
+shortcut = SubResource( 2 )
 
 [node name="PC_2" parent="." instance=ExtResource( 2 )]
 visible = false
-border_color = Color( 0.3, 0.3, 0.3, 1 )
+margin_top = 49.0
+margin_bottom = 94.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 4 )
 
 [node name="PC_3" parent="." instance=ExtResource( 2 )]
 visible = false
+margin_top = 98.0
+margin_bottom = 143.0
 
 [node name="PC_4" parent="." instance=ExtResource( 2 )]
 visible = false
-[connection signal="gui_input" from="PC_1" to="." method="ClickPortrait" binds= [ 1 ]]
-[connection signal="gui_input" from="PC_2" to="." method="ClickPortrait" binds= [ 2 ]]
-[connection signal="gui_input" from="PC_3" to="." method="ClickPortrait" binds= [ 3 ]]
-[connection signal="gui_input" from="PC_4" to="." method="ClickPortrait" binds= [ 4 ]]
+margin_top = 147.0
+margin_bottom = 192.0
+[connection signal="button_down" from="PC_1" to="." method="ClickPortrait" binds= [ 1 ]]
+[connection signal="button_down" from="PC_2" to="." method="ClickPortrait" binds= [ 2 ]]
+[connection signal="button_down" from="PC_3" to="." method="ClickPortrait" binds= [ 3 ]]
+[connection signal="button_down" from="PC_4" to="." method="ClickPortrait" binds= [ 4 ]]

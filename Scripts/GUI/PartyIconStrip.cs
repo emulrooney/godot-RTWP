@@ -63,10 +63,10 @@ public class PartyIconStrip : VBoxContainer
 		return -1;
 	}
 
-	private void ClickPortrait(object @event, int partyMember)
+	private void ClickPortrait(int partyMember)
 	{
 		//Pass click up to manager
-		//Written this way to make use of Godot 'signals'
+		//Written this way to make use of Godot 'signals' and keyboard shurtcuts
 		GUIManager.ClickPortrait(partyMember);
 	}
 
