@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/GUI/GUIManager.cs" type="Script" id=1]
 [ext_resource path="res://Controls/GUIPartyIconsStrip.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Controls/GUICombatLog.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Controls/GUIAbilityToolbar.tscn" type="PackedScene" id=5]
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -17,15 +18,14 @@ margin_right = -51.0811
 margin_bottom = 117.685
 
 [node name="Combat Log" parent="." instance=ExtResource( 4 )]
-anchor_top = 0.75
+anchor_top = 0.7
 anchor_right = 0.5
 margin_left = 4.0
 margin_right = 0.0
-margin_bottom = -4.0
+margin_bottom = -48.0
 
-[node name="Ability Toolbar" type="HBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Ability Toolbar" parent="." instance=ExtResource( 5 )]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -48.0
+margin_bottom = 0.0
