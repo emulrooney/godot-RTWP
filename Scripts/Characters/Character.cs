@@ -19,6 +19,8 @@ public abstract class Character : KinematicBody2D
     protected CharacterAnimator Animator { get; set; }
     private RegularAttack RegularAttack { get; set; }
 
+    public List<IAbility> Abilities { get; set; } = new List<IAbility>();
+
     public override void _Ready()
     {
         LocalCharacterManager.RegisterPresent(this);
