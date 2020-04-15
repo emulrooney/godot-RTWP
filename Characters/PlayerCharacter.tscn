@@ -6,7 +6,7 @@
 [ext_resource path="res://Characters/Components/RegularAttack.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/GUI/selectedTarget.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/GUI/SelectionCircle.cs" type="Script" id=6]
-[ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=7]
+[ext_resource path="res://Characters/AnimationSets/unloadedPlayer.tres" type="SpriteFrames" id=7]
 [ext_resource path="res://Scripts/Characters/CharacterAnimator.cs" type="Script" id=41]
 [ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=42]
 [ext_resource path="res://Scripts/Characters/States/IdleState.cs" type="Script" id=43]
@@ -41,7 +41,6 @@ BaseDamage = 15
 position = Vector2( 7.56506, -8.64579 )
 frames = ExtResource( 7 )
 animation = "idle"
-frame = 1
 playing = true
 script = ExtResource( 41 )
 FlipOffset = Vector2( -16, 0 )

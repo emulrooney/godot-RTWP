@@ -17,6 +17,11 @@ margin_right = -51.0811
 margin_bottom = 117.685
 
 [node name="Combat Log" parent="." instance=ExtResource( 4 )]
+anchor_top = 0.75
+anchor_right = 0.5
+margin_left = 4.0
+margin_right = 0.0
+margin_bottom = -4.0
 
 [node name="Ability Toolbar" type="HBoxContainer" parent="."]
 margin_right = 40.0

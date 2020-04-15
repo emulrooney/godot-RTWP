@@ -4,12 +4,10 @@
 [ext_resource path="res://Scripts/GUI/CombatLog.cs" type="Script" id=2]
 
 [node name="Combat Log" type="Control"]
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 16.0
-margin_top = 320.0
-margin_right = -16.0
-margin_bottom = -4.0
+margin_right = -32.0
+margin_bottom = -324.0
 mouse_filter = 1
 script = ExtResource( 2 )
 __meta__ = {

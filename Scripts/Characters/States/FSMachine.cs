@@ -193,8 +193,8 @@ public class FSMachine : Node
 			States[newState].OnStart();
 			Previous = Current;
 			Current = States[newState];
-			
-			Animator.Animation = Current.AnimationName;
+
+			Animator.Animation = Current.AnimationName; //this gives an error in debugger but non-breaking; leaving it in to make debugging easier later
 
 			_Process(0); //Essentially, keep transitioning until none left. Slightly hacky, but solves weird visual glitch
 		}

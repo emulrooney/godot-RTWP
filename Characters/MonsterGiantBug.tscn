@@ -16,7 +16,6 @@
 [ext_resource path="res://Characters/Components/BasicEnemyFSM.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Characters/Components/RegularAttack.tscn" type="PackedScene" id=15]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 150.0
 
@@ -27,14 +26,14 @@ animations = [ {
 "name": "idle",
 "speed": 12.0
 }, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "hit",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "attack1",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "hit",
 "speed": 5.0
 } ]
 
@@ -46,6 +45,7 @@ radius = 16.0
 height = 18.0
 
 [node name="GiantBug" type="KinematicBody2D"]
+scale = Vector2( -1, 1 )
 script = ExtResource( 1 )
 CharacterName = "Giant Bug"
 Faction = 2
@@ -59,7 +59,8 @@ shape = SubResource( 1 )
 [node name="Animator" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -3.24217 )
 frames = SubResource( 2 )
-animation = "attack1"
+animation = "idle"
+frame = 2
 playing = true
 script = ExtResource( 10 )
 HitFlashColors = PoolColorArray( 1, 0, 0, 1, 0.968627, 1, 0, 1 )
