@@ -59,6 +59,7 @@
     <Compile Include="Scripts\Data\FSMState.cs" />
     <Compile Include="Scripts\Data\ClickInfo.cs" />
     <Compile Include="Scripts\Data\PartyMemberIcon.cs" />
+    <Compile Include="Scripts\Data\StatblockModifier.cs" />
     <Compile Include="Scripts\DebugHelpers\TopPrinter.cs" />
     <Compile Include="Scripts\GUI\AbilityToolbar.cs" />
     <Compile Include="Scripts\GUI\CameraControls.cs" />

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class Statblock : Node
 {
@@ -16,6 +17,30 @@ public class Statblock : Node
 
     public int AccuracyRoll { get => RNG.RandiRange(0, 100) + BaseAccuracy; }
 
-    public int Defense { get => BaseDefense; }
+    public int Defense
+    {
+        get
+        {
+            var returnDefense = BaseDefense;
+            for (int i = 0; i < Modifiers.Count; i++)
+                if (Modifiers[i].StatModified == StatType.DEFENSE)
+                    returnDefense += Modifiers[i].Amount;
+
+            return returnDefense;
+        }
+    }
+    private List<StatblockModifier> Modifiers { get; set; } = new List<StatblockModifier>();
+
+    public void AddModifier(StatblockModifier modifier)
+    {
+        GD.Print("Applied mod...");
+        Modifiers.Add(modifier);
+    }
+
+
+    public void RemoveModifier(StatblockModifier modifier)
+    {
+        var removed = Modifiers.Remove(modifier);
+    }
 
 }

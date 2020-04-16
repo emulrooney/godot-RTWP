@@ -55,8 +55,8 @@ script = ExtResource( 6 )
 CurrentHP = 10
 MaxHP = 10
 MoveSpeed = 150.0
-BaseAccuracy = 1
-BaseDamage = 13
+BaseAccuracy = 500
+BaseDamage = 1
 BaseDefense = 4
 
 [node name="GiantBug2" parent="." instance=ExtResource( 3 )]
