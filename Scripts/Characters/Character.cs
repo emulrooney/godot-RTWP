@@ -115,7 +115,7 @@ public abstract class Character : KinematicBody2D
 
     protected virtual void Die()
     {
-        CombatLog.Death(Name);
+        CombatLog.Death(Name, this.GetType() == typeof(PlayerCharacter));
         IsDead = true;
     }
 

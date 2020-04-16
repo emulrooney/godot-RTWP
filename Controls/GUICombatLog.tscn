@@ -13,7 +13,6 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-TextColors = PoolColorArray( 1, 1, 1, 1, 0.5, 0.5, 0.5, 1, 0, 1, 0.8, 1 )
 
 [node name="Output" type="RichTextLabel" parent="."]
 anchor_right = 1.0

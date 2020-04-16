@@ -14,7 +14,7 @@ public class AbilityToolbarButton : Button
 	public void UpdateVisual(Texture icon, Color color)
 	{
 		display.Texture = icon;
-		Modulate = color
+		Modulate = color;
 	}
 
 }

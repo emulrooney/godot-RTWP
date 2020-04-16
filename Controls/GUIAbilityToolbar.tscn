@@ -61,8 +61,8 @@ ButtonType = 1
 
 [node name="Divider_1" type="VSeparator" parent="VBoxContainer"]
 visible = false
-margin_left = 260.0
-margin_right = 264.0
+margin_left = 224.0
+margin_right = 228.0
 margin_bottom = 32.0
 [connection signal="pressed" from="VBoxContainer/General_0" to="." method="OnForceAttackPressed"]
 [connection signal="pressed" from="VBoxContainer/General_1" to="." method="OnForceHaltPressed"]

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class CombatLog : Control
 {
@@ -9,16 +10,12 @@ public class CombatLog : Control
 
 	public RichTextLabel Output { get; private set; }
 
-	[Export] private Color[] TextColors = new Color[]
+	private readonly Color[] TextColors = new Color[]
 	{
-		new Color(1, 1, 1, 1),
-		new Color(.8f, .8f, .8f, 1),
-		new Color(.75f, 1f, .8f, 1)
-		//"#DDDDDD",  //Miss
-		//"#cffffe", //Player
-		//"#ffd9d6", //Enemy
-		//"#a60037", //Player Killed
-		//"#efbaff"  //Hostile Magic
+		new Color(1, 1, 1, 1),          //0 Normal
+		new Color(.8f, .8f, .8f, 1),    //1 Dim/Miss
+		new Color(.7f, .7f, 1, 1),      //2 Ability
+		new Color(1f, .1f, .1f, 1)      //3 Player Death
 	};
 
 	public override void _Ready()
@@ -36,41 +33,61 @@ public class CombatLog : Control
 
 	public static void Attack(string attacker, string target, int accuracyRoll)
 	{
-		_log.WriteLine($"{attacker} attacked {target}. [roll: {accuracyRoll}]");
+		_log.WriteLine($"{attacker} attacked {target}. [roll: {accuracyRoll}]", LogMessageType.NORMAL);
 	}
 
 	public static void Hit(string target, int damage)
 	{
+		_log.WriteLine($"  {target} took {damage} damage.", LogMessageType.NORMAL);
+	}
 
-		_log.WriteLine($"  {target} took {damage} damage.");
+	public static void UseAbility(string message)
+	{
+		_log.WriteLine(message, LogMessageType.ABILITY);
 	}
 
 	public static void Miss()
 	{
-		_log.WriteLine("    Miss!", 1);
+		_log.WriteLine("    Miss!", LogMessageType.MISS);
 	}
 
-	public static void Death(string dead)
+	public static void Death(string dead, bool isPlayerDeath = false)
 	{
-		_log.WriteLine($"  {dead} dies.");
+		_log.WriteLine($"  {dead} dies.", (isPlayerDeath ? LogMessageType.DEATH : LogMessageType.NORMAL ));
 	}
 
-	private void WriteLine(string message, int textType = -1)
+	private void WriteLine(string message, LogMessageType textType)
 	{
 		Output.Newline();
 
-		if (textType > -1)
-			Output.PushColor(TextColors[textType]);
-
+		Output.PushColor(GetTextColor(textType));
 		Output.AddText(message);
-
-		if (textType > -1)
-			Output.Pop();
+		Output.Pop();
 
 		if (Output.GetLineCount() > MaxLines)
 			Output.RemoveLine(0);
 	}
-	
 
+	private Color GetTextColor(LogMessageType messageType)
+	{
+		switch (messageType)
+		{
+			case LogMessageType.MISS:
+				return TextColors[1];
+			case LogMessageType.ABILITY:
+				return TextColors[2];
+			case LogMessageType.DEATH:
+				return TextColors[3];
+			case LogMessageType.NORMAL:
+			default:
+				return TextColors[0];
+		}
+	}
+}
 
+enum LogMessageType {
+	NORMAL,
+	MISS,
+	DEATH,
+	ABILITY
 }

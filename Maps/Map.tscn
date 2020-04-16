@@ -39,7 +39,7 @@ AnimationSet = ExtResource( 4 )
 
 [node name="OverrideStatblock" type="Node" parent="KNIFELYN"]
 script = ExtResource( 6 )
-CurrentHP = 150
+CurrentHP = 1
 MaxHP = 150
 MoveSpeed = 103.0
 BaseAccuracy = 30
