@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/idle (4).png-d8a21fb2fc66dedaf807722893afbdaf.stex"
+path="res://.import/hit.png-5a36b4bc2029621390e7750a790ebaa0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Monsters/GiantBug/idle (4).png"
-dest_files=[ "res://.import/idle (4).png-d8a21fb2fc66dedaf807722893afbdaf.stex" ]
+source_file="res://Assets/Monsters/GiantBug/hit.png"
+dest_files=[ "res://.import/hit.png-5a36b4bc2029621390e7750a790ebaa0.stex" ]
 
 [params]
 

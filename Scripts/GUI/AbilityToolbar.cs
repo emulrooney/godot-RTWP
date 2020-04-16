@@ -4,39 +4,75 @@ using System.Collections.Generic;
 
 public class AbilityToolbar : PanelContainer
 {
-	PlayerCharacter _pcOwner;
+	[Export] private Texture AttackIcon;
+	[Export] private Texture HaltIcon;
 
-	List<TextureButton> general = new List<TextureButton>();
-	List<TextureButton> abilities = new List<TextureButton>();
-	List<TextureButton> items = new List<TextureButton>();
-	List<VSeparator> dividers = new List<VSeparator>();
+
+	private List<PlayerCharacter> _pcOwners = new List<PlayerCharacter>();
+	private List<AbilityToolbarButton> general = new List<AbilityToolbarButton>();
+	private List<AbilityToolbarButton> abilities = new List<AbilityToolbarButton>();
+	private List<AbilityToolbarButton> items = new List<AbilityToolbarButton>();
+	private List<VSeparator> dividers = new List<VSeparator>();
 
 	public override void _Ready()
 	{
 		GUIManager.RegisterElement(this);
 
-		foreach (var item in GetChild(0).GetChildren())
+		var buttons = GetChild(0).GetChildren();
+
+		for (int i = 0; i < buttons.Count; i++)
 		{
-			//TODO It would probably be better to generate a bunch of items for these instead...
-			if (item.GetType() == typeof(TextureButton))
+			//TODO It would probably be better to generate a bunch of icons for these instead...
+			if (buttons[i].GetType() == typeof(AbilityToolbarButton))
 			{
-				TextureButton tb = (TextureButton)item;
-				if (tb.Name.Contains("General"))
-					general.Add(tb);
-				else if (tb.Name.Contains("Ability"))
-					abilities.Add(tb);
-				else if (tb.Name.Contains("Item"))
-					items.Add(tb);
+				AbilityToolbarButton tb = (AbilityToolbarButton)buttons[i];
+				tb.Setup();
+		
+				switch (tb.ButtonType)
+				{
+					case ToolbarButtonType.ABILITY:
+						abilities.Add(tb);
+						tb.Connect("pressed", this, "OnAbilityPressed", new Godot.Collections.Array() {abilities.Count - 1});
+						break;
+					case ToolbarButtonType.ITEM:
+						tb.Connect("pressed", this, "OnItemPressed", new Godot.Collections.Array() {items.Count - 1});
+						items.Add(tb);
+						break;
+					default:
+						general.Add(tb);
+						break;
+				}
 			}
-			else if (item.GetType() == typeof(VSeparator))
-				dividers.Add((VSeparator)item);
+			else if (buttons[i].GetType() == typeof(VSeparator))
+				dividers.Add((VSeparator)buttons[i]);
 		}
+
+		//Manually configure general icons; they're the same for everyone
+		general[0].UpdateVisual(AttackIcon, new Color(1, 1, 1, 1));
+		general[1].UpdateVisual(HaltIcon, new Color(1, 1, 1, 1));
 
 		this.Visible = false;
 	}
 
+	public void UpdateFor(List<PlayerCharacter> group)
+	{
+		if (group.Count <= 1) //short-circuit if somehow passed group of 1 or 0
+			UpdateFor(group[0]);
+		else
+		{
+			_pcOwners = group;
+			abilities.ForEach(tb => tb.Visible = false);
+			dividers.ForEach(d => d.Visible = false);
+		}
+
+		this.Visible = true;
+		RectSize = GetMinimumSize();
+	}
+
 	public void UpdateFor(PlayerCharacter pc)
 	{
+		_pcOwners.Clear();
+		
 		//Short circuit to hide if no one selected
 		if (pc == null)
 		{
@@ -44,20 +80,19 @@ public class AbilityToolbar : PanelContainer
 			return;
 		}
 
-		_pcOwner = pc;
+		_pcOwners.Add(pc);
 
 		//Set abilities based on character
 		abilities.ForEach(tb => tb.Visible = false);
 
-		if (_pcOwner.Abilities.Count > 0)
+		if (pc.Abilities.Count > 0)
 		{
 			dividers[0].Visible = true;
 
-			for (int i = 0; i < _pcOwner.Abilities.Count; i++)
+			for (int i = 0; i < pc.Abilities.Count; i++)
 			{
 				abilities[i].Visible = true;
-				abilities[i].TextureNormal = _pcOwner.Abilities[i].ToolbarIcon;
-				abilities[i].Modulate = _pcOwner.Abilities[i].IconColor;
+				abilities[i].UpdateVisual(pc.Abilities[i].ToolbarIcon, pc.Abilities[i].IconColor);
 			}
 		}
 		else
@@ -72,26 +107,42 @@ public class AbilityToolbar : PanelContainer
 	
 	private void OnForceAttackPressed()
 	{
-		GD.Print($"Force Attack by {_pcOwner}");
+		foreach (var pc in _pcOwners)
+			GD.Print($"Force Attack by {pc}");
 	}
 
 
 	private void OnForceHaltPressed()
 	{
-		if (_pcOwner != null)
-			_pcOwner.ForceHalt();
+		foreach (var pc in _pcOwners)
+		{
+			pc.ForceHalt();
+		}
 	}
 
 
 	private void OnAbilityPressed(int abilityIndex)
 	{
-		GD.Print($"Ability #{abilityIndex} Press by {_pcOwner}");
+		foreach (var pc in _pcOwners)
+		{
+			GD.Print($"Ability #{abilityIndex} Press by {pc}");
+			try
+			{
+				pc.Abilities[abilityIndex].Use();
+			}
+			catch (Exception e)
+			{
+				GD.Print($"  Failed to cast! E: {e}");
+			}
+
+		}
 	}
 
 
 	private void OnItemPressed(int itemIndex)
 	{
-		GD.Print($"Item #{itemIndex} Press by {_pcOwner}");
+		foreach (var pc in _pcOwners)
+			GD.Print($"Item #{itemIndex} Press by {pc}");
 	}
 
 }

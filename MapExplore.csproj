@@ -51,9 +51,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scripts\Characters\Abilities\Ability.cs" />
     <Compile Include="Scripts\Characters\Abilities\SelfTargetAbility.cs" />
     <Compile Include="Scripts\Characters\Behaviours\EnemyBehaviour.cs" />
     <Compile Include="Scripts\Characters\States\DeadState.cs" />
+    <Compile Include="Scripts\Data\AbilityToolbarButton.cs" />
     <Compile Include="Scripts\Data\FSMState.cs" />
     <Compile Include="Scripts\Data\ClickInfo.cs" />
     <Compile Include="Scripts\Data\PartyMemberIcon.cs" />
@@ -79,7 +81,6 @@
     <Compile Include="Scripts\GUI\PartyIconStrip.cs" />
     <Compile Include="Scripts\GUI\SelectionCircle.cs" />
     <Compile Include="Scripts\InputManager.cs" />
-    <Compile Include="Scripts\Interfaces\IAbility.cs" />
     <Compile Include="Scripts\Interfaces\IMapClickable.cs" />
     <Compile Include="Scripts\LocalCharacterManager.cs" />
     <Compile Include="Scripts\Maps\MapLogic.cs" />

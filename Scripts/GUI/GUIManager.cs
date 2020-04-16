@@ -155,8 +155,11 @@ public class GUIManager : CanvasLayer
 	{
 		if (_abilityToolbar != null)
 		{
-			if (LocalCharacterManager.GetSelectedCount() == 1)
-				_abilityToolbar.UpdateFor(LocalCharacterManager.GetSingleSelected());
+            if (LocalCharacterManager.GetSelectedCount() == 1)
+                _abilityToolbar.UpdateFor(LocalCharacterManager.GetSingleSelected());
+            else
+                _abilityToolbar.UpdateFor(LocalCharacterManager.GetAllSelected());
+
 		}
 	}
 }

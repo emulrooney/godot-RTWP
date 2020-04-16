@@ -223,4 +223,9 @@ public class LocalCharacterManager : Node2D
 
         return null;
     }
+
+    public static List<PlayerCharacter> GetAllSelected()
+    {
+        return _lcm.Selected;
+    }
 }

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Data/AbilityToolbarButton.cs" type="Script" id=1]
+
+[sub_resource type="ShortCut" id=2]
+
+[node name="AbilityButton" type="Button"]
+self_modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+shortcut_in_tooltip = false
+shortcut = SubResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 32.0
+margin_bottom = 32.0
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
