@@ -2,10 +2,15 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Statblock representation for map character. Shared btwn players and monsters
+/// </summary>
 public class Statblock : Node
 {
+    //Shared for all characters
     private static RandomNumberGenerator RNG = new RandomNumberGenerator();
 
+    /* RAW STATS */
     [Export] public int CurrentHP { get; set; }
     [Export] public int MaxHP { get; set; }
 
@@ -15,32 +20,59 @@ public class Statblock : Node
     [Export] public int BaseDamage { get; set; }
     [Export] public int BaseDefense { get; set; }
 
-    public int AccuracyRoll { get => RNG.RandiRange(0, 100) + BaseAccuracy; }
+    /* DERIVED STATS */
+    public int Damage { get => BaseDamage + GetAllModifiersFor(StatType.DAMAGE); }
+    public int Accuracy { get => BaseAccuracy + GetAllModifiersFor(StatType.ACCURACY); }
+    public int Defense { get => BaseDefense + GetAllModifiersFor(StatType.DEFENSE); }
 
-    public int Defense
-    {
-        get
-        {
-            var returnDefense = BaseDefense;
-            for (int i = 0; i < Modifiers.Count; i++)
-                if (Modifiers[i].StatModified == StatType.DEFENSE)
-                    returnDefense += Modifiers[i].Amount;
+    /* STAT MODIFICATIONS */
 
-            return returnDefense;
-        }
-    }
     private List<StatblockModifier> Modifiers { get; set; } = new List<StatblockModifier>();
+
+    public int GetAllModifiersFor(StatType modifierType)
+    {
+        var returnVal = 0;
+
+        GD.Print("Get all for " + modifierType);
+        for (int i = 0; i < Modifiers.Count; i++)
+            if (Modifiers[i].StatModified == modifierType)
+            {
+                returnVal += Modifiers[i].Amount;
+                GD.Print(Modifiers[i].Amount);
+            }
+
+        return returnVal;
+    }
 
     public void AddModifier(StatblockModifier modifier)
     {
-        GD.Print("Applied mod...");
         Modifiers.Add(modifier);
     }
 
-
     public void RemoveModifier(StatblockModifier modifier)
     {
-        var removed = Modifiers.Remove(modifier);
+        Modifiers.Remove(modifier);
+    }
+
+    /* MISCELLANEOUS */
+
+    public int Roll(StatType stat)
+    {
+        int statValue = 0;
+
+        switch (stat)
+        {
+            case StatType.ACCURACY:
+                statValue = Accuracy;
+                break;
+            case StatType.DEFENSE:
+                statValue = Defense;
+                break;
+            default:
+                throw new NotSupportedException();
+        };
+
+        return RNG.RandiRange(0, 100) + statValue;
     }
 
 }

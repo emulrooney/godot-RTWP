@@ -19,7 +19,7 @@ public class SelfTargetAbility : Ability
 
 	private void ApplyModifier()
 	{
-		var modifier = new StatblockModifier(Caster.Stats, affectedStat, powerLevel, affectLengthInSeconds * 1000);
+		var modifier = new StatblockModifier(this, affectedStat, powerLevel, affectLengthInSeconds * 1000);
 		Caster.Stats.AddModifier(modifier);
 	}
 

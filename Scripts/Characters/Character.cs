@@ -77,8 +77,8 @@ public abstract class Character : KinematicBody2D
         }
 
 
-        var roll = Stats.AccuracyRoll;
-        var damage = Stats.BaseDamage + RegularAttack.Attack();
+        var roll = Stats.Roll(StatType.ACCURACY);
+        var damage = Stats.Damage + RegularAttack.Attack();
 
         CombatLog.Attack(this.Name, target.Name, roll);
         target.ReceiveAttack(roll, damage);

@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Characters/Components/SelfTargetAbility.tscn" type="PackedScene" id=1]
+[ext_resource path="res://SFX/SimpleImpact.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/GUI/Ability Icons/ice-shield.png" type="Texture" id=3]
+[ext_resource path="res://Assets/GUI/selectedTarget.png" type="Texture" id=4]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0.202515, 0.216253, 0.328125, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+gravity = Vector3( 0, -40, 0 )
+initial_velocity = 5.0
+angular_velocity = 30.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color_ramp = SubResource( 2 )
+
+[node name="Ice Shield" instance=ExtResource( 1 )]
+AbilityName = "Ice Shield"
+ToolbarIcon = ExtResource( 3 )
+IconColor = Color( 0, 0.741176, 1, 1 )
+affectedStat = 4
+powerLevel = 80
+affectLengthInSeconds = 1.0
+
+[node name="OnCast" parent="." index="0" instance=ExtResource( 2 )]
+modulate = Color( 0, 0.929412, 1, 1 )
+scale = Vector2( 3, 3 )
+amount = 4
+
+[node name="WhileActive" type="Particles2D" parent="." index="1"]
+modulate = Color( 0, 0.671875, 1, 0.588235 )
+scale = Vector2( 0.25, 0.6 )
+z_index = -20
+emitting = false
+amount = 14
+preprocess = 0.5
+speed_scale = 2.0
+process_material = SubResource( 3 )
+texture = ExtResource( 4 )

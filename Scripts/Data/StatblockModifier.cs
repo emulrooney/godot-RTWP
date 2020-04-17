@@ -3,11 +3,11 @@ using System.Timers;
 
 public class StatblockModifier
 {
-	private Statblock Owner;
+	private Ability Owner;
 	public StatType StatModified { get; private set; }
 	public int Amount { get; private set; }
 
-	public StatblockModifier(Statblock owner, StatType statType, int amount, float modifierLength = -1)
+	public StatblockModifier(Ability owner, StatType statType, int amount, float modifierLength = -1)
 	{
 		Owner = owner;
 
@@ -23,17 +23,9 @@ public class StatblockModifier
 	}
 
 	private void ModifierComplete(object sender, ElapsedEventArgs e)
-	{
-		Owner.RemoveModifier(this);
+    { 
+        Owner.EndModifier(this);
+        Owner.Complete();
 	}
 
-}
-
-public enum StatType
-{
-	HP,
-	MOVESPEED,
-	ACCURACY,
-	DAMAGE,
-	DEFENSE
 }

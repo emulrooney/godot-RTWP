@@ -10,6 +10,7 @@ public abstract class Ability : Node2D
     [Export] public string AnimationName { get; set; }
 
     protected Particles2D OnCast;
+    protected Particles2D WhileActive; 
 
     public override void _Ready()
     {
@@ -17,16 +18,28 @@ public abstract class Ability : Node2D
         Caster.Abilities.Add(this);
 
         OnCast = (Particles2D)GetNodeOrNull("OnCast");
+        WhileActive = (Particles2D)GetNodeOrNull("WhileActive");
     }
 
     public virtual bool Use() {
         CombatLog.UseAbility($"{Caster} casts {AbilityName}.");
 
         if (OnCast != null)
-        {
             OnCast.Emitting = true;
-        }
+
+        if (WhileActive != null)
+            WhileActive.Emitting = true;
 
         return true;
+    }
+
+    public virtual void Complete()
+    {
+        WhileActive.Emitting = false;
+    }
+
+    public virtual void EndModifier(StatblockModifier modifier)
+    {
+        Caster.Stats.RemoveModifier(modifier);
     }
 }
