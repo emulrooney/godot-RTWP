@@ -25,6 +25,7 @@ color_ramp = SubResource( 2 )
 AbilityName = "Ice Shield"
 ToolbarIcon = ExtResource( 3 )
 IconColor = Color( 0, 0.741176, 1, 1 )
+isChargedAbility = true
 affectedStat = 4
 powerLevel = 80
 affectLengthInSeconds = 1.0

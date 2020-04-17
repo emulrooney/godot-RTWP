@@ -10,5 +10,7 @@ public enum FSMState
     Move,
     MoveAttack,
     Attack,
+    ChargingAbility,
+    CastingAbility,
     Dead
 }

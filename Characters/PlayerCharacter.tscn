@@ -86,6 +86,18 @@ script = ExtResource( 43 )
 AnimationNames = PoolStringArray( "dead" )
 StateType = 4
 
+[node name="ChargingAbilityState" type="Node" parent="FSMachine"]
+script = ExtResource( 43 )
+AnimationNames = PoolStringArray( "ability" )
+StateType = 4
+
+[node name="Timer" type="Timer" parent="FSMachine/ChargingAbilityState"]
+one_shot = true
+
+[node name="AbilityState" type="Node" parent="FSMachine"]
+script = ExtResource( 43 )
+StateType = 5
+
 [node name="ClickableArea" type="Area2D" parent="."]
 priority = 60.0
 collision_layer = 16

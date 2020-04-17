@@ -4,6 +4,10 @@ using System;
 public abstract class Ability : Node2D
 {
     protected Character Caster { get; set; }
+
+    [Export] private bool isItemAbility = false;
+    [Export] private bool isChargedAbility = false;
+
     [Export] public string AbilityName { get; set; }
     [Export] public Texture ToolbarIcon { get; set; }
     [Export] public Color IconColor { get; set; }
