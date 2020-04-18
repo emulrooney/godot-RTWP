@@ -9,7 +9,6 @@
 [ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=7]
 [ext_resource path="res://Characters/Components/Ice Shield.tscn" type="PackedScene" id=8]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 500 )
 
@@ -40,12 +39,25 @@ AnimationSet = ExtResource( 4 )
 
 [node name="OverrideStatblock" type="Node" parent="KNIFELYN"]
 script = ExtResource( 6 )
-CurrentHP = 1
-MaxHP = 150
+CurrentHP = 84
+MaxHP = 84
 MoveSpeed = 103.0
-BaseAccuracy = 30
-BaseDamage = 30
-BaseDefense = 25
+BaseAccuracy = 10
+BaseDamage = 10
+BaseDefense = -5
+
+[node name="Red Shield" parent="KNIFELYN" instance=ExtResource( 8 )]
+AbilityName = "Red Shield"
+IconColor = Color( 0.945098, 0.156863, 0.270588, 1 )
+ChargeTime = 0.0
+ActiveTime = 4.0
+affectedStat = 1
+
+[node name="OnCast" parent="KNIFELYN/Red Shield" index="0"]
+modulate = Color( 0.529412, 0.0431373, 0.0431373, 1 )
+
+[node name="WhileActive" parent="KNIFELYN/Red Shield" index="1"]
+modulate = Color( 1, 0.117647, 0, 0.588235 )
 
 [node name="GiantBug" parent="." instance=ExtResource( 3 )]
 position = Vector2( 253.449, 203.047 )
@@ -62,3 +74,5 @@ BaseDefense = 4
 
 [node name="GiantBug2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 494.162, 248.05 )
+
+[editable path="KNIFELYN/Red Shield"]

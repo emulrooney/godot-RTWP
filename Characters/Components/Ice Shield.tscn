@@ -14,7 +14,8 @@ gradient = SubResource( 1 )
 [sub_resource type="ParticlesMaterial" id=3]
 flag_disable_z = true
 gravity = Vector3( 0, -40, 0 )
-initial_velocity = 5.0
+initial_velocity = 9.0
+initial_velocity_random = 0.05
 angular_velocity = 30.0
 angular_velocity_random = 1.0
 orbit_velocity = 0.0
@@ -25,23 +26,27 @@ color_ramp = SubResource( 2 )
 AbilityName = "Ice Shield"
 ToolbarIcon = ExtResource( 3 )
 IconColor = Color( 0, 0.741176, 1, 1 )
-isChargedAbility = true
+ChargeTime = 2.0
+ActiveTime = 12.0
 affectedStat = 4
 powerLevel = 80
-affectLengthInSeconds = 1.0
+effectLengthInSeconds = 10.0
 
 [node name="OnCast" parent="." index="0" instance=ExtResource( 2 )]
 modulate = Color( 0, 0.929412, 1, 1 )
 scale = Vector2( 3, 3 )
-amount = 4
+amount = 2
 
 [node name="WhileActive" type="Particles2D" parent="." index="1"]
 modulate = Color( 0, 0.671875, 1, 0.588235 )
 scale = Vector2( 0.25, 0.6 )
 z_index = -20
 emitting = false
-amount = 14
-preprocess = 0.5
+amount = 7
 speed_scale = 2.0
 process_material = SubResource( 3 )
 texture = ExtResource( 4 )
+
+[node name="Timer" type="Timer" parent="WhileActive" index="0"]
+one_shot = true
+[connection signal="timeout" from="WhileActive/Timer" to="." method="EndEffect"]

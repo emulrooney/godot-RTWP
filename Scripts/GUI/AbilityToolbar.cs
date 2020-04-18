@@ -48,7 +48,7 @@ public class AbilityToolbar : PanelContainer
 		}
 
 		//Manually configure general icons; they're the same for everyone
-		general[0].UpdateVisual(AttackIcon, new Color(1, 1, 1, 1));
+		general[0].UpdateVisual(AttackIcon, new Color(1, 1, 1, 1)); //TODO This could show the user's weapon instead
 		general[1].UpdateVisual(HaltIcon, new Color(1, 1, 1, 1));
 
 		this.Visible = false;
@@ -128,7 +128,7 @@ public class AbilityToolbar : PanelContainer
 			GD.Print($"Ability #{abilityIndex} Press by {pc}");
 			try
 			{
-				pc.Abilities[abilityIndex].Use();
+                pc.UseAbility(abilityIndex);
 			}
 			catch (Exception e)
 			{

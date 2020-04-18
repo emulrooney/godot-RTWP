@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class AttackState : CharacterState
 {
@@ -23,8 +22,22 @@ public class AttackState : CharacterState
 		NextAnimation();
 	}
 
+    public void OverrideStateLength(float newStateLength)
+    {
+        if (newStateLength <= 0)
+            Timeout(); //Short circuit.
+        else
+        {
+            timer.Stop();
+            timer.WaitTime = newStateLength;
+            timer.Start();
+        }
+
+    }
+
 	public void Timeout()
 	{
+        GD.Print("Done: " + this.Name);
 		Done = true;
 		timer.WaitTime = StateLength;        
 	}

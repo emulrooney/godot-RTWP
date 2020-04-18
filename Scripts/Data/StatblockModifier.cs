@@ -13,7 +13,7 @@ public class StatblockModifier
 
 		if (modifierLength > 0)
 		{
-			Timer t = new Timer(modifierLength);
+			Timer t = new Timer(modifierLength * 1000); //using non-godot timer, so measured in ms
 			t.AutoReset = false;
 			t.Elapsed += ModifierComplete;
 			t.Start();
@@ -25,7 +25,7 @@ public class StatblockModifier
 	private void ModifierComplete(object sender, ElapsedEventArgs e)
     { 
         Owner.EndModifier(this);
-        Owner.Complete();
+        //Owner.ChargeComplete();
 	}
 
 }

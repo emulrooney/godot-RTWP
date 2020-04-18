@@ -5,22 +5,21 @@ public class SelfTargetAbility : Ability
 {
 	[Export] private StatType affectedStat;
 	[Export] private int powerLevel = 1;
-	[Export] private float affectLengthInSeconds = 0;
 
-
-	public override bool Use()
+	public override void _Ready()
 	{
-		base.Use();
-		ApplyModifier();
-
-		return true;
-
+		base._Ready();
 	}
 
-	private void ApplyModifier()
+	public override void Release()
 	{
-		var modifier = new StatblockModifier(this, affectedStat, powerLevel, affectLengthInSeconds * 1000);
-		Caster.Stats.AddModifier(modifier);
+		ApplyActiveVisuals();
+		ApplyModifier(Caster, affectedStat, powerLevel);
+	}
+
+	public void EndEffect()
+	{
+		whileActive.Emitting = false;
 	}
 
 }

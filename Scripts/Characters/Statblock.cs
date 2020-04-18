@@ -33,7 +33,6 @@ public class Statblock : Node
     {
         var returnVal = 0;
 
-        GD.Print("Get all for " + modifierType);
         for (int i = 0; i < Modifiers.Count; i++)
             if (Modifiers[i].StatModified == modifierType)
             {

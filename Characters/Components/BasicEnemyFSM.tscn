@@ -32,7 +32,7 @@ one_shot = true
 [node name="DeadState" type="Node" parent="."]
 script = ExtResource( 5 )
 AnimationNames = PoolStringArray( "hit" )
-StateType = 4
+StateType = 6
 StateLength = 1.0
 
 [node name="Timer" type="Timer" parent="DeadState"]

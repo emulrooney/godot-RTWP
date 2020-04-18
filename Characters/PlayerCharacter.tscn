@@ -84,19 +84,25 @@ one_shot = true
 [node name="DeadState" type="Node" parent="FSMachine"]
 script = ExtResource( 43 )
 AnimationNames = PoolStringArray( "dead" )
-StateType = 4
+StateType = 6
 
 [node name="ChargingAbilityState" type="Node" parent="FSMachine"]
-script = ExtResource( 43 )
+script = ExtResource( 45 )
 AnimationNames = PoolStringArray( "ability" )
 StateType = 4
+StateLength = 1.0
 
 [node name="Timer" type="Timer" parent="FSMachine/ChargingAbilityState"]
 one_shot = true
 
-[node name="AbilityState" type="Node" parent="FSMachine"]
-script = ExtResource( 43 )
+[node name="CastingAbilityState" type="Node" parent="FSMachine"]
+script = ExtResource( 45 )
+AnimationNames = PoolStringArray( "attack1" )
 StateType = 5
+StateLength = 0.24
+
+[node name="Timer" type="Timer" parent="FSMachine/CastingAbilityState"]
+one_shot = true
 
 [node name="ClickableArea" type="Area2D" parent="."]
 priority = 60.0
@@ -106,3 +112,5 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
 shape = SubResource( 2 )
 [connection signal="timeout" from="FSMachine/AttackState/Timer" to="FSMachine/AttackState" method="Timeout"]
+[connection signal="timeout" from="FSMachine/ChargingAbilityState/Timer" to="FSMachine/ChargingAbilityState" method="Timeout"]
+[connection signal="timeout" from="FSMachine/CastingAbilityState/Timer" to="FSMachine/CastingAbilityState" method="Timeout"]

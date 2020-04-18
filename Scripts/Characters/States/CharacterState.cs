@@ -4,7 +4,6 @@ using System;
 public abstract class CharacterState : Node
 {
     public Character StateOwner { get; set; }
-
     public string AnimationName { get
         {
             return AnimationNames[currentAnimation];
@@ -16,7 +15,7 @@ public abstract class CharacterState : Node
     [Export] public string[] AnimationNames { get; set; } = { "idle" };
     [Export] public FSMState StateType { get; set; }
     [Export] public float StateLength { get; set; } = -1; //If positive, FSM will run a timer and end
-    public bool Done { get; set; } //Only used for cases like "Attack"
+    public bool Done { get; set; } //Only used for cases like "Attack", Charging
 
     public abstract void OnStart();
 
