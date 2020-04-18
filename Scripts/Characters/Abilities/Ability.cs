@@ -73,10 +73,10 @@ public abstract class Ability : Node2D
     /// Called when ability is first activated. 
     /// </summary>
     public virtual void Use() {
-        CombatLog.UseAbility($"{Caster.CharacterName} casts {AbilityName}.");
         
         if (!IsCharged && onCast != null)
         {
+            CombatLog.UseAbility($"{Caster.CharacterName} casts {AbilityName}.");
             onCast.Emitting = true;
             Release();
         }
@@ -94,6 +94,8 @@ public abstract class Ability : Node2D
     /// </summary>
     public virtual void ChargeComplete()
     {
+        CombatLog.UseAbility($"{Caster.CharacterName} casts {AbilityName}.");
+
         if (onCast != null)
             onCast.Emitting = true;
 
@@ -101,6 +103,11 @@ public abstract class Ability : Node2D
             whileActive.Emitting = true;
 
         Release();
+    }
+
+    protected void RestoreHealth(Character target, int powerLevel)
+    {
+        target.ReceiveHeal(powerLevel);
     }
 
     protected void ApplyModifier(Character target, StatType affectedStat, int powerLevel)

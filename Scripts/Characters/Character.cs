@@ -112,7 +112,6 @@ public abstract class Character : KinematicBody2D
 			return false;
 	}
 
-
 	public virtual void ReceiveAttack(int hitRoll, int damage, int damageType = 0)
 	{
 		if (!IsDead)
@@ -135,6 +134,15 @@ public abstract class Character : KinematicBody2D
 				Die();
 		}
 	}
+
+    public virtual void ReceiveHeal(int healed)
+    {
+        if (!IsDead)
+        {
+            Stats.Heal(healed);
+            CombatLog.Heal(CharacterName, healed);
+        }
+    }
 
 	public void SetSelectionCircle(bool visibility)
 	{

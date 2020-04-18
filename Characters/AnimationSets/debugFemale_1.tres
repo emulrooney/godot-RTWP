@@ -63,6 +63,11 @@ animations = [ {
 "name": "attack2",
 "speed": 10.0
 }, {
+"frames": [ ExtResource( 34 ), ExtResource( 15 ), ExtResource( 32 ), ExtResource( 9 ), ExtResource( 18 ), ExtResource( 31 ) ],
+"loop": true,
+"name": "walk",
+"speed": 6.0
+}, {
 "frames": [ ExtResource( 20 ), ExtResource( 24 ), ExtResource( 33 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 12 ) ],
 "loop": false,
 "name": "dead",
@@ -72,9 +77,4 @@ animations = [ {
 "loop": false,
 "name": "attack1",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 34 ), ExtResource( 15 ), ExtResource( 32 ), ExtResource( 9 ), ExtResource( 18 ), ExtResource( 31 ) ],
-"loop": true,
-"name": "walk",
-"speed": 6.0
 } ]

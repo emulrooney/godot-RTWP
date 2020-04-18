@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://Assets/GUI/Portraits/debugKnifeLadySmall.jpg" type="Texture" id=5]
 [ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=6]
 [ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=7]
-[ext_resource path="res://Characters/Components/Ice Shield.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Characters/Abilities/Ice Shield.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Characters/Abilities/First Aid Kid.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 500 )
@@ -41,9 +42,8 @@ AnimationSet = ExtResource( 4 )
 
 [node name="OverrideStatblock" type="Node" parent="KNIFELYN"]
 script = ExtResource( 6 )
-CurrentHP = 84
+CurrentHP = 2
 MaxHP = 84
-MoveSpeed = 103.0
 BaseAccuracy = 10
 BaseDamage = 10
 BaseDefense = -5
@@ -54,7 +54,7 @@ IconColor = Color( 0.945098, 0.156863, 0.270588, 1 )
 AnimationName = "attack1"
 ChargeTime = 0.0
 ActiveTime = 4.0
-affectedStat = 1
+affectedStat = 3
 powerLevel = 2000
 
 [node name="OnCast" parent="KNIFELYN/Red Shield" index="0"]
@@ -62,6 +62,8 @@ modulate = Color( 0.529412, 0.0431373, 0.0431373, 1 )
 
 [node name="WhileActive" parent="KNIFELYN/Red Shield" index="1"]
 modulate = Color( 1, 0.117647, 0, 0.588235 )
+
+[node name="First Aid Kit" parent="KNIFELYN" instance=ExtResource( 9 )]
 
 [node name="GiantBug" parent="." instance=ExtResource( 3 )]
 position = Vector2( 253.449, 203.047 )
@@ -71,7 +73,6 @@ CharacterName = "Fast Annoying Bug"
 script = ExtResource( 6 )
 CurrentHP = 10
 MaxHP = 10
-MoveSpeed = 150.0
 BaseDamage = 1
 BaseDefense = 4
 

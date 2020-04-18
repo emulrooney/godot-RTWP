@@ -29,6 +29,12 @@ public class Statblock : Node
 
     private List<StatblockModifier> Modifiers { get; set; } = new List<StatblockModifier>();
 
+    public void Heal(int amount)
+    {
+        CurrentHP += amount;
+        CurrentHP = Math.Min(CurrentHP, MaxHP);
+    }
+
     public int GetAllModifiersFor(StatType modifierType)
     {
         var returnVal = 0;

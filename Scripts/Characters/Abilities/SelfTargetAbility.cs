@@ -3,6 +3,7 @@ using System;
 
 public class SelfTargetAbility : Ability
 {
+
 	[Export] private StatType affectedStat;
 	[Export] private int powerLevel = 1;
 
@@ -14,7 +15,18 @@ public class SelfTargetAbility : Ability
 	public override void Release()
 	{
 		ApplyActiveVisuals();
-		ApplyModifier(Caster, affectedStat, powerLevel);
+
+		if (affectedStat == StatType.HP)
+		{
+			RestoreHealth(Caster, powerLevel);
+
+			if (Caster.GetType() == typeof(PlayerCharacter))
+				GUIManager.UpdateFor((PlayerCharacter)Caster);
+		}
+		else if (affectedStat == StatType.MOVESPEED)
+			CombatLog.Miss(); //Shouldn't be able to do this.
+		else
+			ApplyModifier(Caster, affectedStat, powerLevel);
 	}
 
 	public void EndEffect()

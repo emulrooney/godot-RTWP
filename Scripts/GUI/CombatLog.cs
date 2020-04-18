@@ -51,6 +51,11 @@ public class CombatLog : Control
 		_log.WriteLine("    Miss!", LogMessageType.MISS);
 	}
 
+    public static void Heal(string target, int healed)
+    {
+        _log.WriteLine($"   {target} was healed for {healed} HP.", LogMessageType.ABILITY);
+    }
+
 	public static void Death(string dead, bool isPlayerDeath = false)
 	{
 		_log.WriteLine($"  {dead} dies.", (isPlayerDeath ? LogMessageType.DEATH : LogMessageType.NORMAL ));
