@@ -1,16 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=1]
-[ext_resource path="res://Scripts/Characters/States/IdleState.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Characters/States/WalkState.cs" type="Script" id=3]
-[ext_resource path="res://Scripts/Characters/States/AttackState.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Characters/States/NormalState.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/Characters/States/DeadState.cs" type="Script" id=5]
 
 [node name="FSMachine" type="Node"]
 script = ExtResource( 1 )
 
 [node name="IdleState" type="Node" parent="."]
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="WalkState" type="Node" parent="."]
 script = ExtResource( 3 )

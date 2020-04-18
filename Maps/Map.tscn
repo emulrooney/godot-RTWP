@@ -29,6 +29,8 @@ CharacterName = "Axetopher"
 AnimationSet = ExtResource( 7 )
 
 [node name="Ice Shield" parent="AXETOPHER" instance=ExtResource( 8 )]
+ChargeTime = 1.0
+ActiveTime = 4.0
 
 [node name="KNIFELYN" parent="." instance=ExtResource( 2 )]
 position = Vector2( 124, 315 )
@@ -49,9 +51,11 @@ BaseDefense = -5
 [node name="Red Shield" parent="KNIFELYN" instance=ExtResource( 8 )]
 AbilityName = "Red Shield"
 IconColor = Color( 0.945098, 0.156863, 0.270588, 1 )
+AnimationName = "attack1"
 ChargeTime = 0.0
 ActiveTime = 4.0
 affectedStat = 1
+powerLevel = 2000
 
 [node name="OnCast" parent="KNIFELYN/Red Shield" index="0"]
 modulate = Color( 0.529412, 0.0431373, 0.0431373, 1 )
@@ -68,7 +72,6 @@ script = ExtResource( 6 )
 CurrentHP = 10
 MaxHP = 10
 MoveSpeed = 150.0
-BaseAccuracy = 500
 BaseDamage = 1
 BaseDefense = 4
 

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class IdleState : CharacterState
+public class NormalState : CharacterState
 {
     public override void OnFinish()
     {

@@ -23,7 +23,7 @@ public class StatblockModifier
 	}
 
 	private void ModifierComplete(object sender, ElapsedEventArgs e)
-    { 
+    {
         Owner.EndModifier(this);
         //Owner.ChargeComplete();
 	}

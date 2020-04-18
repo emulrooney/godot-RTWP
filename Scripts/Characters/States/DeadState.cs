@@ -11,8 +11,15 @@ public class DeadState : CharacterState
 	{
 		if (queueFreeOnDeath)
 		{
-			timer = (Timer)GetNode("Timer");
-			timer.WaitTime = StateLength;
+			timer = (Timer)GetNodeOrNull("Timer");
+
+            if (timer != null)
+    			timer.WaitTime = StateLength;
+            else
+            {
+                GD.Print($"No timer for queueFree for {StateOwner.Name}. Disabled queueFree.");
+                queueFreeOnDeath = false;
+            }
 		}
 	}
 

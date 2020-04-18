@@ -46,7 +46,6 @@ public abstract class Ability : Node2D
 
             if (whileCharging == null || whileChargingTimer == null)
             {
-                GD.Print($"Invalid charging settings for {Name}! Disabling 'whileCharging' effects.");
                 whileCharging = null;
                 whileChargingTimer = null;
             }
@@ -100,16 +99,20 @@ public abstract class Ability : Node2D
 
         if (whileActive != null)
             whileActive.Emitting = true;
+
+        Release();
     }
 
     protected void ApplyModifier(Character target, StatType affectedStat, int powerLevel)
     {
+        GD.Print($"Applying ({affectedStat} + {powerLevel}) to {target.Name}");
         var modifier = new StatblockModifier(this, affectedStat, powerLevel, ActiveTime);
         target.Stats.AddModifier(modifier);
     }
 
     public virtual void EndModifier(StatblockModifier modifier)
     {
+        GD.Print($"Removing ({modifier.StatModified} + {modifier.Amount}) as cast by {Caster.Name}");
         Caster.Stats.RemoveModifier(modifier);
     }
 

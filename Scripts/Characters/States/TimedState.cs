@@ -1,6 +1,6 @@
 using Godot;
 
-public class AttackState : CharacterState
+public class TimedState : CharacterState
 {
 	private Timer timer;
 	
@@ -37,7 +37,6 @@ public class AttackState : CharacterState
 
 	public void Timeout()
 	{
-        GD.Print("Done: " + this.Name);
 		Done = true;
 		timer.WaitTime = StateLength;        
 	}

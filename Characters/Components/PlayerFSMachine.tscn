@@ -3,7 +3,8 @@
 [ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Characters/States/IdleState.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/Characters/States/WalkState.cs" type="Script" id=3]
-[ext_resource path="res://Scripts/Characters/States/AttackState.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=4]
+
 
 [node name="FSMachine" type="Node"]
 script = ExtResource( 1 )

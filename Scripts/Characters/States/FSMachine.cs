@@ -44,18 +44,18 @@ public class FSMachine : Node
 			return;
 		}
 
-        if (_owner.QueuedAbility != null) //HAS QUEUED AN ABILITY...
-        {
-            ProcessAbilityState(delta);
-        }
-        else if (_owner.AttackTarget == null) //NON-COMBAT MODE
-        {
-            ProcessNormalState(delta);
-        }
-        else //COMBAT MODE
-        {
-            ProcessCombatState(delta);
-        }
+		if (_owner.QueuedAbility != null) //HAS QUEUED AN ABILITY...
+		{
+			ProcessAbilityState(delta);
+		}
+		else if (_owner.AttackTarget == null) //NON-COMBAT MODE
+		{
+			ProcessNormalState(delta);
+		}
+		else //COMBAT MODE
+		{
+			ProcessCombatState(delta);
+		}
 	}
 
 	private void ProcessNormalState(float delta)
@@ -114,7 +114,7 @@ public class FSMachine : Node
 
 				//If animation is done, attack
 
-				if (((AttackState)Current).Done)
+				if (((TimedState)Current).Done)
 				{
 					_owner.Attack(_owner.AttackTarget);
 					Transition(FSMState.Idle);
@@ -129,32 +129,32 @@ public class FSMachine : Node
 		}
 	}
 
-    private void ProcessAbilityState(float delta)
-    {
-        switch (Current.StateType)
-        {
-            case FSMState.ChargingAbility:
-                if (Current.Done)
-                {
-                    Transition(FSMState.CastingAbility);
-                    _owner.QueuedAbility.ChargeComplete();
-                }
-                break;
-            case FSMState.CastingAbility:
-                if (Current.Done)
-                {
-                    _owner.QueuedAbility.Use();
-                    _owner.QueuedAbility = null;
-                    Transition(FSMState.Idle);
-                }
-                break;
-            default:
-                AbilityTransition(_owner.QueuedAbility, _owner.QueuedAbility.ChargeTime, _owner.QueuedAbility.AnimationName);
-                break;
-        }
-    }
+	private void ProcessAbilityState(float delta)
+	{
+		switch (Current.StateType)
+		{
+			case FSMState.ChargingAbility:
+				if (Current.Done)
+				{
+					Transition(FSMState.CastingAbility);
+					_owner.QueuedAbility.ChargeComplete();
+				}
+				break;
+			case FSMState.CastingAbility:
+				if (Current.Done)
+				{
+					_owner.QueuedAbility.Use();
+					_owner.QueuedAbility = null;
+					Transition(FSMState.Idle);
+				}
+				break;
+			default:
+				AbilityTransition(_owner.QueuedAbility, _owner.QueuedAbility.ChargeTime, _owner.QueuedAbility.AnimationName);
+				break;
+		}
+	}
 
-    public virtual void SetAttackTarget(Character character)
+	public virtual void SetAttackTarget(Character character)
 	{
 		_owner.AttackTarget = character;
 		_owner.QueuedMoves.Clear();
@@ -237,23 +237,23 @@ public class FSMachine : Node
 	{
 		Transition(newState);
 
-        if (!String.IsNullOrWhiteSpace(overrideAnimation))
-    		Animator.Animation = overrideAnimation;
+		if (!String.IsNullOrWhiteSpace(overrideAnimation))
+			Animator.Animation = overrideAnimation;
 	}
 
 
-    public void AbilityTransition(Ability ability, float abilityLength, string overrideAnimation)
+	public void AbilityTransition(Ability ability, float abilityLength, string overrideAnimation)
 	{
-        if (ability == null) //defensive
-            return;
-        else if (ability.IsCharged)
-            Transition(FSMState.ChargingAbility, overrideAnimation);
-        else
-            Transition(FSMState.CastingAbility, overrideAnimation);
+		if (ability == null) //defensive
+			return;
+		else if (ability.IsCharged)
+			Transition(FSMState.ChargingAbility, overrideAnimation);
+		else
+			Transition(FSMState.CastingAbility, overrideAnimation);
 
-        AttackState timedState = (AttackState)Current;
-        timedState.OverrideStateLength(abilityLength);
-        GD.Print($"Now in: {Current.StateType} with animation {overrideAnimation}");
+		TimedState timedState = (TimedState)Current;
+		timedState.OverrideStateLength(abilityLength);
+		GD.Print($"Now in: {Current.StateType} with animation {overrideAnimation}");
 
 	}
 

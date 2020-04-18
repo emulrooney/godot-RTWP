@@ -7,11 +7,11 @@
 [ext_resource path="res://Assets/GUI/selectedTarget.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/GUI/SelectionCircle.cs" type="Script" id=6]
 [ext_resource path="res://Characters/AnimationSets/unloadedPlayer.tres" type="SpriteFrames" id=7]
+[ext_resource path="res://Scripts/Characters/States/NormalState.cs" type="Script" id=8]
+[ext_resource path="res://Scripts/Characters/States/DeadState.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Characters/CharacterAnimator.cs" type="Script" id=41]
 [ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=42]
-[ext_resource path="res://Scripts/Characters/States/IdleState.cs" type="Script" id=43]
-[ext_resource path="res://Scripts/Characters/States/WalkState.cs" type="Script" id=44]
-[ext_resource path="res://Scripts/Characters/States/AttackState.cs" type="Script" id=45]
+[ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=45]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.09306, 14.0139 )
@@ -30,7 +30,7 @@ PortraitColor = Color( 0.113725, 0.411765, 0.196078, 1 )
 
 [node name="Statblock" type="Node" parent="."]
 script = ExtResource( 3 )
-CurrentHP = 100
+CurrentHP = 120
 MaxHP = 120
 BaseAccuracy = 10
 BaseDamage = 15
@@ -60,15 +60,15 @@ shape = SubResource( 1 )
 script = ExtResource( 42 )
 
 [node name="IdleState" type="Node" parent="FSMachine"]
-script = ExtResource( 43 )
+script = ExtResource( 8 )
 
 [node name="WalkState" type="Node" parent="FSMachine"]
-script = ExtResource( 44 )
+script = ExtResource( 8 )
 AnimationNames = PoolStringArray( "walk" )
 StateType = 1
 
 [node name="MoveAttackState" type="Node" parent="FSMachine"]
-script = ExtResource( 44 )
+script = ExtResource( 8 )
 AnimationNames = PoolStringArray( "walk" )
 StateType = 2
 
@@ -82,9 +82,10 @@ StateLength = 1.25
 one_shot = true
 
 [node name="DeadState" type="Node" parent="FSMachine"]
-script = ExtResource( 43 )
+script = ExtResource( 9 )
 AnimationNames = PoolStringArray( "dead" )
 StateType = 6
+queueFreeOnDeath = false
 
 [node name="ChargingAbilityState" type="Node" parent="FSMachine"]
 script = ExtResource( 45 )

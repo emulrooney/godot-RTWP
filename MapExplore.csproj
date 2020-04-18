@@ -68,11 +68,10 @@
     <Compile Include="Scripts\Characters\Abilities\RegularAttack.cs" />
     <Compile Include="Scripts\Characters\CharacterAnimator.cs" />
     <Compile Include="Scripts\Characters\Statblock.cs" />
-    <Compile Include="Scripts\Characters\States\AttackState.cs" />
+    <Compile Include="Scripts\Characters\States\TimedState.cs" />
     <Compile Include="Scripts\Characters\States\CharacterState.cs" />
     <Compile Include="Scripts\Characters\States\FSMachine.cs" />
-    <Compile Include="Scripts\Characters\States\IdleState.cs" />
-    <Compile Include="Scripts\Characters\States\WalkState.cs" />
+    <Compile Include="Scripts\Characters\States\NormalState.cs" />
     <Compile Include="Scripts\Data\CharFaction.cs" />
     <Compile Include="Scripts\Data\GameState.cs" />
     <Compile Include="Scripts\Characters\Character.cs" />
