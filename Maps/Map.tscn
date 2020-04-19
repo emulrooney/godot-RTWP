@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=7]
 [ext_resource path="res://Characters/Abilities/Ice Shield.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Characters/Abilities/First Aid Kid.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/GUI/Ability Icons/Generic/attack.png" type="Texture" id=10]
+[ext_resource path="res://Characters/Abilities/AoEAbility.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 500 )
@@ -29,6 +31,10 @@ position = Vector2( 87.147, 287.29 )
 CharacterName = "Axetopher"
 AnimationSet = ExtResource( 7 )
 
+[node name="AoEAbility" parent="AXETOPHER" instance=ExtResource( 11 )]
+position = Vector2( -87.147, -287.29 )
+targetLocation = Vector2( 253, 203 )
+
 [node name="Ice Shield" parent="AXETOPHER" instance=ExtResource( 8 )]
 ChargeTime = 1.0
 ActiveTime = 4.0
@@ -48,20 +54,25 @@ BaseAccuracy = 10
 BaseDamage = 10
 BaseDefense = -5
 
-[node name="Red Shield" parent="KNIFELYN" instance=ExtResource( 8 )]
-AbilityName = "Red Shield"
+[node name="Ice Shield2" parent="KNIFELYN" instance=ExtResource( 8 )]
+position = Vector2( -36.853, -27.71 )
+ChargeTime = 1.0
+ActiveTime = 4.0
+
+[node name="Ice Shield3" parent="KNIFELYN" instance=ExtResource( 8 )]
+position = Vector2( -36.853, -27.71 )
+ChargeTime = 1.0
+ActiveTime = 4.0
+
+[node name="Stabbing" parent="KNIFELYN" instance=ExtResource( 8 )]
+AbilityName = "Stabbing Fury"
+ToolbarIcon = ExtResource( 10 )
 IconColor = Color( 0.945098, 0.156863, 0.270588, 1 )
 AnimationName = "attack1"
 ChargeTime = 0.0
 ActiveTime = 4.0
 affectedStat = 3
-powerLevel = 2000
-
-[node name="OnCast" parent="KNIFELYN/Red Shield" index="0"]
-modulate = Color( 0.529412, 0.0431373, 0.0431373, 1 )
-
-[node name="WhileActive" parent="KNIFELYN/Red Shield" index="1"]
-modulate = Color( 1, 0.117647, 0, 0.588235 )
+powerLevel = 20
 
 [node name="First Aid Kit" parent="KNIFELYN" instance=ExtResource( 9 )]
 
@@ -78,5 +89,3 @@ BaseDefense = 4
 
 [node name="GiantBug2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 494.162, 248.05 )
-
-[editable path="KNIFELYN/Red Shield"]

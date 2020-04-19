@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Characters/Components/SelfTargetAbility.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Characters/Abilities/SelfTargetAbility.tscn" type="PackedScene" id=1]
 [ext_resource path="res://SFX/SimpleImpact.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/GUI/Ability Icons/Item/first-aid-kit.png" type="Texture" id=3]
+
 
 [node name="First Aid Kit" instance=ExtResource( 1 )]
 IsItemAbility = true

@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Scripts\Characters\Abilities\Ability.cs" />
+    <Compile Include="Scripts\Characters\Abilities\AOEAbility.cs" />
     <Compile Include="Scripts\Characters\Abilities\SelfTargetAbility.cs" />
     <Compile Include="Scripts\Characters\Behaviours\EnemyBehaviour.cs" />
     <Compile Include="Scripts\Characters\States\DeadState.cs" />

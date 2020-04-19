@@ -73,11 +73,16 @@ public abstract class Ability : Node2D
     /// Called when ability is first activated. 
     /// </summary>
     public virtual void Use() {
-        
-        if (!IsCharged && onCast != null)
+        if (!IsCharged)
         {
             CombatLog.UseAbility($"{Caster.CharacterName} casts {AbilityName}.");
-            onCast.Emitting = true;
+
+            if (onCast != null)
+                onCast.Emitting = true;
+
+            if (whileActive != null)
+                whileActive.Emitting = true;
+
             Release();
         }
     }
@@ -85,9 +90,7 @@ public abstract class Ability : Node2D
     /// <summary>
     /// Spell effects are applied.
     /// </summary>
-    public virtual void Release()
-    {
-    }
+    public abstract void Release();
 
     /// <summary>
     /// Called when charged spell is finished charging. Calls 'Release' to apply effects, then ends
@@ -103,6 +106,11 @@ public abstract class Ability : Node2D
             whileActive.Emitting = true;
 
         Release();
+    }
+
+    protected void DamageHealth(Character target, int powerLevel)
+    {
+
     }
 
     protected void RestoreHealth(Character target, int powerLevel)
