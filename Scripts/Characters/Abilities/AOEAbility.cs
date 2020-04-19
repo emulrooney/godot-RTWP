@@ -34,31 +34,27 @@ public class AOEAbility : Ability
 
 	public override void Release()
 	{
-		impactResults.Clear();
-		targetArea.Position = targetLocation;
-
-		foreach (var hit in targetArea.GetOverlappingBodies())
-		{
-			if (typeof(Character).IsAssignableFrom(hit.GetType()))
-			{
-				var character = (Character)hit;
-				//Friendly fire gets ALL targets no matter what
-				//Otherwise, non-allied targets are hit
-				if (FriendlyFire || character.Faction != Caster.Faction)
-					impactResults.Add(character);
-			}
-            else
-            {
-                GD.Print($"Invalid type: hit was {hit.GetType()}");
-            }
-
-		}
-
-		TopPrinter.Two = $"Cast at: {targetArea.GlobalPosition}";
-		TopPrinter.Three = $"Found: {impactResults.Count}";
-
-
-
+        impactResults = GetTargetsAt(targetLocation);
 	}
+
+    public virtual List<Character> GetTargetsAt(Vector2 location)
+    {
+        List<Character> targets = new List<Character>();
+        targetArea.Position = location;
+
+        foreach (var hit in targetArea.GetOverlappingBodies())
+        {
+            if (typeof(Character).IsAssignableFrom(hit.GetType()))
+            {
+                var character = (Character)hit;
+                //Friendly fire gets ALL targets no matter what
+                //Otherwise, non-allied targets are hit
+                if (FriendlyFire || character.Faction != Caster.Faction)
+                    targets.Add(character);
+            }
+        }
+
+        return targets;
+    }
 
 }
