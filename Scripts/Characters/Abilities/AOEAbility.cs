@@ -25,6 +25,10 @@ public class AOEAbility : Ability
 		}
 	}
 
+	[Export] public int accuracy = 20;
+	[Export] public int powerLevel = 30;
+	[Export] public int dieSidesPerPowerLevel = 2;
+
 
 	List<Character> impactResults = new List<Character>();
 
@@ -47,12 +51,17 @@ public class AOEAbility : Ability
 	public override void Release()
 	{
 		impactResults = GetTargetsAt(TargetLocation);
-		GD.Print("Got " + impactResults.Count);
-
+		
 		if (onImpact != null)
 		{
 			onImpact.Position = TargetLocation;
 			onImpact.Emitting = true;
+		}
+
+		foreach (var affected in impactResults)
+		{
+
+			affected.ReceiveAttack(RNG.Next(1, 100) + accuracy, RNG.Next(1, dieSidesPerPowerLevel + 1) * powerLevel, 1);
 		}
 	}
 

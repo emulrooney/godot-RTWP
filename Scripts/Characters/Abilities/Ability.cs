@@ -3,6 +3,8 @@ using System;
 
 public abstract class Ability : Node2D
 {
+    protected static Random RNG = new Random();
+
     protected Character Caster { get; set; }
     public bool IsCharged { get; private set; }
 

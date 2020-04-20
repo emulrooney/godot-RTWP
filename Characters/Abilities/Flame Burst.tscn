@@ -41,6 +41,9 @@ anim_offset_random = 1.0
 IsTargeted = true
 AbilityName = "Flame Burst"
 ChargeTime = 6.0
+accuracy = 60
+powerLevel = 20
+dieSidesPerPowerLevel = 3
 
 [node name="OnImpact" parent="." index="2"]
 modulate = Color( 1, 1, 1, 0.941176 )

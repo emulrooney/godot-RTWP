@@ -13,10 +13,10 @@
 [ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=42]
 [ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=45]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 9.09306, 14.0139 )
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 13.0
 height = 10.0
 
@@ -54,7 +54,7 @@ texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="FSMachine" type="Node" parent="."]
 script = ExtResource( 42 )
@@ -111,7 +111,7 @@ collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 [connection signal="timeout" from="FSMachine/AttackState/Timer" to="FSMachine/AttackState" method="Timeout"]
 [connection signal="timeout" from="FSMachine/ChargingAbilityState/Timer" to="FSMachine/ChargingAbilityState" method="Timeout"]
 [connection signal="timeout" from="FSMachine/CastingAbilityState/Timer" to="FSMachine/CastingAbilityState" method="Timeout"]
