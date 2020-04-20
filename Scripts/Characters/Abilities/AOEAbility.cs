@@ -2,15 +2,11 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class AOEAbility : Ability
+public class AOEAbility : TargetedAbility
 {
 	[Export] private bool FriendlyFire { get; set; }
 
-	protected Area2D rangeArea;
 	protected Area2D targetArea;
-
-	protected Particles2D onImpact;
-	protected Timer onImpactTimer;
 
 	public override Vector2 TargetLocation
 	{
@@ -24,11 +20,6 @@ public class AOEAbility : Ability
 			onImpact.GlobalPosition = value;
 		}
 	}
-
-	[Export] public int accuracy = 20;
-	[Export] public int powerLevel = 30;
-	[Export] public int dieSidesPerPowerLevel = 2;
-
 
 	List<Character> impactResults = new List<Character>();
 
@@ -50,6 +41,7 @@ public class AOEAbility : Ability
 
 	public override void Release()
 	{
+
 		impactResults = GetTargetsAt(TargetLocation);
 		
 		if (onImpact != null)
@@ -60,8 +52,7 @@ public class AOEAbility : Ability
 
 		foreach (var affected in impactResults)
 		{
-
-			affected.ReceiveAttack(RNG.Next(1, 100) + accuracy, RNG.Next(1, dieSidesPerPowerLevel + 1) * powerLevel, 1);
+			affected.ReceiveAttack(RNG.Next(1, 100) + accuracy, RNG.Next(powerLevel, (dieSidesPerPowerLevel + 1) * powerLevel), 1);
 		}
 	}
 

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 public class CharacterAnimator : AnimatedSprite
 {
-	//TODO: If other animations affect offset, the setHFlip method will not be adequate
-	//Need to track base offset, current offset as done by sprite
-	//affect current w methods
-	//Probably flip should affect base only
+    //TODO: If other animations affect offset, the setHFlip method will not be adequate
+    //Need to track base offset, current offset as done by sprite
+    //affect current w methods
+    //Probably flip should affect base only
 
+    [Export] private int HitFlickers { get; set; } = 8;
 	[Export] private Vector2 FlipOffset { get; set; } //When flipping, offset sprite this much
 
 	[Export] private Color[] HitFlashColors { get; set; }
@@ -50,7 +51,7 @@ public class CharacterAnimator : AnimatedSprite
 	{
 		Color baseColor = SelfModulate;
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < HitFlickers; i++)
 		{
 			if (Owner.IsQueuedForDeletion())
 				return;

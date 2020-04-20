@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Characters/Abilities/TargetedAbility.cs" type="Script" id=1]
+[ext_resource path="res://Assets/GUI/Ability Icons/thrown-daggers.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Effects/ThrowingKnife.png" type="Texture" id=3]
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = -360.0
+orbit_velocity = 14.0
+orbit_velocity_random = 0.0
+
+[node name="Knife Toss" type="Node2D"]
+script = ExtResource( 1 )
+IsTargeted = true
+AbilityName = "Knife Toss"
+ToolbarIcon = ExtResource( 2 )
+IconColor = Color( 0.760784, 0.913725, 0.94902, 1 )
+AnimationName = "attack2"
+timeToTargetLength = 1.0
+accuracy = 50
+powerLevel = 20
+dieSidesPerPowerLevel = 28
+
+[node name="OnImpact" type="Particles2D" parent="."]
+emitting = false
+amount = 4
+speed_scale = 4.0
+texture = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="OnImpact"]
+
+[node name="Projectile" type="Particles2D" parent="."]
+emitting = false
+amount = 1
+speed_scale = 4.0
+process_material = SubResource( 1 )
+texture = ExtResource( 3 )
+
+[node name="Tween" type="Tween" parent="Projectile"]
