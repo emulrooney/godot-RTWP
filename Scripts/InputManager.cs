@@ -19,7 +19,7 @@ public class InputManager : Node2D
 	private Vector2 mousePressOrigin;
 
 	private Timer inputDelayTimer;
-	[Export] private float inputDelayTimerLength = 0.14f; //Time to wait btwn inputs
+	[Export] private float inputDelayTimerLength = 0.005f; //Time to wait btwn inputs
 	bool inputDelayActive = true;
 
 	public override void _Ready()

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
+[ext_resource path="res://Characters/Abilities/Flame Burst.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/Abilities/AoEAbility.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=9]
@@ -26,16 +27,14 @@ position = Vector2( 87.147, 287.29 )
 CharacterName = "Axetopher"
 AnimationSet = ExtResource( 9 )
 
-[node name="AoEAbility" parent="AXETOPHER" instance=ExtResource( 4 )]
-position = Vector2( 125, 0 )
-IsTargeted = true
-
 [node name="FFAoe" parent="AXETOPHER" instance=ExtResource( 4 )]
 position = Vector2( 125, 0 )
 IsTargeted = true
 AbilityName = "Friendly Fire Test"
 IconColor = Color( 0.945098, 0, 1, 1 )
 FriendlyFire = true
+
+[node name="Flame Burst" parent="AXETOPHER" instance=ExtResource( 2 )]
 
 [node name="TARGET" parent="." instance=ExtResource( 7 )]
 modulate = Color( 1, 0.913725, 0, 1 )
