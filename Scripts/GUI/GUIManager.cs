@@ -97,9 +97,13 @@ public class GUIManager : CanvasLayer
 	//Modify Override -- used by group to ensure drag keeps working
 	public static void SelectPartyMember(int partyMember, bool modifyOverride = false)
 	{
-		//if SHIFT held, add to selection
-		//if regular mouse, set to active
-		if (Input.IsActionPressed("modify") || modifyOverride)
+        //TODO At some point, players will have friendly spells to hit eachother with
+        //They should be able to target eachother by clicking portraits
+        InputManager.InterruptTargetedAbility();
+
+        //if SHIFT held, add to selection
+        //if regular mouse, set to active
+        if (Input.IsActionPressed("modify") || modifyOverride)
 		{
 			//Right-click first
 			//This allows the 'else' to handle left clicks AND keyboard shortcuts

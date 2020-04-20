@@ -101,15 +101,21 @@ public abstract class Character : KinematicBody2D
 		target.ReceiveAttack(roll, damage);
 	}
 
-	public bool UseAbility(int index)
+    public virtual bool UseAbility(Ability ability)
+    {
+        if (CanUseAbility(ability))
+        {
+            QueuedAbility = ability;
+            return true;
+        }
+        
+        return false;
+    }
+
+    //Override used by AbilityIcons on toolbar
+	public virtual bool UseAbility(int index)
 	{
-		if (CanUseAbility(Abilities[index]))
-		{
-			QueuedAbility = Abilities[index];
-			return true;
-		}
-		else
-			return false;
+        return UseAbility(Abilities[index]);
 	}
 
 	public virtual void ReceiveAttack(int hitRoll, int damage, int damageType = 0)

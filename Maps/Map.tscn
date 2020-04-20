@@ -33,7 +33,6 @@ AnimationSet = ExtResource( 7 )
 
 [node name="AoEAbility" parent="AXETOPHER" instance=ExtResource( 11 )]
 position = Vector2( -87.147, -287.29 )
-targetLocation = Vector2( 253, 203 )
 
 [node name="Ice Shield" parent="AXETOPHER" instance=ExtResource( 8 )]
 ChargeTime = 1.0

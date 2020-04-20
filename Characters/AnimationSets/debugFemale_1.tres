@@ -53,10 +53,15 @@ animations = [ {
 "name": "attack1",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 39 ), ExtResource( 38 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 36 ), ExtResource( 37 ) ],
-"loop": true,
-"name": "ability",
-"speed": 5.0
+"frames": [ ExtResource( 20 ), ExtResource( 24 ), ExtResource( 33 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 12 ) ],
+"loop": false,
+"name": "dead",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 27 ), ExtResource( 30 ), ExtResource( 28 ), ExtResource( 13 ), ExtResource( 19 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "attack2",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 34 ), ExtResource( 15 ), ExtResource( 32 ), ExtResource( 9 ), ExtResource( 18 ), ExtResource( 31 ) ],
 "loop": true,
@@ -68,13 +73,8 @@ animations = [ {
 "name": "attackApproach",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 20 ), ExtResource( 24 ), ExtResource( 33 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 12 ) ],
-"loop": false,
-"name": "dead",
-"speed": 8.0
-}, {
-"frames": [ ExtResource( 27 ), ExtResource( 30 ), ExtResource( 28 ), ExtResource( 13 ), ExtResource( 19 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "attack2",
-"speed": 10.0
+"frames": [ ExtResource( 39 ), ExtResource( 38 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 36 ), ExtResource( 37 ) ],
+"loop": true,
+"name": "ability",
+"speed": 5.0
 } ]

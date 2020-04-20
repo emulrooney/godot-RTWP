@@ -62,6 +62,7 @@
     <Compile Include="Scripts\Data\PartyMemberIcon.cs" />
     <Compile Include="Scripts\Data\StatblockModifier.cs" />
     <Compile Include="Scripts\Data\StatType.cs" />
+    <Compile Include="Scripts\Data\TargetedAbilityInfo.cs" />
     <Compile Include="Scripts\DebugHelpers\TopPrinter.cs" />
     <Compile Include="Scripts\GUI\AbilityToolbar.cs" />
     <Compile Include="Scripts\GUI\CameraControls.cs" />
@@ -74,7 +75,6 @@
     <Compile Include="Scripts\Characters\States\FSMachine.cs" />
     <Compile Include="Scripts\Characters\States\NormalState.cs" />
     <Compile Include="Scripts\Data\CharFaction.cs" />
-    <Compile Include="Scripts\Data\GameState.cs" />
     <Compile Include="Scripts\Characters\Character.cs" />
     <Compile Include="Scripts\Characters\MonsterCharacter.cs" />
     <Compile Include="Scripts\Characters\PlayerCharacter.cs" />

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class InputManager : Node2D
 {
-	[Export] GameState Current { get; set; }
+	public static TargetedAbilityInfo AbilityInfo { get; private set; } = null;
+
 	[Export] public Color DragRectColor { get; set; }
 
 	private bool isMouseDragging = false;
@@ -17,24 +18,85 @@ public class InputManager : Node2D
 	private Physics2DShapeQueryParameters query;
 	private Vector2 mousePressOrigin;
 
+	private Timer inputDelayTimer;
+	[Export] private float inputDelayTimerLength = 0.14f; //Time to wait btwn inputs
+	bool inputDelayActive = true;
 
 	public override void _Ready()
 	{
 		//Setup
 		worldSpace = GetWorld2d().DirectSpaceState;
 		query = new Physics2DShapeQueryParameters();
+		inputDelayTimer = (Timer)GetNode("InputDelayTimer");
+
+		inputDelayTimer.Start();
 	}
 
+	//TODO: Break apart into smaller methods
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		var mouseLocation = GetGlobalMousePosition();
+		if (!inputDelayActive)
+		{
+			if (AbilityInfo != null)
+			{
+				HandleTargetInput();
+			}
+			else //Standard input
+			{
+				HandleNonTargetInput();
+			}
+		}
+	}
 
+	private void HandleTargetInput()
+	{
+		//TopPrinter.Four = "Handling target input";
+
+		if (Input.IsActionPressed("left_click"))
+		{
+			AbilityInfo.Ability.TargetLocation = GetGlobalMousePosition();
+		}
+		else if (Input.IsActionJustReleased("left_click")) //attempt to fire
+		{
+			//THIS ORDERING IS IMPORTANT! Set active right away
+			inputDelayActive = true;
+
+			if (AbilityInfo.IsValid)
+			{
+				AbilityInfo.Caster.QueuedAbility = AbilityInfo.Ability;
+			}
+
+			GetTree().SetInputAsHandled();
+			SetTargetedAbility(null);
+
+			//TopPrinter.One = "Input not accepted";
+			//GD.Print("Set input delay to active");
+
+			inputDelayTimer.Start(inputDelayTimerLength);
+		}
+		else if (Input.IsActionJustPressed("right_click")) //cancel out
+		{
+			SetTargetedAbility(null);
+		}
+
+		
+	}
+
+	private void HandleNonTargetInput()
+	{
+		//TopPrinter.Four = "Handling non-target input";
+
+		if (inputDelayActive)
+			return;
+
+		var mouseLocation = GetGlobalMousePosition();
 		ClickInfo clickInfo = new ClickInfo();
 
 		if (Input.IsActionJustPressed("left_click")) //Initial click
 			mousePressOrigin = mouseLocation;
 
-		if (Input.IsActionPressed("left_click") && !isMouseDragging) {
+		if (Input.IsActionPressed("left_click") && !isMouseDragging)
+		{
 			if (mouseLocation.x > mousePressOrigin.x + mouseClickMoveTolerance
 				|| mouseLocation.x < mousePressOrigin.x - mouseClickMoveTolerance
 				|| mouseLocation.y > mousePressOrigin.y + mouseClickMoveTolerance
@@ -49,7 +111,6 @@ public class InputManager : Node2D
 
 		if (Input.IsActionJustReleased("left_click") && !isMouseDragging) //Mouse up, normal click
 		{
-			//1. Check for collisions with characters, map
 			var collisions = worldSpace.IntersectPoint(mouseLocation, 32, null, 2147483647, true, true);
 			IMapClickable clickTarget;
 
@@ -60,9 +121,9 @@ public class InputManager : Node2D
 			if (clickTarget != null)
 				clickTarget.ClickAction(clickInfo, mouseLocation);
 
-		} else if (Input.IsActionJustReleased("left_click") && isMouseDragging)
+		}
+		else if (Input.IsActionJustReleased("left_click") && isMouseDragging)
 			isMouseDragging = false;
-
 	}
 
 	/// <summary>
@@ -144,5 +205,36 @@ public class InputManager : Node2D
 		}
 
 		return mostClickable;
+	}
+
+	/// <summary>
+	/// Queue user's ability to fire. Requires that the used ability is passed in; this
+	/// gives this mgr access to the valid ability range 
+	/// </summary>
+	/// <param name="ability"></param>
+	public static void SetTargetedAbility(TargetedAbilityInfo taInfo)
+	{
+		AbilityInfo = taInfo;
+
+		if (AbilityInfo != null)
+			Input.SetDefaultCursorShape(Input.CursorShape.Cross);
+		else
+			Input.SetDefaultCursorShape(); //default
+	}
+
+	/// <summary>
+	/// Syntactic sugar. Will make it clearer when other classes interrupt the ability.
+	/// </summary>
+	public static void InterruptTargetedAbility()
+	{
+		SetTargetedAbility(null);
+	}
+
+	/// <summary>
+	/// Connected by signal from child timer node.
+	/// </summary>
+	private void InputDelayTimeout()
+	{
+		inputDelayActive = false;
 	}
 }

@@ -5,6 +5,11 @@ public abstract class Ability : Node2D
 {
     protected Character Caster { get; set; }
     public bool IsCharged { get; private set; }
+
+    [Export] public bool IsTargeted { get; private set; }
+    public bool HasTarget { get; private set; } = false;
+    public virtual Vector2 TargetLocation { get; set; }
+
     [Export] private bool IsItemAbility { get; set; } = false; //todo
     [Export] public FSMState[] AllowedInStates { get; private set; } = new FSMState[] //default
     {

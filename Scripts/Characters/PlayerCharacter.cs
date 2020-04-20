@@ -30,7 +30,22 @@ public class PlayerCharacter : Character, IMapClickable
 		GUIManager.SelectPartyMember(PartyMemberOrder);
 	}
 
-	public override void ReceiveAttack(int hitRoll, int damage, int damageType = 0)
+    //public override bool UseAbility(int index)
+    //{
+    //    if (CanUseAbility(Abilities[index]))
+    //    {
+    //        var ability = Abilities[index];
+    //        if (ability.IsTargeted)
+    //            InputManager.SetAimingAbility(new TargetedAbilityInfo(this, ability));
+    //        else
+    //            QueuedAbility = Abilities[index];
+    //        return true;
+    //    }
+    //    else
+    //        return false;
+    //}
+
+    public override void ReceiveAttack(int hitRoll, int damage, int damageType = 0)
 	{
 		if (!IsDead)
 		{

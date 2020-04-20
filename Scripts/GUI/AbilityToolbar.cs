@@ -125,15 +125,26 @@ public class AbilityToolbar : PanelContainer
 	{
 		foreach (var pc in _pcOwners)
 		{
-			GD.Print($"Ability #{abilityIndex} Press by {pc}");
-			try
-			{
+            var ability = pc.Abilities[abilityIndex];
+
+            if (ability.IsTargeted)
+            {
+                //Give to InputMgr
+                InputManager.SetTargetedAbility(new TargetedAbilityInfo(pc, ability));
+            }
+            else
+            {
                 pc.UseAbility(abilityIndex);
-			}
-			catch (Exception e)
-			{
-				GD.Print($"  Failed to cast! E: {e}");
-			}
+            }
+
+			//try
+			//{
+   //             pc.UseAbility(abilityIndex);
+			//}
+			//catch (Exception e)
+			//{
+			//	GD.Print($"  Failed to cast! E: {e}");
+			//}
 
 		}
 	}
