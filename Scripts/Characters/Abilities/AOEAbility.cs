@@ -48,6 +48,12 @@ public class AOEAbility : Ability
 	{
 		impactResults = GetTargetsAt(TargetLocation);
 		GD.Print("Got " + impactResults.Count);
+
+		if (onImpact != null)
+		{
+			onImpact.Position = TargetLocation;
+			onImpact.Emitting = true;
+		}
 	}
 
 	public virtual List<Character> GetTargetsAt(Vector2 location)

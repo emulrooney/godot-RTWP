@@ -44,7 +44,7 @@ public class FSMachine : Node
 			return;
 		}
 
-		if (_owner.QueuedAbility != null && (!_owner.QueuedAbility.IsTargeted || _owner.QueuedAbility.HasTarget)) //HAS QUEUED AN ABILITY...
+		if (_owner.QueuedAbility != null) //HAS QUEUED AN ABILITY...
 		{
 			ProcessAbilityState(delta);
 		}

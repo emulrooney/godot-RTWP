@@ -69,11 +69,6 @@ animations = [ {
 "name": "attackPower",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 40 ), ExtResource( 31 ), ExtResource( 33 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 34 ) ],
-"loop": false,
-"name": "attackApproach",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 41 ), ExtResource( 42 ), ExtResource( 44 ), ExtResource( 43 ), ExtResource( 45 ), ExtResource( 46 ) ],
 "loop": true,
 "name": "ability",
@@ -83,6 +78,11 @@ animations = [ {
 "loop": false,
 "name": "attack2",
 "speed": 11.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 31 ), ExtResource( 33 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 34 ) ],
+"loop": false,
+"name": "attackApproach",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 32 ), ExtResource( 30 ), ExtResource( 35 ), ExtResource( 37 ), ExtResource( 28 ) ],
 "loop": true,

@@ -43,7 +43,9 @@ AbilityName = "Flame Burst"
 ChargeTime = 6.0
 
 [node name="OnImpact" parent="." index="2"]
+modulate = Color( 1, 1, 1, 0.941176 )
 material = SubResource( 1 )
+z_index = 100
 emitting = false
 amount = 96
 lifetime = 0.75
