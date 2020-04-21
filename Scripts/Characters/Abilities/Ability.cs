@@ -7,11 +7,9 @@ public abstract class Ability : Node2D
 
     protected Character Caster { get; set; }
     public bool IsCharged { get; private set; }
-
-    [Export] public bool IsTargeted { get; private set; }
-    public bool HasTarget { get; private set; } = false;
-    public virtual Vector2 TargetLocation { get; set; }
-
+    
+    public bool IsTargeted { get; protected set; } //syntactic sugar. only set by 'TargetedAbility'
+    
     [Export] private bool IsItemAbility { get; set; } = false; //todo
     [Export] public FSMState[] AllowedInStates { get; private set; } = new FSMState[] //default
     {
@@ -69,7 +67,7 @@ public abstract class Ability : Node2D
 
             if (whileActive == null || whileActiveTimer == null)
             {
-                GD.Print("Invalid active settings for {Name}! Disabling 'whileActive' effects.");
+                GD.Print($"Invalid active settings for {Name}! Disabling 'whileActive' effects.");
                 whileActive = null;
                 whileActiveTimer = null;
             }

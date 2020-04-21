@@ -50,27 +50,20 @@ public class InputManager : Node2D
 
 	private void HandleTargetInput()
 	{
-		//TopPrinter.Four = "Handling target input";
-
-		if (Input.IsActionPressed("left_click"))
-		{
-			AbilityInfo.Ability.TargetLocation = GetGlobalMousePosition();
-		}
-		else if (Input.IsActionJustReleased("left_click")) //attempt to fire
+		
+         if (Input.IsActionJustReleased("left_click")) //attempt to fire
 		{
 			//THIS ORDERING IS IMPORTANT! Set active right away
 			inputDelayActive = true;
 
-			if (AbilityInfo.IsValid)
+			var clickable = GetMostClickableAt(GetGlobalMousePosition());
+			if (AbilityInfo.IsValid && AbilityInfo.Ability.SetTarget(clickable))
 			{
 				AbilityInfo.Caster.QueuedAbility = AbilityInfo.Ability;
 			}
 
 			GetTree().SetInputAsHandled();
 			SetTargetedAbility(null);
-
-			//TopPrinter.One = "Input not accepted";
-			//GD.Print("Set input delay to active");
 
 			inputDelayTimer.Start(inputDelayTimerLength);
 		}
@@ -84,8 +77,6 @@ public class InputManager : Node2D
 
 	private void HandleNonTargetInput()
 	{
-		//TopPrinter.Four = "Handling non-target input";
-
 		if (inputDelayActive)
 			return;
 
@@ -111,10 +102,8 @@ public class InputManager : Node2D
 
 		if (Input.IsActionJustReleased("left_click") && !isMouseDragging) //Mouse up, normal click
 		{
-			var collisions = worldSpace.IntersectPoint(mouseLocation, 32, null, 2147483647, true, true);
-			IMapClickable clickTarget;
-
-			clickTarget = GetMostClickable(collisions);
+			IMapClickable clickTarget = GetMostClickableAt(mouseLocation);
+			
 			clickInfo.ButtonNumber = 1;
 			clickInfo.ModifyHeld = (Input.IsActionPressed("modify"));
 
@@ -126,11 +115,9 @@ public class InputManager : Node2D
 			isMouseDragging = false;
 	}
 
-	/// <summary>
-	/// TODO separate the mechanics out of the drawing
-	/// </summary>
-	public override void _Draw()
+    public override void _Draw()
 	{
+	    /// TODO separate the mechanics out of the drawing
 		if (isMouseDragging)
 		{
 			dragRectBounds.Position = mousePressOrigin;
@@ -164,6 +151,12 @@ public class InputManager : Node2D
 	private void HandleMouseDrag()
 	{
 		Update();
+	}
+
+	public IMapClickable GetMostClickableAt(Vector2 position)
+	{
+		var collisions = worldSpace.IntersectPoint(position, 32, null, 2147483647, true, true);
+		return GetMostClickable(collisions);
 	}
 
 

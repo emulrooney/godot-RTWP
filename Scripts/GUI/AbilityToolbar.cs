@@ -130,7 +130,7 @@ public class AbilityToolbar : PanelContainer
             if (ability.IsTargeted)
             {
                 //Give to InputMgr
-                InputManager.SetTargetedAbility(new TargetedAbilityInfo(pc, ability));
+                InputManager.SetTargetedAbility(new TargetedAbilityInfo(pc, (TargetedAbility)ability));
             }
             else
             {

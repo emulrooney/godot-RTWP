@@ -3,7 +3,7 @@ using System;
 
 public class TargetedAbilityInfo
 {
-    public Ability Ability { get; set; }
+    public TargetedAbility Ability { get; set; }
     public Character Caster { get; set; }
     public bool Complete { get; set; }
 
@@ -18,7 +18,7 @@ public class TargetedAbilityInfo
         }
     }
 
-    public TargetedAbilityInfo(Character caster, Ability ability)
+    public TargetedAbilityInfo(Character caster, TargetedAbility ability)
     {
         Caster = caster;
         Ability = ability;

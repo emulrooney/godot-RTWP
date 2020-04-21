@@ -5,13 +5,17 @@ using System.Threading.Tasks;
 
 public class TargetedAbility : Ability
 {
+	[Export] public bool CanHitGround { get; private set; }
+    [Export] public bool CanHitCharacter { get; private set; }
+
 	protected Area2D rangeArea;
 	protected Particles2D onImpact;
 	protected Timer onImpactTimer;
 	protected Particles2D projectile;
 	protected Tween projectileTween;
 
-	public Character TargetCharacter { get; set; }
+	public virtual Character TargetCharacter { get; protected set; }
+	public virtual Vector2 TargetLocation { get; protected set; }
 
 	[Export] public float timeToTargetLength { get; set; } = -1;
 	[Export] public int accuracy = 20;
@@ -28,6 +32,14 @@ public class TargetedAbility : Ability
 		onImpactTimer = (Timer)GetNodeOrNull("OnImpact/Timer");
 		projectile = (Particles2D)GetNodeOrNull("Projectile");
 		projectileTween = (Tween)GetNodeOrNull("Projectile/Tween");
+
+        IsTargeted = true;
+
+        if (!CanHitCharacter && !CanHitGround)
+        {
+            GD.Print($"{AbilityName} can't hit anything! Toggling 'CanHitGround' back on.");
+            CanHitGround = true;
+        }
 	}
 
 	public override void Release()
@@ -35,7 +47,11 @@ public class TargetedAbility : Ability
 		if (timeToTargetLength > -1 && projectile != null)
 		{
 			projectile.Emitting = true;
-			projectileTween.InterpolateProperty(projectile, "position", Position, TargetLocation - GlobalPosition, timeToTargetLength);
+
+			projectileTween.InterpolateProperty(projectile, "position", Position,
+				(TargetCharacter == null ? TargetLocation : TargetCharacter.Position) - GlobalPosition,
+				timeToTargetLength);
+
 			projectileTween.InterpolateCallback(this, timeToTargetLength, "Impact");
 			projectileTween.Start();
 		}
@@ -57,18 +73,39 @@ public class TargetedAbility : Ability
 		}
 	}
 
-	public async Task FlyTowards(Vector2 location)
+    /// <summary>
+    /// Sets end point of targeted ability's effect. Uses IMapClickable interface to allow the map or 
+    /// various characters to be targeted.
+    /// </summary>
+    /// <param name="target"></param>
+	public virtual bool SetTarget(IMapClickable target)
 	{
-		float timeElapsed = 0;
-		projectile.Emitting = true;
-		while (timeElapsed < timeToTargetLength)
-		{
-			timeElapsed += GetPhysicsProcessDeltaTime() * 100;
-			projectile.Position = Caster.Position.LinearInterpolate(TargetCharacter.Position, timeElapsed / timeToTargetLength);
+        bool successfulTarget = false;
 
-			await ToSignal(GetTree(), "idle_frame");
-		}
+        switch (target)
+        {
+            case MapLogic ml:
+                if (CanHitGround)
+                {
+                    TargetCharacter = null;
+                    TargetLocation = GetGlobalMousePosition();
+                    successfulTarget = true;
+                    GD.Print("Target set to map location: " + TargetLocation);
+                }
+                break;
+            case Character c:
+                if (CanHitCharacter)
+                {
+                    TargetCharacter = c;
+                    successfulTarget = true;
+			        GD.Print($"Target set to {TargetCharacter.Name}");
+                }
+                break;
+            default:
+                GD.Print("Something went wrong clicking on {target}");
+                break;
+        }
 
-		projectile.Emitting = false;
+        return successfulTarget;
 	}
 }

@@ -14,7 +14,7 @@ public class AOEAbility : TargetedAbility
 		{
 			return targetArea.Position;
 		}
-		set
+		protected set
 		{
 			targetArea.GlobalPosition = value;
 			onImpact.GlobalPosition = value;
@@ -75,5 +75,15 @@ public class AOEAbility : TargetedAbility
 
 		return targets;
 	}
+
+    public override bool SetTarget(IMapClickable target)
+    {
+        var baseReturn = base.SetTarget(target);
+
+        if (TargetCharacter != null)
+            TargetLocation = TargetCharacter.Position;
+
+        return baseReturn;
+    }
 
 }
