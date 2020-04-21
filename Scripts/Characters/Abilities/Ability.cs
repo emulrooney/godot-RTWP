@@ -1,10 +1,10 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public abstract class Ability : Node2D
 {
     protected static Random RNG = new Random();
-
     protected Character Caster { get; set; }
     public bool IsCharged { get; private set; }
     
@@ -19,6 +19,9 @@ public abstract class Ability : Node2D
         FSMState.Attack
     };
 
+    public List<AbilityEffect> Effects { get; protected set; } = new List<AbilityEffect>();
+
+    //Visuals
     [Export] public string AbilityName { get; set; }
     [Export] public Texture ToolbarIcon { get; set; }
     [Export] public Color IconColor { get; set; }
@@ -37,8 +40,24 @@ public abstract class Ability : Node2D
     protected Particles2D whileActive;
     private Timer whileActiveTimer;
 
+    //Stats applied to ALL effects
+    [Export] public int accuracy = 20;
+    [Export] public int powerLevel = 30;
+    [Export] public int dieSidesPerPowerLevel = 2;
+
     public override void _Ready()
     {
+        var effects = GetNode("Effects");
+        for (int i = 0; i < effects.GetChildCount(); i++)
+        {
+            Effects.Add(effects.GetChild<AbilityEffect>(i));
+        }
+
+        if (Effects.Count == 0)
+        {
+            GD.Print($"No spell effects on {AbilityName}! This ability will do nothing when used!");
+        }
+
         Caster = GetParent<Character>();
         Caster.Abilities.Add(this);
 
@@ -72,6 +91,7 @@ public abstract class Ability : Node2D
                 whileActiveTimer = null;
             }
         }
+
     }
 
     /// <summary>
@@ -113,20 +133,24 @@ public abstract class Ability : Node2D
         Release();
     }
 
-    protected void DamageHealth(Character target, int powerLevel)
+    protected void DamageHealth(Character target, AbilityEffect effect)
     {
-
+        target.ReceiveAttack(
+            RNG.Next(1, 100) + accuracy + effect.BonusAccuracy,
+            RNG.Next(powerLevel + effect.BonusFlatValue, (dieSidesPerPowerLevel + effect.BonusSides + 1)) * (powerLevel + effect.BonusDie), 
+            1
+        );
     }
 
-    protected void RestoreHealth(Character target, int powerLevel)
+    protected void RestoreHealth(Character target, AbilityEffect effect)
     {
-        target.ReceiveHeal(powerLevel);
+        target.ReceiveHeal(powerLevel + effect.BonusFlatValue);
     }
 
-    protected void ApplyModifier(Character target, StatType affectedStat, int powerLevel)
+    protected void ApplyModifier(Character target, AbilityEffect effect)
     {
-        GD.Print($"Applying ({affectedStat} + {powerLevel}) to {target.Name}");
-        var modifier = new StatblockModifier(this, affectedStat, powerLevel, ActiveTime);
+        var modifier = new StatblockModifier(this, effect.StatType, powerLevel + effect.BonusFlatValue, ActiveTime + effect.BonusTime);
+        GD.Print($"Applying {modifier.StatModified} mod: {modifier.Amount} increase to {target.Name}");
         target.Stats.AddModifier(modifier);
     }
 
@@ -134,6 +158,27 @@ public abstract class Ability : Node2D
     {
         GD.Print($"Removing ({modifier.StatModified} + {modifier.Amount}) as cast by {Caster.Name}");
         Caster.Stats.RemoveModifier(modifier);
+    }
+
+    protected void ApplyAbilityEffectsTo(Character target)
+    {
+        foreach (var effect in Effects)
+        {
+            switch (effect.Type)
+            {
+                case AbilityEffectType.DAMAGE:
+                    DamageHealth(target, effect);
+                    break;
+                case AbilityEffectType.HEALING:
+                    RestoreHealth(target, effect);
+                    break;
+                case AbilityEffectType.STAT_MOD:
+                    ApplyModifier(target, effect);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     protected void ApplyActiveVisuals()

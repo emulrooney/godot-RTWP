@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 public class TargetedAbility : Ability
 {
 	[Export] public bool CanHitGround { get; private set; }
-    [Export] public bool CanHitCharacter { get; private set; }
+	[Export] public bool CanHitCharacter { get; private set; }
 
 	protected Area2D rangeArea;
 	protected Particles2D onImpact;
@@ -18,10 +18,6 @@ public class TargetedAbility : Ability
 	public virtual Vector2 TargetLocation { get; protected set; }
 
 	[Export] public float timeToTargetLength { get; set; } = -1;
-	[Export] public int accuracy = 20;
-	[Export] public int powerLevel = 30;
-	[Export] public int dieSidesPerPowerLevel = 2;
-
 
 	public override void _Ready()
 	{
@@ -33,13 +29,13 @@ public class TargetedAbility : Ability
 		projectile = (Particles2D)GetNodeOrNull("Projectile");
 		projectileTween = (Tween)GetNodeOrNull("Projectile/Tween");
 
-        IsTargeted = true;
+		IsTargeted = true;
 
-        if (!CanHitCharacter && !CanHitGround)
-        {
-            GD.Print($"{AbilityName} can't hit anything! Toggling 'CanHitGround' back on.");
-            CanHitGround = true;
-        }
+		if (!CanHitCharacter && !CanHitGround)
+		{
+			GD.Print($"{AbilityName} can't hit anything! Toggling 'CanHitGround' back on.");
+			CanHitGround = true;
+		}
 	}
 
 	public override void Release()
@@ -60,7 +56,7 @@ public class TargetedAbility : Ability
 			Impact();
 		}
 	}
-
+	
 	public void Impact()
 	{
 		if (projectile != null)
@@ -71,41 +67,44 @@ public class TargetedAbility : Ability
 			onImpact.Position = TargetLocation;
 			onImpact.Emitting = true;
 		}
+
+		if (TargetCharacter != null)
+			ApplyAbilityEffectsTo(TargetCharacter);
 	}
 
-    /// <summary>
-    /// Sets end point of targeted ability's effect. Uses IMapClickable interface to allow the map or 
-    /// various characters to be targeted.
-    /// </summary>
-    /// <param name="target"></param>
+	/// <summary>
+	/// Sets end point of targeted ability's effect. Uses IMapClickable interface to allow the map or 
+	/// various characters to be targeted.
+	/// </summary>
+	/// <param name="target"></param>
 	public virtual bool SetTarget(IMapClickable target)
 	{
-        bool successfulTarget = false;
+		bool successfulTarget = false;
 
-        switch (target)
-        {
-            case MapLogic ml:
-                if (CanHitGround)
-                {
-                    TargetCharacter = null;
-                    TargetLocation = GetGlobalMousePosition();
-                    successfulTarget = true;
-                    GD.Print("Target set to map location: " + TargetLocation);
-                }
-                break;
-            case Character c:
-                if (CanHitCharacter)
-                {
-                    TargetCharacter = c;
-                    successfulTarget = true;
-			        GD.Print($"Target set to {TargetCharacter.Name}");
-                }
-                break;
-            default:
-                GD.Print("Something went wrong clicking on {target}");
-                break;
-        }
+		switch (target)
+		{
+			case MapLogic ml:
+				if (CanHitGround)
+				{
+					TargetCharacter = null;
+					TargetLocation = GetGlobalMousePosition();
+					successfulTarget = true;
+					GD.Print("Target set to map location: " + TargetLocation);
+				}
+				break;
+			case Character c:
+				if (CanHitCharacter)
+				{
+					TargetCharacter = c;
+					successfulTarget = true;
+					GD.Print($"Target set to {TargetCharacter.Name}");
+				}
+				break;
+			default:
+				GD.Print("Something went wrong clicking on {target}");
+				break;
+		}
 
-        return successfulTarget;
+		return successfulTarget;
 	}
 }

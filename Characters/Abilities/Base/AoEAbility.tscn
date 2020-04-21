@@ -30,3 +30,8 @@ shape = SubResource( 2 )
 [node name="OnImpact" type="Particles2D" parent="."]
 
 [node name="Timer" type="Timer" parent="OnImpact"]
+
+[node name="Effects" type="Node" parent="."]
+__meta__ = {
+"_editor_description_": "Needs at least one child effect with 'effect' node."
+}

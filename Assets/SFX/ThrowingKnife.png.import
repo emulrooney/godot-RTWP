@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ThrowingKnife.png-28b09e064295af526cdff18b051c8ff0.stex"
+path="res://.import/ThrowingKnife.png-739ac8077363d1e87d2108abf09e0d4a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Effects/ThrowingKnife.png"
-dest_files=[ "res://.import/ThrowingKnife.png-28b09e064295af526cdff18b051c8ff0.stex" ]
+source_file="res://Assets/SFX/ThrowingKnife.png"
+dest_files=[ "res://.import/ThrowingKnife.png-739ac8077363d1e87d2108abf09e0d4a.stex" ]
 
 [params]
 

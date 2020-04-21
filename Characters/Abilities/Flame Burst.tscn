@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Characters/Abilities/AoEAbility.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Effects/SimpleImpact.png" type="Texture" id=2]
+[ext_resource path="res://Characters/Abilities/Base/AoEAbility.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/SFX/SimpleImpact.png" type="Texture" id=2]
+[ext_resource path="res://Characters/Abilities/Base/AbilityEffect.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 particles_animation = true
@@ -38,11 +39,11 @@ anim_offset = 0.05
 anim_offset_random = 1.0
 
 [node name="Flame Burst" instance=ExtResource( 1 )]
-IsTargeted = true
 AbilityName = "Flame Burst"
 ChargeTime = 6.0
 accuracy = 60
-powerLevel = 40
+powerLevel = 0
+dieSidesPerPowerLevel = 0
 
 [node name="OnImpact" parent="." index="2"]
 modulate = Color( 1, 1, 1, 0.941176 )
@@ -58,3 +59,27 @@ explosiveness = 1.0
 randomness = 0.5
 process_material = SubResource( 4 )
 texture = ExtResource( 2 )
+
+[node name="Damage" parent="Effects" index="0" instance=ExtResource( 3 )]
+BonusAccuracy = 10
+BonusDie = 1
+BonusSides = 4
+BonusFlatValue = 5
+
+[node name="Damage2" parent="Effects" index="1" instance=ExtResource( 3 )]
+BonusAccuracy = 10
+BonusDie = 3
+BonusSides = 6
+BonusFlatValue = 5
+
+[node name="Damage3" parent="Effects" index="2" instance=ExtResource( 3 )]
+BonusAccuracy = 10
+BonusDie = 1
+BonusSides = 4
+BonusFlatValue = 5
+
+[node name="Damage4" parent="Effects" index="3" instance=ExtResource( 3 )]
+BonusAccuracy = 10
+BonusDie = 1
+BonusSides = 4
+BonusFlatValue = 5

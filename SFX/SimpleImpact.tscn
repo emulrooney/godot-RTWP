@@ -1,6 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Assets/Effects/SimpleImpact.png" type="Texture" id=1]
+[ext_resource path="res://Assets/SFX/SimpleImpact.png" type="Texture" id=1]
+
 
 [sub_resource type="CanvasItemMaterial" id=1]
 particles_animation = true

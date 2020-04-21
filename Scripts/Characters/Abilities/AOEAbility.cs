@@ -52,7 +52,7 @@ public class AOEAbility : TargetedAbility
 
 		foreach (var affected in impactResults)
 		{
-			affected.ReceiveAttack(RNG.Next(1, 100) + accuracy, RNG.Next(powerLevel, (dieSidesPerPowerLevel + 1) * powerLevel), 1);
+			ApplyAbilityEffectsTo(affected);
 		}
 	}
 
@@ -76,14 +76,14 @@ public class AOEAbility : TargetedAbility
 		return targets;
 	}
 
-    public override bool SetTarget(IMapClickable target)
-    {
-        var baseReturn = base.SetTarget(target);
+	public override bool SetTarget(IMapClickable target)
+	{
+		var baseReturn = base.SetTarget(target);
 
-        if (TargetCharacter != null)
-            TargetLocation = TargetCharacter.Position;
+		if (TargetCharacter != null)
+			TargetLocation = TargetCharacter.Position;
 
-        return baseReturn;
-    }
+		return baseReturn;
+	}
 
 }

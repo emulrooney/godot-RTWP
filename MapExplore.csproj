@@ -57,6 +57,8 @@
     <Compile Include="Scripts\Characters\Abilities\SelfTargetAbility.cs" />
     <Compile Include="Scripts\Characters\Behaviours\EnemyBehaviour.cs" />
     <Compile Include="Scripts\Characters\States\DeadState.cs" />
+    <Compile Include="Scripts\Data\AbilityEffect.cs" />
+    <Compile Include="Scripts\Data\AbilityEffectType.cs" />
     <Compile Include="Scripts\Data\AbilityToolbarButton.cs" />
     <Compile Include="Scripts\Data\FSMState.cs" />
     <Compile Include="Scripts\Data\ClickInfo.cs" />

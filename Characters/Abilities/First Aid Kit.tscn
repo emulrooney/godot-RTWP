@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://SFX/SimpleImpact.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Characters/Abilities/Base/SelfTargetAbility.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Characters/Abilities/Base/AbilityEffect.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/GUI/Ability Icons/Item/first-aid-kit.png" type="Texture" id=4]
+
+[node name="First Aid Kit" instance=ExtResource( 2 )]
+IsItemAbility = true
+AbilityName = "First Aid Kit"
+ToolbarIcon = ExtResource( 4 )
+IconColor = Color( 0, 0.741176, 1, 1 )
+ChargeTime = 4.0
+ActiveTime = -1.0
+powerLevel = 200
+
+[node name="OnCast" parent="." index="0" instance=ExtResource( 1 )]
+modulate = Color( 0.0784314, 1, 0, 1 )
+scale = Vector2( 3, 3 )
+amount = 2
+
+[node name="Heal Self" parent="Effects" index="0" instance=ExtResource( 3 )]
