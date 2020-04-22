@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 public class CharacterAnimator : AnimatedSprite
 {
-    //TODO: If other animations affect offset, the setHFlip method will not be adequate
-    //Need to track base offset, current offset as done by sprite
-    //affect current w methods
-    //Probably flip should affect base only
+	//TODO: If other animations affect offset, the setHFlip method will not be adequate
+	//Need to track base offset, current offset as done by sprite
+	//affect current w methods
+	//Probably flip should affect base only
 
-    [Export] private int HitFlickers { get; set; } = 8;
+	public Color SelfModulateOrigin;
+	[Export] private int HitFlickers { get; set; } = 8;
 	[Export] private Vector2 FlipOffset { get; set; } //When flipping, offset sprite this much
 
 	[Export] private Color[] HitFlashColors { get; set; }
@@ -25,6 +26,8 @@ public class CharacterAnimator : AnimatedSprite
 	{
 		HitParticles = GetNodeOrNull<Particles2D>("OnHit");
 		SelectionCircle = GetNodeOrNull<SelectionCircle>("SelectionCircle");
+
+		SelfModulateOrigin = SelfModulate;
 	}
 
 	public void SetFlipHWithOffset(bool flipH)
@@ -68,5 +71,18 @@ public class CharacterAnimator : AnimatedSprite
 		if (SelectionCircle != null && !SelectionCircle.IsQueuedForDeletion() )
 			SelectionCircle.Visible = visibility;
 	}
+	private void OnMouseHover()
+	{
+		//'Lightened' wasn't working for unknown reasons; reverse darken works though
+		SelfModulate = SelfModulate.Darkened(-0.20f);
+	}
 
+
+	private void OnMouseExit()
+	{
+
+		SelfModulate = SelfModulateOrigin;
+	}
 }
+
+

@@ -12,7 +12,9 @@ ToolbarIcon = ExtResource( 4 )
 IconColor = Color( 0, 0.741176, 1, 1 )
 ChargeTime = 4.0
 ActiveTime = -1.0
-powerLevel = 200
+accuracy = 0
+powerLevel = 0
+dieSidesPerPowerLevel = 0
 
 [node name="OnCast" parent="." index="0" instance=ExtResource( 1 )]
 modulate = Color( 0.0784314, 1, 0, 1 )
@@ -20,3 +22,6 @@ scale = Vector2( 3, 3 )
 amount = 2
 
 [node name="Heal Self" parent="Effects" index="0" instance=ExtResource( 3 )]
+Type = 1
+BonusAccuracy = 10
+BonusFlatValue = 50

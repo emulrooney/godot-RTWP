@@ -1,32 +1,55 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/GUI/GUIManager.cs" type="Script" id=1]
 [ext_resource path="res://Controls/GUIPartyIconsStrip.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Controls/GUICombatLog.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Controls/GUIAbilityToolbar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Fonts/SansStandard.tres" type="DynamicFont" id=6]
+
+[sub_resource type="InputEventAction" id=1]
+action = "game_pause"
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
 
 [node name="GUI" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 1 )
 
 [node name="PartyIcons" parent="." instance=ExtResource( 2 )]
 
 [node name="DebugTopPrinter" parent="." instance=ExtResource( 3 )]
+visible = false
 margin_left = -511.081
 margin_top = 21.6849
 margin_right = -51.0811
 margin_bottom = 117.685
+mouse_filter = 1
 
 [node name="Combat Log" parent="." instance=ExtResource( 4 )]
-anchor_top = 0.7
-anchor_right = 0.5
+anchor_left = 0.5
+anchor_top = 0.8
 margin_left = 4.0
 margin_right = 0.0
-margin_bottom = -48.0
-mouse_filter = 2
+margin_bottom = 0.0
 
 [node name="Ability Toolbar" parent="." instance=ExtResource( 5 )]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -48.0
 margin_bottom = 0.0
+
+[node name="PauseButton" type="Button" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -36.0
+margin_right = 36.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 6 )
+shortcut = SubResource( 2 )
+text = "UNPAUSED"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="PauseButton" to="." method="TogglePause"]

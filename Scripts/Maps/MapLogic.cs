@@ -4,6 +4,7 @@ using System;
 public class MapLogic : Area2D, IMapClickable
 {
 	Navigation2D nav = null;
+    [Export] public Vector2[] EntryPoints { get; private set; }
 
 	public override void _Ready()
 	{

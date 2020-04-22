@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Characters/Abilities/Base/SelfTargetAbility.tscn" type="PackedScene" id=1]
 [ext_resource path="res://SFX/SimpleImpact.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/GUI/Ability Icons/ice-shield.png" type="Texture" id=3]
 [ext_resource path="res://Assets/GUI/selectedTarget.png" type="Texture" id=4]
-
-
+[ext_resource path="res://Characters/Abilities/Base/AbilityEffect.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.202515, 0.216253, 0.328125, 1, 1, 1, 1, 1 )
@@ -30,9 +29,7 @@ ToolbarIcon = ExtResource( 3 )
 IconColor = Color( 0, 0.741176, 1, 1 )
 ChargeTime = 2.0
 ActiveTime = 12.0
-affectedStat = 4
 powerLevel = 80
-effectLengthInSeconds = 10.0
 
 [node name="OnCast" parent="." index="0" instance=ExtResource( 2 )]
 modulate = Color( 0, 0.929412, 1, 1 )
@@ -51,4 +48,8 @@ texture = ExtResource( 4 )
 
 [node name="Timer" type="Timer" parent="WhileActive" index="0"]
 one_shot = true
+
+[node name="Effect" parent="Effects" index="0" instance=ExtResource( 5 )]
+Type = 2
+StatType = 4
 [connection signal="timeout" from="WhileActive/Timer" to="." method="EndEffect"]

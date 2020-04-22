@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class InputManager : Node2D
 {
+	public static bool IsPaused = false;
 	public static TargetedAbilityInfo AbilityInfo { get; private set; } = null;
-
 	[Export] public Color DragRectColor { get; set; }
 
 	private bool isMouseDragging = false;
@@ -35,6 +35,8 @@ public class InputManager : Node2D
 	//TODO: Break apart into smaller methods
 	public override void _UnhandledInput(InputEvent @event)
 	{
+		float delta = GetPhysicsProcessDeltaTime();
+
 		if (!inputDelayActive)
 		{
 			if (AbilityInfo != null)
@@ -46,12 +48,14 @@ public class InputManager : Node2D
 				HandleNonTargetInput();
 			}
 		}
+
+		HandleCameraInput(delta);
+
 	}
 
 	private void HandleTargetInput()
-	{
-		
-         if (Input.IsActionJustReleased("left_click")) //attempt to fire
+	{		
+		if (Input.IsActionJustReleased("left_click")) //attempt to fire
 		{
 			//THIS ORDERING IS IMPORTANT! Set active right away
 			inputDelayActive = true;
@@ -115,9 +119,14 @@ public class InputManager : Node2D
 			isMouseDragging = false;
 	}
 
-    public override void _Draw()
+	private void HandleCameraInput(float delta)
 	{
-	    /// TODO separate the mechanics out of the drawing
+		CameraControls.ProcessInput(delta);
+	}
+
+	public override void _Draw()
+	{
+		/// TODO separate the mechanics out of the drawing
 		if (isMouseDragging)
 		{
 			dragRectBounds.Position = mousePressOrigin;

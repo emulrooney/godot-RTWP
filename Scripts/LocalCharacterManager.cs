@@ -38,7 +38,7 @@ public class LocalCharacterManager : Node2D
 			_lcm.PlayerCharacters.Add((PlayerCharacter)registrant);
 		else if (registrant is MonsterCharacter)
 			_lcm.MonsterCharacters.Add((MonsterCharacter)registrant);
-    }
+	}
 	
 	public static void ResetAll()
 	{
@@ -46,7 +46,7 @@ public class LocalCharacterManager : Node2D
 		ResetMonsters();
 		ResetPlayers();
 
-        TopPrinter.One = "Present Count: " + _lcm.PresentCharacters.Count;
+		TopPrinter.One = "Present Count: " + _lcm.PresentCharacters.Count;
 	}
 
 	public static void ResetPresent()
@@ -85,22 +85,33 @@ public class LocalCharacterManager : Node2D
 		character.QueueFree();
 	}
 
-	public static void SelectPartyMember(PlayerCharacter partyMember, bool exclusive = true)
+	public static PlayerCharacter SelectPartyMember(PlayerCharacter partyMember, bool exclusive = true)
 	{
 		if (exclusive)
+		{
+			if (_lcm.Selected.Contains(partyMember))
+				//ie. if we already have them, focus
+				GUIManager.FocusOn(partyMember);
+
 			DeselectAll();
+		}
 
 		AddPartyMemberToSelected(partyMember);
+		return partyMember;  //this allows the overload to still return something
 	}
 
-	public static Character SelectPartyMember(int partyMember, bool exclusive = true)
+	/// <summary>
+	/// Overloaded version. Take party member index to select them. If exclusive, 
+	/// </summary>
+	/// <param name="partyMember"></param>
+	/// <param name="exclusive"></param>
+	/// <returns></returns>
+	public static PlayerCharacter SelectPartyMember(int partyMember, bool exclusive = true)
 	{
 		if (partyMember == 0)
 		{
 			foreach (PlayerCharacter pc in _lcm.PlayerCharacters)
-			{
-				AddPartyMemberToSelected(pc);
-			}
+				SelectPartyMember(pc);
 
 			return _lcm.PlayerCharacters.FirstOrDefault();
 		}
@@ -109,7 +120,7 @@ public class LocalCharacterManager : Node2D
 			if (exclusive)
 				DeselectAll();
 
-			return AddPartyMemberToSelected(partyMember);
+			return SelectPartyMember(_lcm.PlayerCharacters[partyMember - 1]);
 		}
 
 		return null;
@@ -199,33 +210,33 @@ public class LocalCharacterManager : Node2D
 		}
 	}
 
-    public static void SelectAllInRect(List<PlayerCharacter> results, bool exclusive = true)
-    {
-        if (exclusive)
-            DeselectAll();
+	public static void SelectAllInRect(List<PlayerCharacter> results, bool exclusive = true)
+	{
+		if (exclusive)
+			DeselectAll();
 
-        _lcm.Selected.AddRange(results);
+		_lcm.Selected.AddRange(results);
 
-        _lcm.UpdateSelectionCircles();
+		_lcm.UpdateSelectionCircles();
 
-        GUIManager.SelectPartyMembers(results);
-    }
+		GUIManager.SelectPartyMembers(results);
+	}
 
-    public static int GetSelectedCount()
-    {
-        return _lcm.Selected.Count();
-    }
+	public static int GetSelectedCount()
+	{
+		return _lcm.Selected.Count();
+	}
 
-    public static PlayerCharacter GetSingleSelected()
-    {
-        if (GetSelectedCount() == 1)
-            return _lcm.Selected.First();
+	public static PlayerCharacter GetSingleSelected()
+	{
+		if (GetSelectedCount() == 1)
+			return _lcm.Selected.First();
 
-        return null;
-    }
+		return null;
+	}
 
-    public static List<PlayerCharacter> GetAllSelected()
-    {
-        return _lcm.Selected;
-    }
+	public static List<PlayerCharacter> GetAllSelected()
+	{
+		return _lcm.Selected;
+	}
 }

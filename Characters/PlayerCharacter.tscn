@@ -13,10 +13,10 @@
 [ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=42]
 [ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=45]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.09306, 14.0139 )
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 13.0
 height = 10.0
 
@@ -38,7 +38,8 @@ BaseDamage = 15
 [node name="RegularAttack" parent="." instance=ExtResource( 4 )]
 
 [node name="Animator" type="AnimatedSprite" parent="."]
-position = Vector2( 7.56506, -8.64579 )
+self_modulate = Color( 0.992157, 0.992157, 0.992157, 1 )
+position = Vector2( 7.56506, -9.64579 )
 frames = ExtResource( 7 )
 animation = "idle"
 playing = true
@@ -54,7 +55,7 @@ texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="FSMachine" type="Node" parent="."]
 script = ExtResource( 42 )
@@ -111,7 +112,9 @@ collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 [connection signal="timeout" from="FSMachine/AttackState/Timer" to="FSMachine/AttackState" method="Timeout"]
 [connection signal="timeout" from="FSMachine/ChargingAbilityState/Timer" to="FSMachine/ChargingAbilityState" method="Timeout"]
 [connection signal="timeout" from="FSMachine/CastingAbilityState/Timer" to="FSMachine/CastingAbilityState" method="Timeout"]
+[connection signal="mouse_entered" from="ClickableArea" to="Animator" method="OnMouseHover"]
+[connection signal="mouse_exited" from="ClickableArea" to="Animator" method="OnMouseExit"]

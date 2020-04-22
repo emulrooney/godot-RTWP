@@ -7,11 +7,14 @@ public class GUIManager : CanvasLayer
 	//Singleton
 	private static GUIManager _gui;
 
-	//Controls; these need to register themselves
+	//Registered Controls; these need to add themselves to the manager
 	private static CombatLog _combatLog;
 	private static PartyIconStrip _partyIcons;
 	private static CameraControls _cameraControls;
 	private static AbilityToolbar _abilityToolbar;
+
+	//Unregistered Controls; these don't have scripts so the manager can find them
+	private static Button _pauseButton;
 
 	private static int registeredCount = 0;
 
@@ -31,6 +34,8 @@ public class GUIManager : CanvasLayer
 
 		while (registrationQueue.Count > 0)
 			RegisterElement(registrationQueue.Dequeue());
+
+		_pauseButton = (Button)GetNode("PauseButton");
 	}
 
 	/* MULTIPLE GUI ELEMENTS */
@@ -97,13 +102,13 @@ public class GUIManager : CanvasLayer
 	//Modify Override -- used by group to ensure drag keeps working
 	public static void SelectPartyMember(int partyMember, bool modifyOverride = false)
 	{
-        //TODO At some point, players will have friendly spells to hit eachother with
-        //They should be able to target eachother by clicking portraits
-        InputManager.InterruptTargetedAbility();
+		//TODO At some point, players will have friendly spells to hit eachother with
+		//They should be able to target eachother by clicking portraits
+		InputManager.InterruptTargetedAbility();
 
-        //if SHIFT held, add to selection
-        //if regular mouse, set to active
-        if (Input.IsActionPressed("modify") || modifyOverride)
+		//if SHIFT held, add to selection
+		//if regular mouse, set to active
+		if (Input.IsActionPressed("modify") || modifyOverride)
 		{
 			//Right-click first
 			//This allows the 'else' to handle left clicks AND keyboard shortcuts
@@ -134,6 +139,8 @@ public class GUIManager : CanvasLayer
 		{
 			/* SELECT ONE */
 			var success = LocalCharacterManager.SelectPartyMember(partyMember);
+			_cameraControls.FocusOn(success);
+
 			if (success != null)
 			{
 				//Active party member, individual
@@ -145,6 +152,11 @@ public class GUIManager : CanvasLayer
 		}
 
 		UpdateAbilityToolbar();
+	}
+
+	public static void FocusOn(PlayerCharacter pc)
+	{
+		_cameraControls.FocusOn(pc);
 	}
 
 	public static void SelectPartyMembers(List<PlayerCharacter> party)
@@ -159,11 +171,24 @@ public class GUIManager : CanvasLayer
 	{
 		if (_abilityToolbar != null)
 		{
-            if (LocalCharacterManager.GetSelectedCount() == 1)
-                _abilityToolbar.UpdateFor(LocalCharacterManager.GetSingleSelected());
-            else
-                _abilityToolbar.UpdateFor(LocalCharacterManager.GetAllSelected());
+			if (LocalCharacterManager.GetSelectedCount() == 1)
+				_abilityToolbar.UpdateFor(LocalCharacterManager.GetSingleSelected());
+			else
+				_abilityToolbar.UpdateFor(LocalCharacterManager.GetAllSelected());
 
 		}
 	}
+
+	/// <summary>
+	/// Toggles 'paused' status. While paused, orders can be issued but nothing is executed.
+	/// </summary>
+	/// NOTE: This is in GUI Manager rather than input manager due to Godot signals.
+	public static void TogglePause()
+	{
+		InputManager.IsPaused = !InputManager.IsPaused;
+		_gui.GetTree().Paused = InputManager.IsPaused;
+		_pauseButton.Text = (InputManager.IsPaused ? "PAUSED" : "UNPAUSED" );
+	}
 }
+
+

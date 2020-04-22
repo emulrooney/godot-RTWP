@@ -3,6 +3,7 @@
 [ext_resource path="res://Scripts/InputManager.cs" type="Script" id=1]
 
 [node name="InputManager" type="Node2D"]
+pause_mode = 2
 script = ExtResource( 1 )
 DragRectColor = Color( 0.898039, 0.52549, 0.52549, 0.670588 )
 inputDelayTimerLength = 0.05
