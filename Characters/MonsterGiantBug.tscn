@@ -60,7 +60,6 @@ shape = SubResource( 1 )
 position = Vector2( 0, -3.24217 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 3
 playing = true
 script = ExtResource( 10 )
 HitFlashColors = PoolColorArray( 1, 0, 0, 1, 0.968627, 1, 0, 1 )
@@ -107,3 +106,5 @@ script = ExtResource( 13 )
 [node name="RegularAttack" parent="." instance=ExtResource( 15 )]
 [connection signal="body_entered" from="AggroRange" to="MinEnemyBehaviour" method="CharacterEnteredAggro"]
 [connection signal="body_exited" from="AggroRange" to="MinEnemyBehaviour" method="CharacterExitedAggro"]
+[connection signal="mouse_entered" from="ClickableArea" to="Animator" method="OnMouseHover"]
+[connection signal="mouse_exited" from="ClickableArea" to="Animator" method="OnMouseExit"]

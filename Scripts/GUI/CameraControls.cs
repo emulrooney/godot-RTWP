@@ -50,25 +50,13 @@ public class CameraControls : Node2D
 	public void FocusOn(Character focus)
 	{
 		CameraFocus = focus;
-	}
-
-
-	/// <summary>
-	/// Public method to focus on party member
-	/// TODO Might need a version for non-party members
-	/// </summary>
-	/// <param name="member"></param>
-	public void FocusPartyMember(int member)
-	{
-		if (CameraFocus != null)
-		{
-			_camera.Position = CameraFocus.Position;
-		}
+        isCameraLocked = true;
 	}
 
 	public void RemoveFocus()
 	{
 		CameraFocus = null;
+        isCameraLocked = false;
 	}
 
 	/// <summary>

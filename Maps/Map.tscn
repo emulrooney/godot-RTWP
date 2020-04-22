@@ -11,7 +11,6 @@
 [ext_resource path="res://Characters/Abilities/First Aid Kit.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Characters/Abilities/Flame Burst.tscn" type="PackedScene" id=10]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 500 )
 

@@ -74,15 +74,11 @@ public class CharacterAnimator : AnimatedSprite
 	private void OnMouseHover()
 	{
 		//'Lightened' wasn't working for unknown reasons; reverse darken works though
-		SelfModulate = SelfModulate.Darkened(-0.20f);
+		SelfModulate = SelfModulate.Darkened(-0.20f);		
 	}
-
 
 	private void OnMouseExit()
 	{
-
 		SelfModulate = SelfModulateOrigin;
 	}
 }
-
-

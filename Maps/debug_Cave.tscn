@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Maps/BaseMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Maps/cave1.png" type="Texture" id=2]
+[ext_resource path="res://DemoAssets/PCKnifelyn.tscn" type="PackedScene" id=3]
+[ext_resource path="res://DemoAssets/PCAxetopher.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Characters/Abilities/Flame Burst.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Characters/Abilities/Ice Shield.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.142276 )
+colors = PoolColorArray( 0.32549, 0.207843, 0.207843, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[node name="Map" instance=ExtResource( 1 )]
+EntryPoints = PoolVector2Array( -213, 94 )
+
+[node name="MapCollider" parent="." index="0"]
+visible = false
+
+[node name="Background" parent="." index="1"]
+self_modulate = Color( 0.541176, 0.0588235, 0.0588235, 1 )
+texture = ExtResource( 2 )
+
+[node name="Background2" type="Sprite" parent="Background" index="0"]
+position = Vector2( -5.57895, 223.989 )
+scale = Vector2( 0.248141, 448.978 )
+z_index = -10
+texture = SubResource( 2 )
+
+[node name="Player" parent="." index="2" instance=ExtResource( 4 )]
+position = Vector2( -213.345, 94.9154 )
+
+[node name="Ice Shield" parent="Player" index="7" instance=ExtResource( 6 )]
+
+[node name="Player2" parent="." index="3" instance=ExtResource( 3 )]
+position = Vector2( -153.472, 133.235 )
+
+[node name="Flame Burst" parent="Player2" index="7" instance=ExtResource( 5 )]
+AbilityName = "Volcanic Burst"
+FriendlyFire = true

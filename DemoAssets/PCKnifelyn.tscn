@@ -1,0 +1,130 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Scripts/Characters/PlayerCharacter.cs" type="Script" id=1]
+[ext_resource path="res://Characters/AnimationSets/debugFemale_1.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=3]
+[ext_resource path="res://Characters/Components/RegularAttack.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/GUI/selectedTarget.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/GUI/SelectionCircle.cs" type="Script" id=6]
+[ext_resource path="res://Characters/AnimationSets/unloadedPlayer.tres" type="SpriteFrames" id=7]
+[ext_resource path="res://Scripts/Characters/States/NormalState.cs" type="Script" id=8]
+[ext_resource path="res://Scripts/Characters/States/DeadState.cs" type="Script" id=9]
+[ext_resource path="res://Assets/GUI/Portraits/debugKnifeLadySmall.jpg" type="Texture" id=10]
+[ext_resource path="res://Characters/Abilities/Knife Toss.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scripts/Characters/CharacterAnimator.cs" type="Script" id=41]
+[ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=42]
+[ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=45]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 9.09306, 14.0139 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 13.0
+height = 10.0
+
+[node name="Player" type="KinematicBody2D"]
+input_pickable = true
+script = ExtResource( 1 )
+CharacterName = "Knifelyn"
+Faction = 0
+Portrait = ExtResource( 10 )
+PortraitColor = Color( 0.12549, 0.635294, 0.67451, 1 )
+AnimationSet = ExtResource( 2 )
+
+[node name="Statblock" type="Node" parent="."]
+script = ExtResource( 3 )
+CurrentHP = 120
+MaxHP = 120
+MoveSpeed = 90.0
+BaseAccuracy = 12
+BaseDamage = 10
+
+[node name="RegularAttack" parent="." instance=ExtResource( 4 )]
+MinDamage = 4
+MaxDamage = 12
+AccuracyBonus = 10
+Cooldown = 3.4
+
+[node name="Animator" type="AnimatedSprite" parent="."]
+self_modulate = Color( 0.992157, 0.992157, 0.992157, 1 )
+position = Vector2( 7.56506, -9.64579 )
+frames = ExtResource( 7 )
+animation = "idle"
+playing = true
+script = ExtResource( 41 )
+FlipOffset = Vector2( -16, 0 )
+HitFlashColors = PoolColorArray( 1, 1, 1, 1, 1, 0, 0, 1 )
+
+[node name="SelectionCircle" type="Sprite" parent="Animator"]
+position = Vector2( -7.56506, 23.6458 )
+scale = Vector2( 0.3, 0.25 )
+z_index = -1000
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="FSMachine" type="Node" parent="."]
+script = ExtResource( 42 )
+
+[node name="IdleState" type="Node" parent="FSMachine"]
+script = ExtResource( 8 )
+
+[node name="WalkState" type="Node" parent="FSMachine"]
+script = ExtResource( 8 )
+AnimationNames = PoolStringArray( "walk" )
+StateType = 1
+
+[node name="MoveAttackState" type="Node" parent="FSMachine"]
+script = ExtResource( 8 )
+AnimationNames = PoolStringArray( "walk" )
+StateType = 2
+
+[node name="AttackState" type="Node" parent="FSMachine"]
+script = ExtResource( 45 )
+AnimationNames = PoolStringArray( "attack1", "attack2" )
+StateType = 3
+StateLength = 1.25
+
+[node name="Timer" type="Timer" parent="FSMachine/AttackState"]
+one_shot = true
+
+[node name="DeadState" type="Node" parent="FSMachine"]
+script = ExtResource( 9 )
+AnimationNames = PoolStringArray( "dead" )
+StateType = 6
+queueFreeOnDeath = false
+
+[node name="ChargingAbilityState" type="Node" parent="FSMachine"]
+script = ExtResource( 45 )
+AnimationNames = PoolStringArray( "ability" )
+StateType = 4
+StateLength = 1.0
+
+[node name="Timer" type="Timer" parent="FSMachine/ChargingAbilityState"]
+one_shot = true
+
+[node name="CastingAbilityState" type="Node" parent="FSMachine"]
+script = ExtResource( 45 )
+AnimationNames = PoolStringArray( "attack1" )
+StateType = 5
+StateLength = 0.24
+
+[node name="Timer" type="Timer" parent="FSMachine/CastingAbilityState"]
+one_shot = true
+
+[node name="ClickableArea" type="Area2D" parent="."]
+priority = 60.0
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
+shape = SubResource( 2 )
+
+[node name="Knife Toss" parent="." instance=ExtResource( 11 )]
+[connection signal="timeout" from="FSMachine/AttackState/Timer" to="FSMachine/AttackState" method="Timeout"]
+[connection signal="timeout" from="FSMachine/ChargingAbilityState/Timer" to="FSMachine/ChargingAbilityState" method="Timeout"]
+[connection signal="timeout" from="FSMachine/CastingAbilityState/Timer" to="FSMachine/CastingAbilityState" method="Timeout"]
+[connection signal="mouse_entered" from="ClickableArea" to="Animator" method="OnMouseHover"]
+[connection signal="mouse_exited" from="ClickableArea" to="Animator" method="OnMouseExit"]

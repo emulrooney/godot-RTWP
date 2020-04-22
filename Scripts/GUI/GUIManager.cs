@@ -123,13 +123,13 @@ public class GUIManager : CanvasLayer
 			else
 			{
 				/* ADDING TO SELECTED */
-				var success = LocalCharacterManager.AddPartyMemberToSelected(partyMember);
-				if (success != null)
+				var selectedCharacter = LocalCharacterManager.AddPartyMemberToSelected(partyMember);
+				if (selectedCharacter != null)
 				{
 					_partyIcons.SetPortraitSelected(partyMember, true);
 
 					if (_cameraControls != null)
-						_cameraControls.FocusPartyMember(partyMember);
+						_cameraControls.FocusOn(selectedCharacter);
 				}
 
 
@@ -138,16 +138,15 @@ public class GUIManager : CanvasLayer
 		else
 		{
 			/* SELECT ONE */
-			var success = LocalCharacterManager.SelectPartyMember(partyMember);
-			_cameraControls.FocusOn(success);
+			var selectedCharacter = LocalCharacterManager.SelectPartyMember(partyMember);
 
-			if (success != null)
+			if (selectedCharacter != null)
 			{
 				//Active party member, individual
 				_partyIcons.SetPortraitSelected(partyMember, true, true);
 
 				if (_cameraControls != null)
-					_cameraControls.FocusPartyMember(partyMember);
+					_cameraControls.FocusOn(selectedCharacter);
 			}
 		}
 

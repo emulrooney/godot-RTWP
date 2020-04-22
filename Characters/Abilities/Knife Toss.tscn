@@ -18,18 +18,12 @@ AbilityName = "Knife Toss"
 ToolbarIcon = ExtResource( 2 )
 IconColor = Color( 0.760784, 0.913725, 0.94902, 1 )
 AnimationName = "attack2"
-accuracy = 0
+ChargeTime = 0.6
+accuracy = 6
 powerLevel = 0
 dieSidesPerPowerLevel = 0
+CanHitCharacter = true
 timeToTargetLength = 1.0
-
-[node name="OnImpact" type="Particles2D" parent="."]
-emitting = false
-amount = 4
-speed_scale = 4.0
-texture = ExtResource( 3 )
-
-[node name="Timer" type="Timer" parent="OnImpact"]
 
 [node name="Projectile" type="Particles2D" parent="."]
 emitting = false

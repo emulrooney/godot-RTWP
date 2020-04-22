@@ -44,6 +44,8 @@ ChargeTime = 6.0
 accuracy = 60
 powerLevel = 0
 dieSidesPerPowerLevel = 0
+CanHitGround = true
+CanHitCharacter = true
 
 [node name="OnImpact" parent="." index="2"]
 modulate = Color( 1, 1, 1, 0.941176 )
