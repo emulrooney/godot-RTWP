@@ -31,6 +31,7 @@ CharacterName = "Axetopher"
 AnimationSet = ExtResource( 7 )
 
 [node name="Flame Burst" parent="AXETOPHER" instance=ExtResource( 10 )]
+position = Vector2( -167.624, -104.467 )
 
 [node name="Ice Shield" parent="AXETOPHER" instance=ExtResource( 8 )]
 ChargeTime = 1.0
