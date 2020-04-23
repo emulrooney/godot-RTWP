@@ -50,24 +50,23 @@ public class GUIManager : CanvasLayer
 			return true;
 		}
 
-		string typeString = element.GetType().ToString();
-
-		switch (typeString)
+		switch (element)
 		{
-			case "PartyIconStrip":
-				_partyIcons = (PartyIconStrip)element;
+			case PartyIconStrip pis:
+				_partyIcons = pis;
 				_partyIcons.Initialize();
 				while (characterQueue.Count > 0)
 					_partyIcons.SetupCharacterPortrait(characterQueue.Dequeue());
 				return true;
-			case "AbilityToolbar":
-				_abilityToolbar = (AbilityToolbar)element;
+			case AbilityToolbar at:
+				_abilityToolbar = at;
 				return true;
-			case "CameraControls":
-				_cameraControls = (CameraControls)element;
+			case CameraControls cc:
+                _cameraControls = cc;
+                _cameraControls.Loaded = true;
 				return true;
-			case "CombatLog":
-				_combatLog = (CombatLog)element;
+			case CombatLog cl:
+				_combatLog = cl;
 				return true;
 			default:
 				return false;
@@ -129,7 +128,7 @@ public class GUIManager : CanvasLayer
 					_partyIcons.SetPortraitSelected(partyMember, true);
 
 					if (_cameraControls != null)
-						_cameraControls.FocusOn(selectedCharacter);
+						FocusOn(selectedCharacter);
 				}
 
 
@@ -146,11 +145,26 @@ public class GUIManager : CanvasLayer
 				_partyIcons.SetPortraitSelected(partyMember, true, true);
 
 				if (_cameraControls != null)
-					_cameraControls.FocusOn(selectedCharacter);
+					FocusOn(selectedCharacter);
 			}
 		}
 
 		UpdateAbilityToolbar();
+	}
+
+    /// <summary>
+    /// Set 'Loaded' for all 'ILoadable' GUI elements. Used to set elements to not function
+    /// while the map is transitioning. 
+    /// </summary>
+    /// <param name="loaded"></param>
+    public static void SetLoadables(bool loaded)
+    {
+        _cameraControls.Loaded = loaded;
+    }
+
+	public static void FocusAt(Vector2 location)
+	{
+		_cameraControls.FocusAt(location);
 	}
 
 	public static void FocusOn(PlayerCharacter pc)

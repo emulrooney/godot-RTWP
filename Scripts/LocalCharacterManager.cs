@@ -126,7 +126,7 @@ public class LocalCharacterManager : Node2D
 		return null;
 	}
 
-	public static Character AddPartyMemberToSelected(int partyMember)
+	public static PlayerCharacter AddPartyMemberToSelected(int partyMember)
 	{
 		if (_lcm.PlayerCharacters.Count >= partyMember)
 		{

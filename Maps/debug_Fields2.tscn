@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Maps/debugfields1.png" type="Texture" id=2]
-[ext_resource path="res://Assets/GUI/Portraits/debugKnifeLadySmall.jpg" type="Texture" id=3]
-[ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Characters/AnimationSets/debugFemale_1.tres" type="SpriteFrames" id=5]
-[ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=6]
+[ext_resource path="res://DemoAssets/PCKnifelyn.tscn" type="PackedScene" id=3]
+[ext_resource path="res://DemoAssets/PCAxetopher.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Maps/Features/DebugMapExit.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Gradient" id=1]
@@ -47,17 +45,6 @@ visible = false
 z_index = -10
 shape = SubResource( 3 )
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( -454.674, 59.9261 )
-AnimationSet = ExtResource( 6 )
-
-[node name="Player2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -454.674, 103.081 )
-CharacterName = "Knifelyn"
-Portrait = ExtResource( 3 )
-PortraitColor = Color( 0.270588, 0.741176, 0.815686, 1 )
-AnimationSet = ExtResource( 5 )
-
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
@@ -65,7 +52,7 @@ navpoly = SubResource( 4 )
 
 [node name="DebugMapExit" parent="." instance=ExtResource( 7 )]
 position = Vector2( 508.086, 128.798 )
-TransitionTo = "DEBUG_Fields2"
+TransitionTo = "DEBUG_Fields1"
 
 [node name="Label" type="Label" parent="DebugMapExit"]
 margin_left = -29.2881
@@ -76,3 +63,9 @@ text = "Next Map"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( -495.002, 103.794 )
+
+[node name="Player2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -494.002, 191.793 )

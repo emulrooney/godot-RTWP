@@ -9,6 +9,7 @@ public class CameraControls : Node2D
 	private static CameraControls _cc;
 	private Camera2D _camera;
 	private bool isCameraLocked = false;
+    public bool Loaded { get; set; } = false;
 
 	public static Character CameraFocus { get; set; }
 
@@ -39,13 +40,20 @@ public class CameraControls : Node2D
 	/// <param name="delta"></param>
 	public override void _Process(float delta)
 	{
-		if (CameraFocus != null && isCameraLocked)
+		if (Loaded && isCameraLocked && CameraFocus != null)
 		{
 			_camera.Position = CameraFocus.Position;
 		}
 
 		_camera.Translate(cameraMove * delta);
 	}
+
+    public void FocusAt(Vector2 location)
+    {
+        CameraFocus = null;
+        isCameraLocked = false;
+        _camera.Position = location;
+    }
 
 	public void FocusOn(Character focus)
 	{

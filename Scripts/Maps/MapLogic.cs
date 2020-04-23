@@ -10,6 +10,9 @@ public class MapLogic : Area2D, IMapClickable
 	{
 		nav = (Navigation2D)GetNodeOrNull("Navigation2D");
 		MapLoader.GetCurrentMap(true);
+
+		//Called here due to timing issues w the MapLoader class
+		MapLoader.FocusCameraAtEntry();
 	}
 
 	public void ClickAction(ClickInfo info, Vector2 location)

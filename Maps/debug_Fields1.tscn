@@ -1,30 +1,28 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Maps/debugFields2.png" type="Texture" id=2]
-[ext_resource path="res://Assets/GUI/Portraits/debugKnifeLadySmall.jpg" type="Texture" id=3]
-[ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Characters/AnimationSets/debugFemale_1.tres" type="SpriteFrames" id=5]
-[ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=6]
 [ext_resource path="res://Maps/Features/DebugMapExit.tscn" type="PackedScene" id=7]
+[ext_resource path="res://DemoAssets/PCAxetopher.tscn" type="PackedScene" id=8]
+[ext_resource path="res://DemoAssets/PCKnifelyn.tscn" type="PackedScene" id=9]
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.995935 )
 colors = PoolColorArray( 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=5]
-gradient = SubResource( 4 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 width = 24
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0 )
 colors = PoolColorArray( 0.227451, 0.160784, 0.298039, 1 )
 
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 width = 1000
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 572.752, 478.709 )
 
 [sub_resource type="NavigationPolygon" id=6]
@@ -40,37 +38,26 @@ EntryPoints = PoolVector2Array( -450, 60 )
 [node name="Background" type="Sprite" parent="."]
 self_modulate = Color( 0.298039, 0.0509804, 0.52549, 1 )
 position = Vector2( -3.68311, 12.2773 )
-z_index = -200
+z_index = -100
 texture = ExtResource( 2 )
 
 [node name="cave" type="Sprite" parent="Background"]
 position = Vector2( 478.497, -175.999 )
 scale = Vector2( 3.04165, 78.9996 )
 z_index = -1
-texture = SubResource( 5 )
+texture = SubResource( 2 )
 
 [node name="Background2" type="Sprite" parent="Background"]
 position = Vector2( -570.85, 79.0081 )
 rotation = 1.5708
 scale = Vector2( 0.741984, 1141.7 )
 z_index = -200
-texture = SubResource( 2 )
+texture = SubResource( 4 )
 
 [node name="MapCollider" type="CollisionShape2D" parent="."]
 visible = false
 z_index = -10
-shape = SubResource( 3 )
-
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( -454.674, 59.9261 )
-AnimationSet = ExtResource( 6 )
-
-[node name="Player2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -454.674, 103.081 )
-CharacterName = "Knifelyn"
-Portrait = ExtResource( 3 )
-PortraitColor = Color( 0.270588, 0.741176, 0.815686, 1 )
-AnimationSet = ExtResource( 5 )
+shape = SubResource( 5 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
@@ -79,7 +66,7 @@ navpoly = SubResource( 6 )
 
 [node name="DebugMapExit" parent="." instance=ExtResource( 7 )]
 position = Vector2( 524.086, 262.797 )
-TransitionTo = "DEBUG_Fields2"
+TransitionTo = "DEBUG_Cave"
 
 [node name="Label" type="Label" parent="DebugMapExit"]
 margin_left = -29.2881
@@ -90,3 +77,9 @@ text = "Next Map"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( -506.002, 52.7942 )
+
+[node name="Player2" parent="." instance=ExtResource( 9 )]
+position = Vector2( -517.002, 102.794 )

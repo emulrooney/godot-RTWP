@@ -23,9 +23,6 @@ public class MapTransition : Node2D
 			success = MapLoader.LoadMap("WORLDMAP", triggerLocation);
 		else
 			success = MapLoader.LoadMap(TransitionTo, triggerLocation);
-
-		if (!success)
-			GD.Print("Couldn't load map!");
 	}
 
 }

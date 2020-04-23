@@ -27,6 +27,7 @@ outlines = [ PoolVector2Array( -97.5673, 288.677, -415.861, 287.942, -479.027, 2
 [node name="Map" type="Area2D"]
 z_index = -100
 script = ExtResource( 1 )
+EntryPoints = PoolVector2Array( 0, 0 )
 
 [node name="Background" type="Sprite" parent="."]
 position = Vector2( -3.68311, 12.2773 )
@@ -45,7 +46,7 @@ z_index = -10
 shape = SubResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 58.6089, 161.362 )
+position = Vector2( 351.031, -102.421 )
 AnimationSet = ExtResource( 6 )
 
 [node name="Player2" parent="." instance=ExtResource( 4 )]
@@ -63,7 +64,7 @@ navpoly = SubResource( 4 )
 
 [node name="DebugMapExit" parent="." instance=ExtResource( 7 )]
 position = Vector2( 492.111, -115.597 )
-TransitionTo = "DEBUG_Fields1"
+TransitionTo = "DEBUG_Fields2"
 WorldMapCoordinates = Vector2( 200, 200 )
 
 [node name="Label" type="Label" parent="DebugMapExit"]
