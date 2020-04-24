@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Maps/BaseMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Maps/cave1.png" type="Texture" id=2]
@@ -15,6 +15,11 @@ colors = PoolColorArray( 0.32549, 0.207843, 0.207843, 1 )
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
+
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( 29.8908, -160.072, 31.2875, 131.134, -3.62927, 161.162, -261.315, 159.766, -256.426, 31.272, -190.783, -33.673, -0.137573, -193.592, 193.999, -193.592, 223.329, -190.1, 225.424, 128.341, 162.574, -161.468, 187.016, 164.654, 158.384, 160.464, 129.753, 129.737, -224.303, -163.563, -193.576, -195.687, -225.001, -65.0981 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5, 6 ), PoolIntArray( 7, 8, 9, 10 ), PoolIntArray( 0, 10, 9, 11, 12, 13 ), PoolIntArray( 0, 13, 1 ), PoolIntArray( 14, 15, 6, 5, 16 ) ]
+outlines = [ PoolVector2Array( -256.426, 31.272, -190.783, -33.673, -225.001, -65.0981, -224.303, -163.563, -193.576, -195.687, -0.137573, -193.592, 29.8908, -160.072, 162.574, -161.468, 193.999, -193.592, 223.329, -190.1, 225.424, 128.341, 187.016, 164.654, 158.384, 160.464, 129.753, 129.737, 31.2875, 131.134, -3.62927, 161.162, -261.315, 159.766 ) ]
 
 [node name="Map" instance=ExtResource( 1 )]
 EntryPoints = PoolVector2Array( -213, 94 )
@@ -44,11 +49,17 @@ position = Vector2( -153.472, 133.235 )
 AbilityName = "Volcanic Burst"
 FriendlyFire = true
 
+[node name="Navigation2D" parent="." index="4"]
+visible = false
+
+[node name="NavigationPolygonInstance" parent="Navigation2D" index="0"]
+navpoly = SubResource( 3 )
+
 [node name="Druid" parent="." index="5" instance=ExtResource( 8 )]
 position = Vector2( 95.0021, -95.4836 )
 
 [node name="Monster" parent="." index="6" instance=ExtResource( 7 )]
 modulate = Color( 1, 0.960784, 0, 1 )
-position = Vector2( 41.7148, -116.439 )
+position = Vector2( 59.8715, -124.121 )
 scale = Vector2( 1.25, 1.25 )
 CharacterName = "Dennis the Bear"

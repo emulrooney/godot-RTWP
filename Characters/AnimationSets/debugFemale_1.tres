@@ -58,23 +58,23 @@ animations = [ {
 "name": "attackApproach",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 27 ), ExtResource( 30 ), ExtResource( 28 ), ExtResource( 13 ), ExtResource( 19 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "attack2",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 39 ), ExtResource( 38 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 36 ), ExtResource( 37 ) ],
-"loop": true,
-"name": "ability",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 29 ), ExtResource( 25 ) ],
 "loop": false,
 "name": "attack1",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 27 ), ExtResource( 30 ), ExtResource( 28 ), ExtResource( 13 ), ExtResource( 19 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "attack2",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 34 ), ExtResource( 15 ), ExtResource( 32 ), ExtResource( 9 ), ExtResource( 18 ), ExtResource( 31 ) ],
 "loop": true,
 "name": "walk",
 "speed": 6.0
+}, {
+"frames": [ ExtResource( 39 ), ExtResource( 38 ), ExtResource( 35 ), ExtResource( 40 ), ExtResource( 36 ), ExtResource( 37 ) ],
+"loop": true,
+"name": "ability",
+"speed": 5.0
 } ]
