@@ -1,14 +1,13 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/Characters/MonsterCharacter.cs" type="Script" id=1]
 [ext_resource path="res://Assets/GUI/selectedTarget.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/GUI/SelectionCircle.cs" type="Script" id=3]
-[ext_resource path="res://Assets/Monsters/GiantBug/idle (1).png" type="Texture" id=4]
-[ext_resource path="res://Assets/Monsters/GiantBug/idle (2).png" type="Texture" id=5]
-[ext_resource path="res://Assets/Monsters/GiantBug/idle (3).png" type="Texture" id=6]
-[ext_resource path="res://Assets/Monsters/GiantBug/idle (4).png" type="Texture" id=7]
-[ext_resource path="res://Assets/Monsters/GiantBug/attack.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Monsters/GiantBug/hit.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Monsters/debugStupidBear/walk (1).png" type="Texture" id=4]
+[ext_resource path="res://Assets/Monsters/debugStupidBear/walk (4).png" type="Texture" id=5]
+[ext_resource path="res://Assets/Monsters/debugStupidBear/walk (3).png" type="Texture" id=6]
+[ext_resource path="res://Assets/Monsters/debugStupidBear/walk (2).png" type="Texture" id=7]
+[ext_resource path="res://Assets/Monsters/debugStupidBear/walk (5).png" type="Texture" id=8]
 [ext_resource path="res://Scripts/Characters/CharacterAnimator.cs" type="Script" id=10]
 [ext_resource path="res://SFX/SimpleImpact.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=12]
@@ -21,19 +20,24 @@ radius = 150.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"frames": [  ],
 "loop": true,
-"name": "idle",
-"speed": 12.0
+"name": "sdf",
+"speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [  ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [  ],
 "loop": true,
 "name": "attack1",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 8 ) ],
 "loop": true,
-"name": "hit",
+"name": "walk",
 "speed": 5.0
 } ]
 
@@ -44,8 +48,7 @@ extents = Vector2( 9.09306, 14.0139 )
 radius = 16.0
 height = 18.0
 
-[node name="GiantBug" type="KinematicBody2D"]
-scale = Vector2( -1, 1 )
+[node name="Monster" type="KinematicBody2D"]
 script = ExtResource( 1 )
 CharacterName = "Giant Bug"
 Faction = 2
@@ -59,23 +62,23 @@ shape = SubResource( 1 )
 [node name="Animator" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -3.24217 )
 frames = SubResource( 2 )
-animation = "idle"
+animation = "walk"
+frame = 1
 playing = true
 script = ExtResource( 10 )
 HitFlashColors = PoolColorArray( 1, 0, 0, 1, 0.968627, 1, 0, 1 )
 
 [node name="OnHit" parent="Animator" instance=ExtResource( 11 )]
-modulate = Color( 0.454902, 0.92549, 0.376471, 1 )
+modulate = Color( 0.454902, 0.92549, 0.376471, 0.941176 )
 position = Vector2( -1.42162, 2.11835 )
 amount = 4
-lifetime = 0.2
-speed_scale = 0.25
+speed_scale = 4.0
 
 [node name="SelectionCircle" type="Sprite" parent="Animator"]
 modulate = Color( 1, 0.952941, 0.952941, 1 )
 position = Vector2( 0, 21.2422 )
 scale = Vector2( 0.3, 0.2 )
-z_index = -1000
+z_index = -1
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
 

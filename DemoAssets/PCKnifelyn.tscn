@@ -16,7 +16,7 @@
 [ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=45]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 9.09306, 14.0139 )
+extents = Vector2( 16.2893, 19.5482 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 13.0
@@ -58,11 +58,12 @@ HitFlashColors = PoolColorArray( 1, 1, 1, 1, 1, 0, 0, 1 )
 [node name="SelectionCircle" type="Sprite" parent="Animator"]
 position = Vector2( -7.56506, 23.6458 )
 scale = Vector2( 0.3, 0.25 )
-z_index = -1000
+z_index = -1
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = -1
 shape = SubResource( 1 )
 
 [node name="FSMachine" type="Node" parent="."]

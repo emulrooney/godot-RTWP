@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Maps/debugfields1.png" type="Texture" id=2]
 [ext_resource path="res://DemoAssets/PCKnifelyn.tscn" type="PackedScene" id=3]
 [ext_resource path="res://DemoAssets/PCAxetopher.tscn" type="PackedScene" id=4]
+[ext_resource path="res://DemoAssets/MonsterGiantBug.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=6]
 [ext_resource path="res://Maps/Features/DebugMapExit.tscn" type="PackedScene" id=7]
+[ext_resource path="res://DemoAssets/MonsterBear.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0 )
@@ -18,9 +21,9 @@ width = 1000
 extents = Vector2( 572.752, 478.709 )
 
 [sub_resource type="NavigationPolygon" id=4]
-vertices = PoolVector2Array( -259.477, -151.001, -162.541, -207.191, 561.786, -207.191, 445.782, -85.7379, 408.94, -83.6327, -513.799, 361.845, 136.457, 330.557, 171.826, 333.277, -531.484, 395.854, 32.1006, 105.84, 383.678, 44.7876, 443.677, 45.8402, 185.43, 232.61, 152.781, 208.124, 567.061, 462.636, 186.79, 297.908, 27.8901, 178.471, 126.934, 232.61, 380.52, -52.0539, -260.529, -84.6853, -225.832, -273.998, -297.371, -193.106, -568.657, -275.756, -330.003, -146.79, -30.0043, 176.366, -519.24, 233.971, -573.931, 466.152, -272.108, -48.896, -36.32, 104.787, -549.168, 202.682, -311.055, -52.0539, -2.63599, 71.1033, -561.412, 394.494, 14.206, 91.1031, -19.478, 90.0505, -568.753, 238.294 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 6, 7, 8 ), PoolIntArray( 9, 10, 11, 12, 13 ), PoolIntArray( 3, 2, 14, 11 ), PoolIntArray( 15, 11, 14, 7 ), PoolIntArray( 11, 15, 12 ), PoolIntArray( 16, 9, 13, 17 ), PoolIntArray( 0, 4, 18, 19 ), PoolIntArray( 20, 1, 0, 21 ), PoolIntArray( 22, 20, 21 ), PoolIntArray( 22, 21, 23 ), PoolIntArray( 24, 16, 17, 6, 5, 25 ), PoolIntArray( 7, 14, 26, 8 ), PoolIntArray( 27, 28, 24, 25, 29, 30 ), PoolIntArray( 27, 19, 18, 10, 31 ), PoolIntArray( 32, 8, 26 ), PoolIntArray( 22, 23, 30, 29 ), PoolIntArray( 10, 9, 33, 31 ), PoolIntArray( 27, 31, 34, 28 ), PoolIntArray( 22, 29, 35 ), PoolIntArray( 26, 22, 35 ), PoolIntArray( 26, 35, 32 ) ]
-outlines = [ PoolVector2Array( -568.657, -275.756, -225.832, -273.998, -162.541, -207.191, 561.786, -207.191, 567.061, 462.636, -573.931, 466.152 ), PoolVector2Array( -311.055, -52.0539, -272.108, -48.896, -260.529, -84.6853, -259.477, -151.001, -297.371, -193.106, -330.003, -146.79 ), PoolVector2Array( -30.0043, 176.366, 27.8901, 178.471, 32.1006, 105.84, 14.206, 91.1031, -2.63599, 71.1033, -19.478, 90.0505, -36.32, 104.787 ), PoolVector2Array( 383.678, 44.7876, 443.677, 45.8402, 445.782, -85.7379, 408.94, -83.6327, 380.52, -52.0539 ), PoolVector2Array( 136.457, 330.557, 171.826, 333.277, 186.79, 297.908, 185.43, 232.61, 152.781, 208.124, 126.934, 232.61 ), PoolVector2Array( -561.412, 394.494, -531.484, 395.854, -513.799, 361.845, -519.24, 233.971, -549.168, 202.682, -568.753, 238.294 ) ]
+vertices = PoolVector2Array( 171.826, 333.277, 565.987, 365.23, -484.002, 363.791, -513.799, 361.845, 136.457, 330.557, -259.477, -151.001, -162.541, -207.191, 561.786, -207.191, 445.782, -85.7379, 408.94, -83.6327, 32.1006, 105.84, 383.678, 44.7876, 443.677, 45.8402, 185.43, 232.61, 152.781, 208.124, 380.52, -52.0539, -260.529, -84.6853, 186.79, 297.908, 27.8901, 178.471, 126.934, 232.61, -225.832, -273.998, -297.371, -193.106, -568.657, -275.756, -330.003, -146.79, -272.108, -48.896, -2.63599, 71.1033, -30.0043, 176.366, -519.24, 233.971, -36.32, 104.787, -549.168, 202.682, -311.055, -52.0539, -531.484, 395.854, -572.001, 436.229, -561.412, 394.494, 14.206, 91.1031, -19.478, 90.0505, -568.753, 238.294 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 6, 7, 8, 9 ), PoolIntArray( 10, 11, 12, 13, 14 ), PoolIntArray( 8, 7, 1, 12 ), PoolIntArray( 5, 9, 15, 16 ), PoolIntArray( 17, 12, 1, 0 ), PoolIntArray( 12, 17, 13 ), PoolIntArray( 18, 10, 14, 19 ), PoolIntArray( 20, 6, 5, 21 ), PoolIntArray( 22, 20, 21 ), PoolIntArray( 22, 21, 23 ), PoolIntArray( 24, 16, 15, 11, 25 ), PoolIntArray( 26, 18, 19, 4, 3, 27 ), PoolIntArray( 24, 28, 26, 27, 29, 30 ), PoolIntArray( 31, 3, 2 ), PoolIntArray( 31, 2, 32 ), PoolIntArray( 33, 31, 32 ), PoolIntArray( 22, 23, 30, 29 ), PoolIntArray( 11, 10, 34, 25 ), PoolIntArray( 24, 25, 35, 28 ), PoolIntArray( 22, 29, 36 ), PoolIntArray( 32, 22, 36 ), PoolIntArray( 32, 36, 33 ) ]
+outlines = [ PoolVector2Array( -568.657, -275.756, -225.832, -273.998, -162.541, -207.191, 561.786, -207.191, 565.987, 365.23, -484.002, 363.791, -572.001, 436.229 ), PoolVector2Array( -311.055, -52.0539, -272.108, -48.896, -260.529, -84.6853, -259.477, -151.001, -297.371, -193.106, -330.003, -146.79 ), PoolVector2Array( -30.0043, 176.366, 27.8901, 178.471, 32.1006, 105.84, 14.206, 91.1031, -2.63599, 71.1033, -19.478, 90.0505, -36.32, 104.787 ), PoolVector2Array( 383.678, 44.7876, 443.677, 45.8402, 445.782, -85.7379, 408.94, -83.6327, 380.52, -52.0539 ), PoolVector2Array( 136.457, 330.557, 171.826, 333.277, 186.79, 297.908, 185.43, 232.61, 152.781, 208.124, 126.934, 232.61 ), PoolVector2Array( -561.412, 394.494, -531.484, 395.854, -513.799, 361.845, -519.24, 233.971, -549.168, 202.682, -568.753, 238.294 ) ]
 
 [node name="Map" type="Area2D"]
 z_index = -100
@@ -34,9 +37,9 @@ z_index = -200
 texture = ExtResource( 2 )
 
 [node name="Background2" type="Sprite" parent="Background"]
-position = Vector2( -570.85, 79.0081 )
+position = Vector2( -570.85, 46.0084 )
 rotation = 1.5708
-scale = Vector2( 0.741984, 1141.7 )
+scale = Vector2( 0.675985, 1141.7 )
 z_index = -200
 texture = SubResource( 2 )
 
@@ -69,3 +72,44 @@ position = Vector2( -495.002, 103.794 )
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
 position = Vector2( -494.002, 191.793 )
+
+[node name="GiantBug" parent="." instance=ExtResource( 5 )]
+position = Vector2( -294.004, 270.792 )
+
+[node name="GiantBug2" parent="." instance=ExtResource( 5 )]
+position = Vector2( -230.555, -191.15 )
+
+[node name="MassiveBug" parent="." instance=ExtResource( 5 )]
+modulate = Color( 0.968627, 1, 0, 1 )
+position = Vector2( -119.921, -100.222 )
+scale = Vector2( -2, 2 )
+CharacterName = "Massive Mosquito"
+
+[node name="OverrideStatblock" type="Node" parent="MassiveBug"]
+script = ExtResource( 6 )
+CurrentHP = 35
+MaxHP = 35
+MoveSpeed = 60.0
+BaseAccuracy = 5
+BaseDamage = 5
+BaseDefense = -40
+
+[node name="GiantBug4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 300.99, 310.792 )
+
+[node name="Bear2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 317.112, -98.4938 )
+scale = Vector2( -1, 1 )
+CharacterName = "Foul Bear"
+
+[node name="Label2" type="Label" parent="."]
+margin_left = -567.342
+margin_top = -35.5347
+margin_right = -372.342
+margin_bottom = 12.4653
+text = "Pause with the spacebar.
+You can still issue orders 
+when paused. Pausing is good!"
+__meta__ = {
+"_edit_use_anchors_": false
+}

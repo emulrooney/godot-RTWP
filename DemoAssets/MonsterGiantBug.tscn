@@ -1,0 +1,123 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scripts/Characters/MonsterCharacter.cs" type="Script" id=1]
+[ext_resource path="res://Assets/GUI/selectedTarget.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/GUI/SelectionCircle.cs" type="Script" id=3]
+[ext_resource path="res://Assets/Monsters/GiantBug/idle (1).png" type="Texture" id=4]
+[ext_resource path="res://Assets/Monsters/GiantBug/idle (2).png" type="Texture" id=5]
+[ext_resource path="res://Assets/Monsters/GiantBug/idle (3).png" type="Texture" id=6]
+[ext_resource path="res://Assets/Monsters/GiantBug/idle (4).png" type="Texture" id=7]
+[ext_resource path="res://Assets/Monsters/GiantBug/attack.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Monsters/GiantBug/hit.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/Characters/CharacterAnimator.cs" type="Script" id=10]
+[ext_resource path="res://SFX/SimpleImpact.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=12]
+[ext_resource path="res://Scripts/Characters/Behaviours/EnemyBehaviour.cs" type="Script" id=13]
+[ext_resource path="res://Characters/Components/BasicEnemyFSM.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Characters/Components/RegularAttack.tscn" type="PackedScene" id=15]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 150.0
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "idle",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": false,
+"name": "hit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": false,
+"name": "attack1",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 15.051, 22.1263 )
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 16.0
+height = 18.0
+
+[node name="GiantBug" type="KinematicBody2D"]
+scale = Vector2( -1, 1 )
+script = ExtResource( 1 )
+CharacterName = "Giant Bug"
+Faction = 2
+
+[node name="AggroRange" type="Area2D" parent="."]
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
+shape = SubResource( 1 )
+
+[node name="Animator" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -3.24217 )
+frames = SubResource( 2 )
+animation = "idle"
+playing = true
+script = ExtResource( 10 )
+HitFlashColors = PoolColorArray( 1, 0, 0, 1, 0.968627, 1, 0, 1 )
+
+[node name="OnHit" parent="Animator" instance=ExtResource( 11 )]
+modulate = Color( 1, 0.984314, 0, 0.941176 )
+position = Vector2( -1.42162, 2.11835 )
+amount = 5
+lifetime = 0.2
+speed_scale = 1.0
+explosiveness = 0.1
+
+[node name="SelectionCircle" type="Sprite" parent="Animator"]
+modulate = Color( 1, 0.952941, 0.952941, 1 )
+position = Vector2( 0, 21.2422 )
+scale = Vector2( 0.3, 0.2 )
+z_index = -1
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 3 )
+
+[node name="Statblock" type="Node" parent="."]
+script = ExtResource( 12 )
+CurrentHP = 25
+MaxHP = 25
+MoveSpeed = 66.0
+BaseAccuracy = 16
+BaseDamage = 9
+BaseDefense = 6
+
+[node name="ClickableArea" type="Area2D" parent="."]
+scale = Vector2( 1.16, 1 )
+z_index = 100
+priority = 50.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
+shape = SubResource( 4 )
+
+[node name="MinEnemyBehaviour" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="FSMachine" parent="." instance=ExtResource( 14 )]
+
+[node name="WalkState" parent="FSMachine" index="1"]
+AnimationNames = PoolStringArray( "idle" )
+
+[node name="MoveAttackState" parent="FSMachine" index="2"]
+AnimationNames = PoolStringArray( "idle" )
+
+[node name="DeadState" parent="FSMachine" index="4"]
+AnimationNames = PoolStringArray( "hit" )
+
+[node name="RegularAttack" parent="." instance=ExtResource( 15 )]
+[connection signal="body_entered" from="AggroRange" to="MinEnemyBehaviour" method="CharacterEnteredAggro"]
+[connection signal="body_exited" from="AggroRange" to="MinEnemyBehaviour" method="CharacterExitedAggro"]
+[connection signal="mouse_entered" from="ClickableArea" to="Animator" method="OnMouseHover"]
+[connection signal="mouse_exited" from="ClickableArea" to="Animator" method="OnMouseExit"]
+
+[editable path="FSMachine"]

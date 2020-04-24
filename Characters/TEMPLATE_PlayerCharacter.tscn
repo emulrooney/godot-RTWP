@@ -14,7 +14,7 @@
 [ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=45]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 9.09306, 14.0139 )
+extents = Vector2( 18.7904, 12.4195 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 13.0
@@ -30,10 +30,8 @@ PortraitColor = Color( 0.113725, 0.411765, 0.196078, 1 )
 
 [node name="Statblock" type="Node" parent="."]
 script = ExtResource( 3 )
-CurrentHP = 120
-MaxHP = 120
-BaseAccuracy = 10
-BaseDamage = 15
+CurrentHP = 100
+MaxHP = 100
 
 [node name="RegularAttack" parent="." instance=ExtResource( 4 )]
 
@@ -50,11 +48,12 @@ HitFlashColors = PoolColorArray( 1, 1, 1, 1, 1, 0, 0, 1 )
 [node name="SelectionCircle" type="Sprite" parent="Animator"]
 position = Vector2( -7.56506, 23.6458 )
 scale = Vector2( 0.3, 0.25 )
-z_index = -1000
+z_index = -1
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 10 )
 shape = SubResource( 1 )
 
 [node name="FSMachine" type="Node" parent="."]
@@ -107,6 +106,7 @@ StateLength = 0.24
 one_shot = true
 
 [node name="ClickableArea" type="Area2D" parent="."]
+scale = Vector2( 1.36, 1.16 )
 priority = 60.0
 collision_layer = 16
 collision_mask = 16

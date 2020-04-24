@@ -13,10 +13,12 @@ script = ExtResource( 3 )
 
 [node name="WalkState" type="Node" parent="."]
 script = ExtResource( 3 )
+AnimationNames = PoolStringArray( "walk" )
 StateType = 1
 
 [node name="MoveAttackState" type="Node" parent="."]
 script = ExtResource( 3 )
+AnimationNames = PoolStringArray( "walk" )
 StateType = 2
 
 [node name="AttackState" type="Node" parent="."]
@@ -30,7 +32,7 @@ one_shot = true
 
 [node name="DeadState" type="Node" parent="."]
 script = ExtResource( 5 )
-AnimationNames = PoolStringArray( "hit" )
+AnimationNames = PoolStringArray( "dead" )
 StateType = 6
 StateLength = 1.0
 

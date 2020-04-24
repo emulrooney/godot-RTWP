@@ -35,10 +35,13 @@ public class EnemyBehaviour : Node
 		{
 			Character character = (Character)body;
 
-			if (!NearbyTargets.Contains(character))
-				NearbyTargets.Add(character);
+            if (character.Faction == _owner.Faction)
+                return; //Don't kill your own team
 
-			if (_owner.AttackTarget == null)
+            if (!NearbyTargets.Contains(character))
+				NearbyTargets.Add(character);
+             
+			if (character.Faction != _owner.Faction && _owner.AttackTarget == null)
 				StartAttacking(character);
 		}
 	}

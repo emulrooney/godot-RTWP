@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Maps/debugMap_Home.png" type="Texture" id=2]
-[ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Characters/TEMPLATE_PlayerCharacter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=6]
 [ext_resource path="res://Maps/Features/DebugMapExit.tscn" type="PackedScene" id=7]
 
@@ -25,9 +25,10 @@ outlines = [ PoolVector2Array( -552.364, -316.546, 544.972, -315.038, 541.957, 3
 [node name="Map" type="Area2D"]
 z_index = -100
 script = ExtResource( 1 )
-EntryPoints = PoolVector2Array( 0, 0 )
+EntryPoints = PoolVector2Array( -103, 129 )
 
 [node name="Background" type="Sprite" parent="."]
+modulate = Color( 0.466667, 0.647059, 1, 1 )
 position = Vector2( -3.68311, 12.2773 )
 z_index = -200
 texture = ExtResource( 2 )
@@ -50,6 +51,7 @@ AnimationSet = ExtResource( 6 )
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+visible = false
 navpoly = SubResource( 4 )
 
 [node name="DebugMapExit" parent="." instance=ExtResource( 7 )]
@@ -63,6 +65,42 @@ margin_top = -48.6322
 margin_right = 37.8521
 margin_bottom = -34.6322
 text = "Leave Home"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = -191.882
+margin_top = -248.67
+margin_right = 177.118
+margin_bottom = -197.67
+text = "Objective: You are AXETOPHER. Meet KNIFELYN in the woods,
+find the wizard making animals attack people and destroy him
+with your axe and magic."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+margin_left = -368.133
+margin_top = 48.8271
+margin_right = -198.133
+margin_bottom = 235.827
+text = "WELCOME! To select yourself by clicking your portrait, sprite or press '1'.
+
+Then click where you want to go or what you want to attack."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 194.262
+margin_top = 37.4272
+margin_right = 364.262
+margin_bottom = 224.427
+text = "WASD/arrows move the camera. Look north for an objective. "
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -1,10 +1,12 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
-[ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Characters/MonsterGiantBug.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Characters/TEMPLATE_PlayerCharacter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://DemoAssets/MonsterGiantBug.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/DebugHelpers/DebugTopPrinter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Maps/debugMap1.png" type="Texture" id=5]
+
+
 
 
 

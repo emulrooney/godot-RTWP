@@ -3,10 +3,11 @@
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Characters/Abilities/Flame Burst.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/Abilities/Knife Toss.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Characters/PlayerCharacter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Characters/TEMPLATE_PlayerCharacter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=9]
 [ext_resource path="res://Characters/AnimationSets/debugFemale_1.tres" type="SpriteFrames" id=10]
 [ext_resource path="res://Assets/GUI/Portraits/debugKnifeLadySmall.jpg" type="Texture" id=11]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 500 )

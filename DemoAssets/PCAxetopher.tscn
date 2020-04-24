@@ -16,7 +16,7 @@
 [ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=45]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 9.09306, 14.0139 )
+extents = Vector2( 16.7887, 20.0885 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 13.0
@@ -54,7 +54,7 @@ HitFlashColors = PoolColorArray( 1, 1, 1, 1, 1, 0, 0, 1 )
 [node name="SelectionCircle" type="Sprite" parent="Animator"]
 position = Vector2( -7.56506, 23.6458 )
 scale = Vector2( 0.3, 0.25 )
-z_index = -1000
+z_index = -1
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
@@ -119,7 +119,6 @@ collision_mask = 16
 shape = SubResource( 2 )
 
 [node name="First Aid Kit" parent="." instance=ExtResource( 11 )]
-IconColor = Color( 0, 0.741176, 1, 1 )
 ChargeTime = 6.0
 [connection signal="timeout" from="FSMachine/AttackState/Timer" to="FSMachine/AttackState" method="Timeout"]
 [connection signal="timeout" from="FSMachine/ChargingAbilityState/Timer" to="FSMachine/ChargingAbilityState" method="Timeout"]
