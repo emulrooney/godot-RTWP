@@ -175,6 +175,13 @@ public class FSMachine : Node
 			_owner.QueuedMoves.Dequeue();
 			return;
 		}
+        else if (currentPathStep > _owner.QueuedMoves.Peek().Length)
+        {
+            //Sometimes the pathfinding nodes wipe out nav points at unexpected times.
+            //Because this pathfinding implementation is a stopgap until Godot's 4.0 pathfinding,
+            //this is a quick and dirty fix to prevent accessing non-existant steps
+            currentPathStep = _owner.QueuedMoves.Peek().Length - 1;
+        }
 
 		nextNavLocation = _owner.QueuedMoves.Peek()[currentPathStep];
 
