@@ -9,7 +9,7 @@ public class CameraControls : Node2D
 	private static CameraControls _cc;
 	private Camera2D _camera;
 	private bool isCameraLocked = false;
-    public bool Loaded { get; set; } = false;
+	public bool Loaded { get; set; } = false;
 
 	public static Character CameraFocus { get; set; }
 
@@ -48,23 +48,23 @@ public class CameraControls : Node2D
 		_camera.Translate(cameraMove * delta);
 	}
 
-    public void FocusAt(Vector2 location)
-    {
-        CameraFocus = null;
-        isCameraLocked = false;
-        _camera.Position = location;
-    }
+	public void FocusAt(Vector2 location)
+	{
+		CameraFocus = null;
+		isCameraLocked = false;
+		_camera.Position = location;
+	}
 
 	public void FocusOn(Character focus)
 	{
 		CameraFocus = focus;
-        isCameraLocked = true;
+		isCameraLocked = true;
 	}
 
 	public void RemoveFocus()
 	{
 		CameraFocus = null;
-        isCameraLocked = false;
+		isCameraLocked = false;
 	}
 
 	/// <summary>

@@ -40,12 +40,19 @@ public class TargetedAbility : Ability
 
 	public override void Release()
 	{
+        GD.Print("Release called");
+
 		if (timeToTargetLength > -1 && projectile != null)
 		{
-			projectile.Emitting = true;
+            GD.Print($"Target Character check:");
+            GD.Print($"Name: {TargetCharacter}");
+            GD.Print($"Inside Tree: {TargetCharacter.IsInsideTree()}");
+            var targetPos = (TargetCharacter == null || !TargetCharacter.IsInsideTree() ? TargetLocation : TargetCharacter.Position);
+
+            projectile.Emitting = true;
 
 			projectileTween.InterpolateProperty(projectile, "position", Position,
-				(TargetCharacter == null ? TargetLocation : TargetCharacter.Position) - GlobalPosition,
+				targetPos - GlobalPosition,
 				timeToTargetLength);
 
 			projectileTween.InterpolateCallback(this, timeToTargetLength, "Impact");
@@ -59,6 +66,8 @@ public class TargetedAbility : Ability
 	
 	public void Impact()
 	{
+        GD.Print("Impact!");
+
 		if (projectile != null)
 			projectile.Emitting = false;
 
@@ -68,7 +77,11 @@ public class TargetedAbility : Ability
 			onImpact.Emitting = true;
 		}
 
-		if (TargetCharacter != null)
+        GD.Print("about to check target:");
+
+        GD.Print($"Target Char valid: {Godot.Object.IsInstanceValid(TargetCharacter)}");
+
+		if (Godot.Object.IsInstanceValid(TargetCharacter))
 			ApplyAbilityEffectsTo(TargetCharacter);
 	}
 
@@ -89,7 +102,6 @@ public class TargetedAbility : Ability
 					TargetCharacter = null;
 					TargetLocation = GetGlobalMousePosition();
 					successfulTarget = true;
-					GD.Print("Target set to map location: " + TargetLocation);
 				}
 				break;
 			case Character c:
@@ -97,11 +109,10 @@ public class TargetedAbility : Ability
 				{
 					TargetCharacter = c;
 					successfulTarget = true;
-					GD.Print($"Target set to {TargetCharacter.Name}");
 				}
 				break;
 			default:
-				GD.Print("Something went wrong clicking on {target}");
+				GD.Print($"Something went wrong clicking on {target}");
 				break;
 		}
 
