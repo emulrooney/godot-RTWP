@@ -150,13 +150,11 @@ public abstract class Ability : Node2D
     protected void ApplyModifier(Character target, AbilityEffect effect)
     {
         var modifier = new StatblockModifier(this, effect.StatType, powerLevel + effect.BonusFlatValue, ActiveTime + effect.BonusTime);
-        GD.Print($"Applying {modifier.StatModified} mod: {modifier.Amount} increase to {target.Name}");
         target.Stats.AddModifier(modifier);
     }
 
     public virtual void EndModifier(StatblockModifier modifier)
     {
-        GD.Print($"Removing ({modifier.StatModified} + {modifier.Amount}) as cast by {Caster.Name}");
         Caster.Stats.RemoveModifier(modifier);
     }
 

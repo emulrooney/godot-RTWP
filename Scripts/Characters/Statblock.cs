@@ -40,7 +40,6 @@ public class Statblock : Node
             if (Modifiers[i].StatModified == modifierType)
             {
                 returnVal += Modifiers[i].Amount;
-                GD.Print(Modifiers[i].Amount);
             }
 
         return returnVal;

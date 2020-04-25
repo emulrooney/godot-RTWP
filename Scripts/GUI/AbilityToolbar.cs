@@ -137,15 +137,6 @@ public class AbilityToolbar : PanelContainer
                 pc.UseAbility(abilityIndex);
             }
 
-			//try
-			//{
-   //             pc.UseAbility(abilityIndex);
-			//}
-			//catch (Exception e)
-			//{
-			//	GD.Print($"  Failed to cast! E: {e}");
-			//}
-
 		}
 	}
 

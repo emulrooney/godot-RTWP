@@ -40,8 +40,6 @@ public class TargetedAbility : Ability
 
 	public override void Release()
 	{
-        GD.Print("Release called");
-
 		if (timeToTargetLength > -1 && projectile != null)
 		{
             var targetPos = (TargetCharacter == null || !Godot.Object.IsInstanceValid(TargetCharacter) ? TargetLocation : TargetCharacter.Position);

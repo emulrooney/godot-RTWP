@@ -20,7 +20,6 @@ public class MapTransition : Node2D
 
 		bool success;
 
-		GD.Print("Calling transition, next up is update");
 		GM.UpdatePartyData();
 
 		if (IsWorldMapExit)

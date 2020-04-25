@@ -23,7 +23,6 @@ public class PartyMemberData : Node
     /// <param name="pc">Player to base new stats on</param>
     public void UpdateFrom(PlayerCharacter pc)
     {
-        GD.Print("Updating " + CharacterName + " with HP --> " + CurrentHP);
         CurrentHP = pc.Stats.CurrentHP;
     }
 

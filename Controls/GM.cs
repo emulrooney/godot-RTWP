@@ -49,7 +49,6 @@ public class GM : Node
 
 	public static void UpdatePartyData()
 	{
-		GD.Print("ONE");
 		_gm.PM.UpdatePartyData();
 	}
 

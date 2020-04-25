@@ -260,8 +260,6 @@ public class FSMachine : Node
 
 		TimedState timedState = (TimedState)Current;
 		timedState.OverrideStateLength(abilityLength);
-		GD.Print($"Now in: {Current.StateType} with animation {overrideAnimation}");
-
 	}
 
 

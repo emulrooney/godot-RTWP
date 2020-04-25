@@ -37,12 +37,10 @@ public class PartyManager : Node
 
 	public void UpdatePartyData()
 	{
-		GD.Print("TWO");
 		for (int i = 0; i < MapCharacters.Length; i++)
 		{
 			if (MapCharacters[i] != null && PartyMembers[i] != null)
 			{
-				GD.Print("Update From");
 				PartyMembers[i].UpdateFrom(MapCharacters[i]);
 			}
 			else
