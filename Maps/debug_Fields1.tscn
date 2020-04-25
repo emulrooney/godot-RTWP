@@ -1,13 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Maps/debugFields2.png" type="Texture" id=2]
 [ext_resource path="res://DemoAssets/MonsterGiantBug.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Characters/Abilities/Ice Shield.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Characters/Abilities/Flame Burst.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Maps/Features/MapEntryPoint.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Maps/Features/DebugMapExit.tscn" type="PackedScene" id=7]
-[ext_resource path="res://DemoAssets/PCAxetopher.tscn" type="PackedScene" id=8]
-[ext_resource path="res://DemoAssets/PCKnifelyn.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.995935 )
@@ -36,7 +33,6 @@ outlines = [ PoolVector2Array( -574.001, -180.202, -322.002, -180.202, -291.002,
 [node name="Map" type="Area2D"]
 z_index = -100
 script = ExtResource( 1 )
-EntryPoints = PoolVector2Array( -450, 60 )
 
 [node name="Background" type="Sprite" parent="."]
 self_modulate = Color( 0.298039, 0.0509804, 0.52549, 1 )
@@ -81,17 +77,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( -506.002, 52.7942 )
-
-[node name="Ice Shield" parent="Player" instance=ExtResource( 4 )]
-
-[node name="Player2" parent="." instance=ExtResource( 9 )]
-position = Vector2( -517.002, 102.794 )
-
-[node name="Flame Burst" parent="Player2" instance=ExtResource( 5 )]
-AbilityName = "Volcanic Burst"
-
 [node name="GiantBug" parent="." instance=ExtResource( 3 )]
 position = Vector2( -231.162, 0.0992279 )
 
@@ -133,3 +118,8 @@ Axetopher can cast ICE SHIELD."
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EntryPoint" parent="." instance=ExtResource( 6 )]
+position = Vector2( -517.083, 88.3469 )
+scale = Vector2( 3, 5 )
+spawnLocations = PoolVector2Array( -523, 58, -552, 98, -494, 134 )

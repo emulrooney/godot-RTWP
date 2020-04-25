@@ -47,6 +47,8 @@ public class MonsterCharacter : Character, IMapClickable
 	protected override void Die()
 	{
 		base.Die();
+
+
 	}
 
 }

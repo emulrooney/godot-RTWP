@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public class MapLoader : Node
 {
 	public static MapLoader _ml;
-    public static int EntryPoint { get; set; }
+	public static int EntryPoint { get; set; }
 	private const int maxPlayerMapTransitionDistance = 256; //players must be near eachother to leave map
 
 	public MapLogic CurrentMap { get; private set;}
@@ -20,9 +20,9 @@ public class MapLoader : Node
 		{ "WORLDMAP", "res://WorldMap/WorldMap.tscn" },
 		{ "debugMap1", "res://Maps/Map.tscn" },
 		
-        { "DEBUG_Fields1", "res://Maps/debug_Fields1.tscn" },
-        { "DEBUG_Fields2", "res://Maps/debug_Fields2.tscn" },
-        { "DEBUG_Cave", "res://Maps/debug_Cave.tscn" },
+		{ "DEBUG_Fields1", "res://Maps/debug_Fields1.tscn" },
+		{ "DEBUG_Fields2", "res://Maps/debug_Fields2.tscn" },
+		{ "DEBUG_Cave", "res://Maps/debug_Cave.tscn" },
 
 	};
 
@@ -69,7 +69,7 @@ public class MapLoader : Node
 			return false;
 
 
-        GUIManager.SetLoadables(false);
+		GUIManager.SetLoadables(false);
 		GUIManager.WipePartyElements();
 		LocalCharacterManager.ResetAll();
 		//We'll need another class to persist characters and recreate on the next map
@@ -87,30 +87,22 @@ public class MapLoader : Node
 		}
 
 		_ml.GetTree().ChangeSceneTo(loaded);
-        //Map will attempt to set itself as current map
+		//Map will attempt to set itself as current map
 
-        GUIManager.SetLoadables(true);
-        return true;
+		GUIManager.SetLoadables(true);
+		return true;
 	}
 
-    public static void FocusCameraAtEntry()
-    {
-        try
-        {
-            GUIManager.FocusAt(_ml.CurrentMap.EntryPoints[EntryPoint]);
-        }
-        catch (Exception e)
-        {
-            GD.Print(e);
-            GD.Print("Invalid index for this map");
-        }
-    }
-
-	public override void _UnhandledInput(InputEvent @event)
+	public static void FocusCameraAtEntry()
 	{
-		//debug only
-		//if (Input.IsActionJustPressed("ui_left"))
-		//	GD.Print("Loaded:: " + LoadMap("debugMap1"));		
+		try
+		{
+			GUIManager.FocusAt(_ml.CurrentMap.EntryPoints[EntryPoint].Position);
+		}
+		catch (Exception e)
+		{
+			GD.Print(e);
+			GD.Print("Invalid index for this map");
+		}
 	}
-	   
 }

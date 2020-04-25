@@ -4,13 +4,12 @@ using System.Collections.Generic;
 
 public class InputManager : Node2D
 {
-	public static bool IsPaused = false;
 	public static TargetedAbilityInfo AbilityInfo { get; private set; } = null;
 	[Export] public Color DragRectColor { get; set; }
 
 	private bool isMouseDragging = false;
 
-	[Export] private int mouseClickMoveTolerance = 4;
+	private int mouseClickMoveTolerance = 4;
 
 	private Rect2 dragRectBounds = new Rect2();
 	private RectangleShape2D dragRectSelect = new RectangleShape2D();
@@ -28,6 +27,8 @@ public class InputManager : Node2D
 		worldSpace = GetWorld2d().DirectSpaceState;
 		query = new Physics2DShapeQueryParameters();
 		inputDelayTimer = (Timer)GetNode("InputDelayTimer");
+
+        mouseClickMoveTolerance = GM.MouseClickMoveTolerance;
 
 		inputDelayTimer.Start();
 	}

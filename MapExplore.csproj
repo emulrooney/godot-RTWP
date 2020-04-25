@@ -51,6 +51,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\GM.cs" />
+    <Compile Include="Controls\PartyManager.cs" />
+    <Compile Include="Controls\PartyMemberData.cs" />
+    <Compile Include="Events\EventCreateObject.cs" />
     <Compile Include="Scripts\Characters\Abilities\Ability.cs" />
     <Compile Include="Scripts\Characters\Abilities\AOEAbility.cs" />
     <Compile Include="Scripts\Characters\Abilities\TargetedAbility.cs" />
@@ -88,6 +92,7 @@
     <Compile Include="Scripts\InputManager.cs" />
     <Compile Include="Scripts\Interfaces\IMapClickable.cs" />
     <Compile Include="Scripts\LocalCharacterManager.cs" />
+    <Compile Include="Scripts\Maps\EntryPoint.cs" />
     <Compile Include="Scripts\Maps\MapLogic.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapLocation.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapLogic.cs" />

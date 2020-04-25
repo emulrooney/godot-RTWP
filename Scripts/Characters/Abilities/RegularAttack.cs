@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class RegularAttack : Area2D
 {
 	public bool ready = true;
-	private static RandomNumberGenerator RNG = new RandomNumberGenerator();
 
 	[Export] public int MinDamage { get; set; } = 1;
 	[Export] public int MaxDamage { get; set; } = 8;
@@ -28,7 +27,7 @@ public class RegularAttack : Area2D
 
 	private int CalculateAttack()
 	{
-		return RNG.RandiRange(MinDamage, MaxDamage);
+		return GM.RNG.RandiRange(MinDamage, MaxDamage);
 	}
 
 

@@ -45,8 +45,6 @@ public class LocalCharacterManager : Node2D
 		ResetPresent();
 		ResetMonsters();
 		ResetPlayers();
-
-		TopPrinter.One = "Present Count: " + _lcm.PresentCharacters.Count;
 	}
 
 	public static void ResetPresent()

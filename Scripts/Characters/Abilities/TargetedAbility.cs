@@ -44,10 +44,7 @@ public class TargetedAbility : Ability
 
 		if (timeToTargetLength > -1 && projectile != null)
 		{
-            GD.Print($"Target Character check:");
-            GD.Print($"Name: {TargetCharacter}");
-            GD.Print($"Inside Tree: {TargetCharacter.IsInsideTree()}");
-            var targetPos = (TargetCharacter == null || !TargetCharacter.IsInsideTree() ? TargetLocation : TargetCharacter.Position);
+            var targetPos = (TargetCharacter == null || !Godot.Object.IsInstanceValid(TargetCharacter) ? TargetLocation : TargetCharacter.Position);
 
             projectile.Emitting = true;
 
@@ -66,8 +63,6 @@ public class TargetedAbility : Ability
 	
 	public void Impact()
 	{
-        GD.Print("Impact!");
-
 		if (projectile != null)
 			projectile.Emitting = false;
 
@@ -77,11 +72,7 @@ public class TargetedAbility : Ability
 			onImpact.Emitting = true;
 		}
 
-        GD.Print("about to check target:");
-
-        GD.Print($"Target Char valid: {Godot.Object.IsInstanceValid(TargetCharacter)}");
-
-		if (Godot.Object.IsInstanceValid(TargetCharacter))
+		if (Godot.Object.IsInstanceValid(TargetCharacter) && !TargetCharacter.IsDead)
 			ApplyAbilityEffectsTo(TargetCharacter);
 	}
 

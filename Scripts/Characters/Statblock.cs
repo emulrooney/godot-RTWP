@@ -7,9 +7,6 @@ using System.Collections.Generic;
 /// </summary>
 public class Statblock : Node
 {
-    //Shared for all characters
-    private static RandomNumberGenerator RNG = new RandomNumberGenerator();
-
     /* RAW STATS */
     [Export] public int CurrentHP { get; set; }
     [Export] public int MaxHP { get; set; }
@@ -61,6 +58,21 @@ public class Statblock : Node
 
     /* MISCELLANEOUS */
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public void LoadData(PartyMemberData data)
+    {
+        CurrentHP = data.CurrentHP;
+        MaxHP = data.MaxHP;
+        MoveSpeed = data.MoveSpeed;
+        BaseAccuracy = data.BaseAccuracy;
+        BaseDamage = data.BaseDamage;
+        BaseDefense = data.BaseDefense;
+    }
+
     public int Roll(StatType stat)
     {
         int statValue = 0;
@@ -77,7 +89,7 @@ public class Statblock : Node
                 throw new NotSupportedException();
         };
 
-        return RNG.RandiRange(0, 100) + statValue;
+        return GM.RNG.RandiRange(0, 100) + statValue;
     }
 
 }

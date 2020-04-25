@@ -136,8 +136,8 @@ public abstract class Ability : Node2D
     protected void DamageHealth(Character target, AbilityEffect effect)
     {
         target.ReceiveAttack(
-            RNG.Next(1, 100) + accuracy + effect.BonusAccuracy,
-            RNG.Next(powerLevel + effect.BonusFlatValue, (dieSidesPerPowerLevel + effect.BonusSides + 1)) * (powerLevel + effect.BonusDie), 
+            GM.RNG.RandiRange(1, 100) + accuracy + effect.BonusAccuracy,
+            GM.RNG.RandiRange(powerLevel + effect.BonusFlatValue, (dieSidesPerPowerLevel + effect.BonusSides + 1)) * (powerLevel + effect.BonusDie), 
             1
         );
     }

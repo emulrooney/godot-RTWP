@@ -62,8 +62,8 @@ public class GUIManager : CanvasLayer
 				_abilityToolbar = at;
 				return true;
 			case CameraControls cc:
-                _cameraControls = cc;
-                _cameraControls.Loaded = true;
+				_cameraControls = cc;
+				_cameraControls.Loaded = true;
 				return true;
 			case CombatLog cl:
 				_combatLog = cl;
@@ -152,15 +152,15 @@ public class GUIManager : CanvasLayer
 		UpdateAbilityToolbar();
 	}
 
-    /// <summary>
-    /// Set 'Loaded' for all 'ILoadable' GUI elements. Used to set elements to not function
-    /// while the map is transitioning. 
-    /// </summary>
-    /// <param name="loaded"></param>
-    public static void SetLoadables(bool loaded)
-    {
-        _cameraControls.Loaded = loaded;
-    }
+	/// <summary>
+	/// Set 'Loaded' for all 'ILoadable' GUI elements. Used to set elements to not function
+	/// while the map is transitioning. 
+	/// </summary>
+	/// <param name="loaded"></param>
+	public static void SetLoadables(bool loaded)
+	{
+		_cameraControls.Loaded = loaded;
+	}
 
 	public static void FocusAt(Vector2 location)
 	{
@@ -198,9 +198,9 @@ public class GUIManager : CanvasLayer
 	/// NOTE: This is in GUI Manager rather than input manager due to Godot signals.
 	public static void TogglePause()
 	{
-		InputManager.IsPaused = !InputManager.IsPaused;
-		_gui.GetTree().Paused = InputManager.IsPaused;
-		_pauseButton.Text = (InputManager.IsPaused ? "PAUSED" : "UNPAUSED" );
+		GM.IsPaused = !GM.IsPaused;
+		_gui.GetTree().Paused = GM.IsPaused;
+		_pauseButton.Text = (GM.IsPaused ? "PAUSED" : "UNPAUSED" );
 	}
 }
 

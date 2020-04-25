@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Maps/debugfields1.png" type="Texture" id=2]
-[ext_resource path="res://DemoAssets/PCKnifelyn.tscn" type="PackedScene" id=3]
-[ext_resource path="res://DemoAssets/PCAxetopher.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Maps/Features/MapEntryPoint.tscn" type="PackedScene" id=3]
 [ext_resource path="res://DemoAssets/MonsterGiantBug.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Characters/Statblock.cs" type="Script" id=6]
 [ext_resource path="res://Maps/Features/DebugMapExit.tscn" type="PackedScene" id=7]
@@ -28,7 +27,6 @@ outlines = [ PoolVector2Array( -568.657, -275.756, -225.832, -273.998, -162.541,
 [node name="Map" type="Area2D"]
 z_index = -100
 script = ExtResource( 1 )
-EntryPoints = PoolVector2Array( -450, 60 )
 
 [node name="Background" type="Sprite" parent="."]
 self_modulate = Color( 0.054902, 0.854902, 0.960784, 1 )
@@ -66,12 +64,6 @@ text = "Next Map"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( -495.002, 103.794 )
-
-[node name="Player2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -494.002, 191.793 )
 
 [node name="GiantBug" parent="." instance=ExtResource( 5 )]
 position = Vector2( -294.004, 270.792 )
@@ -113,3 +105,8 @@ when paused. Pausing is good!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EntryPoint" parent="." instance=ExtResource( 3 )]
+position = Vector2( -516.239, 91.8568 )
+scale = Vector2( 4, 6 )
+spawnLocations = PoolVector2Array( -487, 85, -534, 49, -542, 126 )

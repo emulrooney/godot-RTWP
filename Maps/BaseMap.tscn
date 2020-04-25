@@ -8,7 +8,6 @@ extents = Vector2( 1000, 500 )
 [node name="Map" type="Area2D"]
 z_index = -100
 script = ExtResource( 1 )
-EntryPoints = PoolVector2Array( 0, 0 )
 
 [node name="MapCollider" type="CollisionShape2D" parent="."]
 position = Vector2( -199.678, -29.5979 )

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public abstract class Character : KinematicBody2D
 {
 	private FSMachine _fsm;
+    private EventCreateObject onDeath;
+
 	[Export] public string CharacterName { get; set; }
 	[Export] public bool IsDead { get; protected set; }
 
@@ -16,12 +18,14 @@ public abstract class Character : KinematicBody2D
 	public Character AttackTarget { get; set; } //TODO: Should this be a list? Maybe for enemy characters...
 	public Ability QueuedAbility { get; set; } //TODO: Should this be a list? Worth considering...
 
-	public Statblock Stats { get; private set; }
+	public Statblock Stats { get; protected set; }
 
 	protected CharacterAnimator Animator { get; set; }
 	private RegularAttack RegularAttack { get; set; }
 
 	public List<Ability> Abilities { get; set; } = new List<Ability>();
+
+
 
 	public override void _Ready()
 	{
@@ -39,6 +43,8 @@ public abstract class Character : KinematicBody2D
 			GetNode<Statblock>("Statblock").QueueFree(); //Remove the regular one, we'll use the override!
 
 		_fsm = ((FSMachine)GetNode("FSMachine"));
+        onDeath = (EventCreateObject)GetNodeOrNull("OnDeath");
+
 		_fsm.Activate(); //Setup once stats set
 	}
 

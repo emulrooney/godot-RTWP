@@ -65,4 +65,18 @@ public class PlayerCharacter : Character, IMapClickable
 		base.Die();
 		GUIManager.UpdateFor(this);
 	}
+
+    public void LoadData(PartyMemberData data)
+    {
+        CharacterName = data.CharacterName;
+        Portrait = data.Portrait;
+        PortraitColor = data.PortraitColor;
+        AnimationSet = data.AnimationSet;
+
+        Stats = (Statblock)GetNode("Statblock");
+        Stats.LoadData(data);
+
+        GUIManager.UpdateFor(this);
+    }
+
 }

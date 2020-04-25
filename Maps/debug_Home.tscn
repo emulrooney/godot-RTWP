@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Maps/debugMap_Home.png" type="Texture" id=2]
-[ext_resource path="res://Characters/TEMPLATE_PlayerCharacter.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Characters/AnimationSets/debugMale_1.tres" type="SpriteFrames" id=6]
+[ext_resource path="res://Maps/Features/MapEntryPoint.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Maps/Features/DebugMapExit.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Gradient" id=1]
@@ -25,7 +24,9 @@ outlines = [ PoolVector2Array( -552.364, -316.546, 544.972, -315.038, 541.957, 3
 [node name="Map" type="Area2D"]
 z_index = -100
 script = ExtResource( 1 )
-EntryPoints = PoolVector2Array( -103, 129 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="Background" type="Sprite" parent="."]
 modulate = Color( 0.466667, 0.647059, 1, 1 )
@@ -43,10 +44,6 @@ texture = SubResource( 2 )
 visible = false
 z_index = -10
 shape = SubResource( 3 )
-
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( -103.703, 129.156 )
-AnimationSet = ExtResource( 6 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
@@ -104,3 +101,6 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EntryPoint" parent="." instance=ExtResource( 3 )]
+scale = Vector2( 6, 3 )
