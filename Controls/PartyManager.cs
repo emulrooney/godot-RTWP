@@ -35,18 +35,33 @@ public class PartyManager : Node
 		Loaded = true;
 	}
 
+	public void UpdatePartyData()
+	{
+		GD.Print("TWO");
+		for (int i = 0; i < MapCharacters.Length; i++)
+		{
+			if (MapCharacters[i] != null && PartyMembers[i] != null)
+			{
+				GD.Print("Update From");
+				PartyMembers[i].UpdateFrom(MapCharacters[i]);
+			}
+			else
+				return;
+		}
+	}
+
 	public PlayerCharacter[] GenerateLocalPlayerCharacters()
 	{
-		PlayerCharacter[] newCharacters = new PlayerCharacter[6];
+		MapCharacters = new PlayerCharacter[6];
 
 		for (int i = 0; i < membersInParty; i++)
 		{
 			var generated = (PlayerCharacter)template.Instance();
 			generated.LoadData(PartyMembers[i]);
 
-			newCharacters[i] = generated;
+			MapCharacters[i] = generated;
 		}
 
-		return newCharacters;
+		return MapCharacters;
 	}
 }

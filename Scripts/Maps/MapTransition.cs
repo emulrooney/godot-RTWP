@@ -19,6 +19,10 @@ public class MapTransition : Node2D
 			triggerLocation = ((Node2D)body).Position;
 
 		bool success;
+
+		GD.Print("Calling transition, next up is update");
+		GM.UpdatePartyData();
+
 		if (IsWorldMapExit)
 			success = MapLoader.LoadMap("WORLDMAP", triggerLocation);
 		else

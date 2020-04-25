@@ -42,8 +42,15 @@ public class GM : Node
 			{
 				newMap.AddChild(characters[i]);
 				newMap.PlaceCharacter(characters[i]);
+				GUIManager.UpdateFor(characters[i]);
 			}
 		}
+	}
+
+	public static void UpdatePartyData()
+	{
+		GD.Print("ONE");
+		_gm.PM.UpdatePartyData();
 	}
 
 }

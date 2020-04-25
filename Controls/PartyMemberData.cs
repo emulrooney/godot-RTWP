@@ -17,4 +17,14 @@ public class PartyMemberData : Node
 	[Export] public int BaseDamage { get; set; }
 	[Export] public int BaseDefense { get; set; }
 
+    /// <summary>
+    /// Update from playerCharacter on map. Only update things that actually change; ie "Current" values.
+    /// </summary>
+    /// <param name="pc">Player to base new stats on</param>
+    public void UpdateFrom(PlayerCharacter pc)
+    {
+        GD.Print("Updating " + CharacterName + " with HP --> " + CurrentHP);
+        CurrentHP = pc.Stats.CurrentHP;
+    }
+
 }
