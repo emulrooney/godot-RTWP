@@ -64,6 +64,7 @@
     <Compile Include="Scripts\Data\AbilityEffect.cs" />
     <Compile Include="Scripts\Data\AbilityEffectType.cs" />
     <Compile Include="Scripts\Data\AbilityToolbarButton.cs" />
+    <Compile Include="Scripts\Data\CharGenStep.cs" />
     <Compile Include="Scripts\Data\FSMState.cs" />
     <Compile Include="Scripts\Data\ClickInfo.cs" />
     <Compile Include="Scripts\Data\PartyMemberIcon.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Scripts\Characters\Character.cs" />
     <Compile Include="Scripts\Characters\MonsterCharacter.cs" />
     <Compile Include="Scripts\Characters\PlayerCharacter.cs" />
+    <Compile Include="Scripts\GUI\CharGenUI.cs" />
     <Compile Include="Scripts\GUI\CombatLog.cs" />
     <Compile Include="Scripts\GUI\GUIManager.cs" />
     <Compile Include="Scripts\GUI\PartyIconStrip.cs" />

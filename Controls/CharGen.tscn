@@ -1,0 +1,271 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Characters/debugPlayer2/idle (1).png" type="Texture" id=1]
+[ext_resource path="res://Assets/GUI/Portraits/debugAxeGuySmall.jpg" type="Texture" id=2]
+[ext_resource path="res://Scripts/GUI/CharGenUI.cs" type="Script" id=3]
+
+[node name="CharGenLayer" type="CanvasLayer"]
+
+[node name="CharGen" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -16.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharGen"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 577.0
+margin_bottom = 369.0
+
+[node name="Navigation" type="VBoxContainer" parent="CharGen/HBoxContainer"]
+margin_right = 145.0
+margin_bottom = 362.0
+
+[node name="Label" type="Label" parent="CharGen/HBoxContainer/Navigation"]
+margin_right = 145.0
+margin_bottom = 14.0
+text = "-- Character Creation --"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="CharGen/HBoxContainer/Navigation"]
+margin_top = 18.0
+margin_right = 145.0
+margin_bottom = 22.0
+
+[node name="NameButton" type="Button" parent="CharGen/HBoxContainer/Navigation" groups=[
+"CharGenButtons",
+]]
+margin_top = 26.0
+margin_right = 145.0
+margin_bottom = 46.0
+text = "Name"
+
+[node name="AttributesButton" type="Button" parent="CharGen/HBoxContainer/Navigation" groups=[
+"CharGenButtons",
+]]
+margin_top = 50.0
+margin_right = 145.0
+margin_bottom = 70.0
+disabled = true
+text = "Attributes"
+
+[node name="SpecialAbilitiesButton" type="Button" parent="CharGen/HBoxContainer/Navigation" groups=[
+"CharGenButtons",
+]]
+margin_top = 74.0
+margin_right = 145.0
+margin_bottom = 94.0
+disabled = true
+text = "Special Abilities"
+
+[node name="HSeparator2" type="HSeparator" parent="CharGen/HBoxContainer/Navigation"]
+margin_top = 98.0
+margin_right = 145.0
+margin_bottom = 102.0
+
+[node name="FinishButton" type="Button" parent="CharGen/HBoxContainer/Navigation" groups=[
+"CharGenButtons",
+]]
+margin_top = 106.0
+margin_right = 145.0
+margin_bottom = 126.0
+text = "Save Character"
+
+[node name="PlayerOutputContainer" type="VBoxContainer" parent="CharGen/HBoxContainer"]
+margin_left = 149.0
+margin_right = 447.0
+margin_bottom = 362.0
+
+[node name="Label" type="Label" parent="CharGen/HBoxContainer/PlayerOutputContainer"]
+margin_right = 298.0
+margin_bottom = 14.0
+text = "New Player"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharGen/HBoxContainer/PlayerOutputContainer"]
+margin_top = 18.0
+margin_right = 298.0
+margin_bottom = 170.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer"]
+margin_right = 147.0
+margin_bottom = 152.0
+
+[node name="Portrait" type="VBoxContainer" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 140.0
+margin_bottom = 145.0
+
+[node name="Label2" type="Label" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/PanelContainer/Portrait"]
+margin_right = 133.0
+margin_bottom = 14.0
+text = "Portrait"
+
+[node name="PlayerPortrait" type="TextureRect" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/PanelContainer/Portrait" groups=[
+"PlayerStatusUpdate",
+]]
+self_modulate = Color( 0.537255, 0.898039, 0.376471, 1 )
+margin_top = 18.0
+margin_right = 133.0
+margin_bottom = 114.0
+texture = ExtResource( 2 )
+stretch_mode = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/PanelContainer/Portrait"]
+margin_top = 118.0
+margin_right = 133.0
+margin_bottom = 138.0
+
+[node name="Button" type="Button" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/PanelContainer/Portrait/HBoxContainer"]
+margin_right = 28.0
+margin_bottom = 20.0
+text = "<<"
+
+[node name="Button2" type="Button" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/PanelContainer/Portrait/HBoxContainer"]
+margin_left = 32.0
+margin_right = 101.0
+margin_bottom = 20.0
+text = "Set Color"
+
+[node name="Button3" type="Button" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/PanelContainer/Portrait/HBoxContainer"]
+margin_left = 105.0
+margin_right = 133.0
+margin_bottom = 20.0
+text = ">>"
+
+[node name="Sprite" type="PanelContainer" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer"]
+margin_left = 151.0
+margin_right = 298.0
+margin_bottom = 152.0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/Sprite"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 140.0
+margin_bottom = 145.0
+
+[node name="Label2" type="Label" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/Sprite/HBoxContainer"]
+margin_right = 133.0
+margin_bottom = 14.0
+text = "Sprite"
+
+[node name="PlayerSprite" type="TextureRect" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/Sprite/HBoxContainer" groups=[
+"PlayerStatusUpdate",
+]]
+margin_top = 18.0
+margin_right = 133.0
+margin_bottom = 66.0
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/Sprite/HBoxContainer"]
+margin_top = 70.0
+margin_right = 133.0
+margin_bottom = 90.0
+alignment = 2
+
+[node name="Button" type="Button" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/Sprite/HBoxContainer/HBoxContainer2"]
+margin_right = 28.0
+margin_bottom = 20.0
+text = "<<"
+
+[node name="Button2" type="Button" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/Sprite/HBoxContainer/HBoxContainer2"]
+margin_left = 32.0
+margin_right = 101.0
+margin_bottom = 20.0
+text = "Set Color"
+
+[node name="Button3" type="Button" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer/Sprite/HBoxContainer/HBoxContainer2"]
+margin_left = 105.0
+margin_right = 133.0
+margin_bottom = 20.0
+text = ">>"
+
+[node name="PanelContainer" type="PanelContainer" parent="CharGen/HBoxContainer/PlayerOutputContainer"]
+margin_top = 174.0
+margin_right = 298.0
+margin_bottom = 328.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharGen/HBoxContainer/PlayerOutputContainer/PanelContainer" groups=[
+"PlayerStatusUpdate",
+]]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 291.0
+margin_bottom = 147.0
+rect_min_size = Vector2( 0, 140 )
+text = "Unnamed Character
+
+100HP
+
+10 Accuracy
+5 Defense
+4-12 Bonus Damage
+
+Abilities:
+Ice Shield
+Throw Dagger"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CharGen/HBoxContainer/PlayerOutputContainer"]
+margin_top = 332.0
+margin_right = 298.0
+margin_bottom = 352.0
+
+[node name="PreviousButton" type="Button" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer2" groups=[
+"CharGenButtons",
+]]
+margin_right = 99.0
+margin_bottom = 20.0
+text = "Previous Step"
+
+[node name="NextButton" type="Button" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer2" groups=[
+"CharGenButtons",
+]]
+margin_left = 103.0
+margin_right = 177.0
+margin_bottom = 20.0
+text = "Next Step"
+
+[node name="Cancel" type="Button" parent="CharGen/HBoxContainer/PlayerOutputContainer/HBoxContainer2"]
+margin_left = 181.0
+margin_right = 235.0
+margin_bottom = 20.0
+text = "Cancel"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameDialog" type="AcceptDialog" parent="CenterContainer"]
+margin_left = 225.0
+margin_top = 160.0
+margin_right = 375.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 0, 80 )
+popup_exclusive = true
+window_title = "Character Name"
+
+[node name="TextEdit" type="TextEdit" parent="CenterContainer/NameDialog"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 142.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="CharGen/HBoxContainer/Navigation/NameButton" to="CharGen" method="SetNameDialogVisible" binds= [ true ]]
+[connection signal="confirmed" from="CenterContainer/NameDialog" to="CharGen" method="SaveName"]
