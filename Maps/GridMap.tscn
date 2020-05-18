@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Maps/MapLogic.cs" type="Script" id=1]
+[ext_resource path="res://Assets/GUI/Movement/wall.png" type="Texture" id=2]
+[ext_resource path="res://Assets/GUI/Movement/clear.png" type="Texture" id=3]
+[ext_resource path="res://Maps/Features/MapEntryPoint.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1000, 500 )
+
+[sub_resource type="TileSet" id=2]
+0/name = "clear.png 0"
+0/texture = ExtResource( 3 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 32, 24 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "wall.png 1"
+1/texture = ExtResource( 2 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 32, 24 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+
+[node name="Map" type="Area2D"]
+z_index = -100
+script = ExtResource( 1 )
+
+[node name="MapCollider" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+z_index = -2000
+
+[node name="Movement" type="TileMap" parent="."]
+tile_set = SubResource( 2 )
+cell_size = Vector2( 32, 24 )
+cell_quadrant_size = 8
+cell_custom_transform = Transform2D( 0, 24, 32, 0, 0, 0 )
+format = 1
+
+[node name="Nav" type="TileMap" parent="."]
+tile_set = SubResource( 2 )
+cell_size = Vector2( 32, 24 )
+cell_quadrant_size = 8
+cell_custom_transform = Transform2D( 32, 0, 0, 24, 8, 0 )
+compatibility_mode = true
+format = 1
+tile_data = PoolIntArray( -262147, 0, 0, -196614, 0, 0, -196612, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -131078, 0, 0, -65542, 0, 0, -6, 0, 0, -1, 0, 0, -65536, 0, 0, 65530, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 3, 0, 0, 131066, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65539, 0, 0, 196602, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131075, 0, 0, 262138, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196611, 0, 0, 327674, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 393210, 0, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 458746, 0, 0, 458750, 0, 0, 458751, 0, 0, 393216, 0, 0, 524286, 0, 0, 524287, 0, 0, 458752, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 0, 0 )
+
+[node name="EntryPoint" parent="." instance=ExtResource( 5 )]
+position = Vector2( -74.3992, -35.7991 )

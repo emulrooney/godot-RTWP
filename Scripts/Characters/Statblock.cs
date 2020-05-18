@@ -16,6 +16,7 @@ public class Statblock : Node
     [Export] public int BaseAccuracy { get; set; }
     [Export] public int BaseDamage { get; set; }
     [Export] public int BaseDefense { get; set; }
+    [Export] public int BaseMove { get; set; } = 3;
 
     /* DERIVED STATS */
     public int Damage { get => BaseDamage + GetAllModifiersFor(StatType.DAMAGE); }

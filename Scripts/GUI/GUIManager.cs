@@ -115,21 +115,21 @@ public class GUIManager : CanvasLayer
 			/* REMOVING FROM SELECTED */
 			if (Input.IsMouseButtonPressed(2))
 			{
-				var success = LocalCharacterManager.DeselectPartyMember(partyMember);
-				if (success != null)
-					_partyIcons.SetPortraitSelected(partyMember, false);
+				//var success = LocalCharacterManager.DeselectPartyMember(partyMember);
+				//if (success != null)
+				//	_partyIcons.SetPortraitSelected(partyMember, false);
 			}
 			else
 			{
 				/* ADDING TO SELECTED */
-				var selectedCharacter = LocalCharacterManager.AddPartyMemberToSelected(partyMember);
-				if (selectedCharacter != null)
-				{
-					_partyIcons.SetPortraitSelected(partyMember, true);
+				//var selectedCharacter = LocalCharacterManager.AddPartyMemberToSelected(partyMember);
+				//if (selectedCharacter != null)
+				//{
+				//	_partyIcons.SetPortraitSelected(partyMember, true);
 
-					if (_cameraControls != null)
-						FocusOn(selectedCharacter);
-				}
+				//	if (_cameraControls != null)
+				//		FocusOn(selectedCharacter);
+				//}
 
 
 			}
@@ -137,16 +137,16 @@ public class GUIManager : CanvasLayer
 		else
 		{
 			/* SELECT ONE */
-			var selectedCharacter = LocalCharacterManager.SelectPartyMember(partyMember);
+			//var selectedCharacter = LocalCharacterManager.SelectPartyMember(partyMember);
 
-			if (selectedCharacter != null)
-			{
-				//Active party member, individual
-				_partyIcons.SetPortraitSelected(partyMember, true, true);
+			//if (selectedCharacter != null)
+			//{
+			//	//Active party member, individual
+			//	_partyIcons.SetPortraitSelected(partyMember, true, true);
 
-				if (_cameraControls != null)
-					FocusOn(selectedCharacter);
-			}
+			//	if (_cameraControls != null)
+			//		FocusOn(selectedCharacter);
+			//}
 		}
 
 		UpdateAbilityToolbar();
@@ -184,10 +184,10 @@ public class GUIManager : CanvasLayer
 	{
 		if (_abilityToolbar != null)
 		{
-			if (LocalCharacterManager.GetSelectedCount() == 1)
-				_abilityToolbar.UpdateFor(LocalCharacterManager.GetSingleSelected());
-			else
-				_abilityToolbar.UpdateFor(LocalCharacterManager.GetAllSelected());
+			//if (LocalCharacterManager.GetSelectedCount() == 1)
+			//	_abilityToolbar.UpdateFor(LocalCharacterManager.GetSingleSelected());
+			//else
+			//	_abilityToolbar.UpdateFor(LocalCharacterManager.GetAllSelected());
 
 		}
 	}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Characters/PlayerCharacter.cs" type="Script" id=1]
 [ext_resource path="res://Assets/GUI/Portraits/debugAxeGuySmall.jpg" type="Texture" id=2]
@@ -12,6 +12,9 @@
 [ext_resource path="res://Scripts/Characters/CharacterAnimator.cs" type="Script" id=41]
 [ext_resource path="res://Scripts/Characters/States/FSMachine.cs" type="Script" id=42]
 [ext_resource path="res://Scripts/Characters/States/TimedState.cs" type="Script" id=45]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 12 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 13.0
@@ -34,7 +37,7 @@ MaxHP = 100
 
 [node name="Animator" type="AnimatedSprite" parent="."]
 self_modulate = Color( 0.992157, 0.992157, 0.992157, 1 )
-position = Vector2( 24, -8 )
+position = Vector2( 7.56506, -9.64579 )
 frames = ExtResource( 7 )
 animation = "idle"
 playing = true
@@ -44,10 +47,14 @@ HitFlashColors = PoolColorArray( 1, 1, 1, 1, 1, 0, 0, 1 )
 
 [node name="SelectionCircle" type="Sprite" parent="Animator"]
 position = Vector2( -7.56506, 23.6458 )
-scale = Vector2( 0.3, 0.25 )
+scale = Vector2( 0.25, 0.25 )
 z_index = -1
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 10 )
+shape = SubResource( 1 )
 
 [node name="FSMachine" type="Node" parent="."]
 script = ExtResource( 42 )
@@ -99,7 +106,6 @@ StateLength = 0.24
 one_shot = true
 
 [node name="ClickableArea" type="Area2D" parent="."]
-position = Vector2( 16, 0 )
 scale = Vector2( 1.36, 1.16 )
 priority = 60.0
 collision_layer = 16
@@ -107,8 +113,6 @@ collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickableArea"]
 shape = SubResource( 2 )
-
-[node name="MoveTween" type="Tween" parent="."]
 [connection signal="timeout" from="FSMachine/AttackState/Timer" to="FSMachine/AttackState" method="Timeout"]
 [connection signal="timeout" from="FSMachine/ChargingAbilityState/Timer" to="FSMachine/ChargingAbilityState" method="Timeout"]
 [connection signal="timeout" from="FSMachine/CastingAbilityState/Timer" to="FSMachine/CastingAbilityState" method="Timeout"]

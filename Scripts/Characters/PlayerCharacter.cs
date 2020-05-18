@@ -22,11 +22,12 @@ public class PlayerCharacter : Character, IMapClickable
 
 		if (AnimationSet != null)
 			Animator.Frames = AnimationSet;
+
+		TurnManager.Active = this;
 	}
 
 	public void ClickAction(ClickInfo info, Vector2 location)
 	{
-		LocalCharacterManager.SelectPartyMember(this, !info.ModifyHeld);
 		GUIManager.SelectPartyMember(PartyMemberOrder);
 	}
 
@@ -66,17 +67,17 @@ public class PlayerCharacter : Character, IMapClickable
 		GUIManager.UpdateFor(this);
 	}
 
-    public void LoadData(PartyMemberData data)
-    {
-        CharacterName = data.CharacterName;
-        Portrait = data.Portrait;
-        PortraitColor = data.PortraitColor;
-        AnimationSet = data.AnimationSet;
+	public void LoadData(PartyMemberData data)
+	{
+		CharacterName = data.CharacterName;
+		Portrait = data.Portrait;
+		PortraitColor = data.PortraitColor;
+		AnimationSet = data.AnimationSet;
 
-        Stats = (Statblock)GetNode("Statblock");
-        Stats.LoadData(data);
+		Stats = (Statblock)GetNode("Statblock");
+		Stats.LoadData(data);
 
-        GUIManager.UpdateFor(this);
-    }
+		GUIManager.UpdateFor(this);
+	}
 
 }

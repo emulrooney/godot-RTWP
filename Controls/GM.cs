@@ -7,6 +7,9 @@ public class GM : Node
 	public static GM _gm;
 
 	public static RandomNumberGenerator RNG = new RandomNumberGenerator();
+    public static Vector2 TileSize = new Vector2(32, 24);
+
+    public static MapLogic Map;
 
 	//MANAGERS
 	PartyManager PM;
@@ -51,5 +54,15 @@ public class GM : Node
 	{
 		_gm.PM.UpdatePartyData();
 	}
+
+    public static Vector2 GetGridPosition(Vector2 point)
+    {
+        return Map.GetGridLocation(point);
+    }
+
+    public static Vector2 GetRealPosition(Vector2 point)
+    {
+        return Map.GetRealPosition(point);
+    }
 
 }

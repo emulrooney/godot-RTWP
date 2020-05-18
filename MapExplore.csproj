@@ -96,6 +96,7 @@
     <Compile Include="Scripts\LocalCharacterManager.cs" />
     <Compile Include="Scripts\Maps\EntryPoint.cs" />
     <Compile Include="Scripts\Maps\MapLogic.cs" />
+    <Compile Include="Scripts\TurnManager.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapLocation.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapLogic.cs" />
     <Compile Include="Scripts\WorldMap\WorldMapToken.cs" />

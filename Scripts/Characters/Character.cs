@@ -7,19 +7,32 @@ public abstract class Character : KinematicBody2D
 	private FSMachine _fsm;
     private EventCreateObject onDeath;
 
+    private Tween MoveTween { get; set; }
+
+    public int MoveLeft { get; set; } = -1;
+
+
+    public Vector2 GridPosition {
+        get 
+        {
+            return GM.GetGridPosition(Position);
+        }
+        set
+        {
+            Position = GM.GetGridPosition(value);
+        }
+    }
 	[Export] public string CharacterName { get; set; }
 	[Export] public bool IsDead { get; protected set; }
 
 	//MOVEMENT
-	public static float TargetTolerance { get; set; } = 3f;
 	[Export] public CharFaction Faction { get; set; } = CharFaction.NEUTRAL;
 
-	public Queue<Vector2[]> QueuedMoves { get; set; } = new Queue<Vector2[]>();
+    public Queue<Vector2> QueuedMoves { get; set; } = new Queue<Vector2>();
 	public Character AttackTarget { get; set; } //TODO: Should this be a list? Maybe for enemy characters...
 	public Ability QueuedAbility { get; set; } //TODO: Should this be a list? Worth considering...
 
 	public Statblock Stats { get; protected set; }
-
 	protected CharacterAnimator Animator { get; set; }
 	private RegularAttack RegularAttack { get; set; }
 
@@ -32,6 +45,18 @@ public abstract class Character : KinematicBody2D
 		LocalCharacterManager.RegisterPresent(this);
 		RegularAttack = GetNodeOrNull<RegularAttack>("RegularAttack");
 		Animator = GetNodeOrNull<CharacterAnimator>("Animator");
+        MoveTween = GetNode<Tween>("MoveTween");
+
+        GD.Print("Starting at " + Position);
+
+        GridPosition = GM.GetGridPosition(Position);
+
+        GD.Print("Moving to Grid Pos: " + GridPosition);
+
+        Position = GridPosition * GM.TileSize;
+
+        GD.Print("Position is now " + Position);
+
 
 
 		//Check for an overrideStatblock -- this lets us set custom stats for pre-placed encounters
@@ -79,18 +104,6 @@ public abstract class Character : KinematicBody2D
 		return false;
 	}
 
-
-	public void AddToPath(Vector2[] location, bool enqueueNextAction = false)
-	{
-		if (!enqueueNextAction)
-		{
-			QueuedMoves = new Queue<Vector2[]>();
-			AttackTarget = null;
-		}
-
-		QueuedMoves.Enqueue(location);
-	}
-
 	public void Attack(Character target)
 	{
 		if (target.IsDead)
@@ -98,7 +111,6 @@ public abstract class Character : KinematicBody2D
 			AttackTarget = null;
 			return;
 		}
-
 
 		var roll = Stats.Roll(StatType.ACCURACY);
 		var damage = Stats.Damage + RegularAttack.Attack();
@@ -146,6 +158,25 @@ public abstract class Character : KinematicBody2D
 				Die();
 		}
 	}
+
+    public void MoveTo(Vector2 mapLocation)
+    {
+        var gridLocation = GM.GetGridPosition(mapLocation);
+
+        var path = GM.Map.GetPathInTiles(GridPosition, gridLocation);
+
+        if (path != null && path.Length >= 1)
+        {
+            QueuedMoves.Clear();
+
+            for (int i = 1; i < path.Length; i++)
+            {
+                QueuedMoves.Enqueue(path[i]);
+            }
+
+        }
+
+    }
 
     public virtual void ReceiveHeal(int healed)
     {

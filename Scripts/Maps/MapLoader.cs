@@ -97,7 +97,7 @@ public class MapLoader : Node
 	{
 		try
 		{
-			GUIManager.FocusAt(_ml.CurrentMap.EntryPoints[EntryPoint].Position);
+			//GUIManager.FocusAt(_ml.CurrentMap.EntryPoints[EntryPoint].Position);
 		}
 		catch (Exception e)
 		{

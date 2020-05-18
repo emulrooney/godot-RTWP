@@ -5,31 +5,14 @@ using System.Collections.Generic;
 public class InputManager : Node2D
 {
 	public static TargetedAbilityInfo AbilityInfo { get; private set; } = null;
-	[Export] public Color DragRectColor { get; set; }
-
-	private bool isMouseDragging = false;
-
-	private int mouseClickMoveTolerance = 4;
-
-	private Rect2 dragRectBounds = new Rect2();
-	private RectangleShape2D dragRectSelect = new RectangleShape2D();
-	private Physics2DDirectSpaceState worldSpace;
-	private Physics2DShapeQueryParameters query;
-	private Vector2 mousePressOrigin;
-
+	
 	private Timer inputDelayTimer;
 	[Export] private float inputDelayTimerLength = 0.005f; //Time to wait btwn inputs
 	bool inputDelayActive = true;
 
 	public override void _Ready()
 	{
-		//Setup
-		worldSpace = GetWorld2d().DirectSpaceState;
-		query = new Physics2DShapeQueryParameters();
-		inputDelayTimer = (Timer)GetNode("InputDelayTimer");
-
-        mouseClickMoveTolerance = GM.MouseClickMoveTolerance;
-
+        inputDelayTimer = (Timer)GetNode("InputDelayTimer");
 		inputDelayTimer.Start();
 	}
 
@@ -58,14 +41,14 @@ public class InputManager : Node2D
 	{		
 		if (Input.IsActionJustReleased("left_click")) //attempt to fire
 		{
-			//THIS ORDERING IS IMPORTANT! Set active right away
 			inputDelayActive = true;
+             
+            if (TurnManager.Active is PlayerCharacter)
+            {
 
-			var clickable = GetMostClickableAt(GetGlobalMousePosition());
-			if (AbilityInfo.IsValid && AbilityInfo.Ability.SetTarget(clickable))
-			{
-				AbilityInfo.Caster.QueuedAbility = AbilityInfo.Ability;
-			}
+
+
+            }
 
 			GetTree().SetInputAsHandled();
 			SetTargetedAbility(null);
@@ -88,87 +71,41 @@ public class InputManager : Node2D
 		var mouseLocation = GetGlobalMousePosition();
 		ClickInfo clickInfo = new ClickInfo();
 
-		if (Input.IsActionJustPressed("left_click")) //Initial click
-			mousePressOrigin = mouseLocation;
-
-		if (Input.IsActionPressed("left_click") && !isMouseDragging)
+		if (Input.IsActionJustReleased("left_click")) //Mouse up, normal click
 		{
-			if (mouseLocation.x > mousePressOrigin.x + mouseClickMoveTolerance
-				|| mouseLocation.x < mousePressOrigin.x - mouseClickMoveTolerance
-				|| mouseLocation.y > mousePressOrigin.y + mouseClickMoveTolerance
-				|| mouseLocation.y < mousePressOrigin.y - mouseClickMoveTolerance)
-			{
-				isMouseDragging = true;
-			}
-		}
-
-		if (isMouseDragging)
-			HandleMouseDrag();
-
-		if (Input.IsActionJustReleased("left_click") && !isMouseDragging) //Mouse up, normal click
-		{
-			IMapClickable clickTarget = GetMostClickableAt(mouseLocation);
+			IMapClickable clickTarget = (IMapClickable)LocalCharacterManager.GetCharacterAt(mouseLocation);
 			
 			clickInfo.ButtonNumber = 1;
 			clickInfo.ModifyHeld = (Input.IsActionPressed("modify"));
 
-			if (clickTarget != null)
-				clickTarget.ClickAction(clickInfo, mouseLocation);
+            if (clickTarget != null)
+                clickTarget.ClickAction(clickInfo, mouseLocation);
+            else if (GM.Map != null)
+            {
+
+                if (TurnManager.Active is PlayerCharacter)
+                {
+                    TopPrinter.Two = "Origin: " + TurnManager.Active.GridPosition + " moving to " + GM.GetGridPosition(mouseLocation);
+
+
+                    ((PlayerCharacter)TurnManager.Active).MoveTo(mouseLocation);
+                    TopPrinter.Four = "is pc";
+                }
+                else
+                {
+                    TopPrinter.Four = "is not PC";
+                }
+            }
+            else
+                GD.Print("No map loaded.");
 
 		}
-		else if (Input.IsActionJustReleased("left_click") && isMouseDragging)
-			isMouseDragging = false;
 	}
 
 	private void HandleCameraInput(float delta)
 	{
 		CameraControls.ProcessInput(delta);
 	}
-
-	public override void _Draw()
-	{
-		/// TODO separate the mechanics out of the drawing
-		if (isMouseDragging)
-		{
-			dragRectBounds.Position = mousePressOrigin;
-			dragRectBounds.Size = GetLocalMousePosition() - mousePressOrigin;
-			DrawRect(dragRectBounds, DragRectColor, true);
-		}
-		else
-		{
-			query = new Physics2DShapeQueryParameters();
-			dragRectSelect.Extents = (GetGlobalMousePosition() - mousePressOrigin) / 2;
-			query.SetShape(dragRectSelect);
-			query.Transform = new Transform2D(0, (GetGlobalMousePosition() + mousePressOrigin) / 2);
-
-			var results = worldSpace.IntersectShape(query);
-			List<PlayerCharacter> players = new List<PlayerCharacter>();
-
-			foreach (Godot.Collections.Dictionary item in results)
-			{
-				if (item.Contains("collider"))
-				{
-					object collider = item["collider"];
-					if (collider.GetType() == typeof(PlayerCharacter))
-						players.Add((PlayerCharacter)collider);
-				}
-			}
-
-			LocalCharacterManager.SelectAllInRect(players, !Input.IsActionPressed("modify"));
-		}
-	}
-
-	private void HandleMouseDrag()
-	{
-		Update();
-	}
-
-	public IMapClickable GetMostClickableAt(Vector2 position)
-	{
-		var collisions = worldSpace.IntersectPoint(position, 32, null, 2147483647, true, true);
-		return GetMostClickable(collisions);
-	}
-
 
 	/// <summary>
 	/// Handles instances where multiple items found on click event.

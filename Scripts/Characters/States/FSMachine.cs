@@ -6,14 +6,12 @@ public class FSMachine : Node
 {
 	Character _owner { get; set; }
 	Statblock _stats { get; set; }
+	Tween _moveTween { get; set; }
+
 	CharacterAnimator Animator { get; set; }
 	Dictionary<FSMState, CharacterState> States { get; set; } = new Dictionary<FSMState, CharacterState>();
 	public CharacterState Current { get; private set; }
 	CharacterState Previous { get; set; }
-
-	//Used in pathfinding only
-	private Vector2 nextNavLocation;
-	private int currentPathStep = 0;
 
 	public override void _Ready()
 	{
@@ -31,6 +29,7 @@ public class FSMachine : Node
 	{
 		_owner = (Character)Owner;
 		_stats = _owner.Stats;
+		_moveTween = (Tween)_owner.GetNode("MoveTween");
 		Animator = (CharacterAnimator)_owner.GetNode("Animator");
 	}
 
@@ -67,7 +66,7 @@ public class FSMachine : Node
 					Transition(FSMState.Move);
 				break;
 			case FSMState.Move:
-				if (_owner.QueuedMoves.Count > 0)
+				if (_owner.QueuedMoves.Count > 0 || _moveTween.IsActive())
 					MoveTowardsNextLocation();
 				else
 					Transition(FSMState.Idle);
@@ -169,40 +168,25 @@ public class FSMachine : Node
 	/// <param name="modifier"></param>
 	protected void MoveTowardsNextLocation(float modifier = 1f)
 	{
-		if (currentPathStep == _owner.QueuedMoves.Peek().Length)
+		if (_owner.QueuedMoves.Count > 0)
 		{
-			currentPathStep = 0;
-			_owner.QueuedMoves.Dequeue();
-			return;
+			if (!_moveTween.IsActive())
+			{
+				MoveTowards(_owner.QueuedMoves.Dequeue());
+			}
 		}
-        else if (currentPathStep > _owner.QueuedMoves.Peek().Length)
-        {
-            //Sometimes the pathfinding nodes wipe out nav points at unexpected times.
-            //Because this pathfinding implementation is a stopgap until Godot's 4.0 pathfinding,
-            //this is a quick and dirty fix to prevent accessing non-existant steps
-            currentPathStep = _owner.QueuedMoves.Peek().Length - 1;
-        }
-
-		nextNavLocation = _owner.QueuedMoves.Peek()[currentPathStep];
-
-		if ((_owner.QueuedMoves.Count > 0) && (nextNavLocation - _owner.Position).Length() > Character.TargetTolerance)
-		{
-			MoveTowards(nextNavLocation);
-		}
-		else if (currentPathStep < _owner.QueuedMoves.Peek().Length)
-		{
-			currentPathStep++;
-		}
-
 	}
 
 
 	protected void MoveTowards(Vector2 target, float modifier = 1f)
 	{
-		if ((target - _owner.Position).Length() > Character.TargetTolerance)
+		var gridTarget = GM.GetRealPosition(target);
+		
+		_moveTween.InterpolateProperty(_owner, "position", _owner.Position, gridTarget, .22f);
+        _moveTween.SetActive(true);
+
+		if (gridTarget.x > _owner.Position.x)
 		{
-			Vector2 velocity = (target - _owner.Position).Normalized() * _stats.MoveSpeed * modifier;
-			_owner.MoveAndSlide(velocity);
 			SetFlip(target);
 		}
 	}
