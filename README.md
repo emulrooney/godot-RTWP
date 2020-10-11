@@ -23,7 +23,7 @@ a from-scratch reimplementation of the selection/movement mechanics, building a 
 * Mouse and keyboard camera controls, point-click to select and move characters.
 * Simple approach and auto-attack for enemies.
 * Special abilities:
- * Axetopher learns a self-heal and self-shield ability.
- * Knifelyn learns to throw knives and create explosions. 
+  * Axetopher learns a self-heal and self-shield ability.
+  * Knifelyn learns to throw knives and create explosions. 
 
 
